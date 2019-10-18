@@ -1,4 +1,4 @@
-package com.lecturesearch.lecture.search;
+package com.lecturesearch.lecture;
 
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
@@ -15,7 +15,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 @Configuration
-@EnableElasticsearchRepositories(basePackages = "com.lecturesearch.lecture.search.repository")
+@EnableElasticsearchRepositories(basePackages = "com.lecturesearch.lecture.*")
 public class EsConfig {
 
 //    @Value("${elasticsearch.host}")
