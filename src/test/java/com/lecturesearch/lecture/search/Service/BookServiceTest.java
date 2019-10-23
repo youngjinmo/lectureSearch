@@ -28,19 +28,20 @@ public class BookServiceTest {
     @Autowired
     private ElasticsearchTemplate esTemplate;
 
-    @Before
-    public void before() {
-        esTemplate.deleteIndex(Book.class);
-        esTemplate.createIndex(Book.class);
-        esTemplate.putMapping(Book.class);
-        esTemplate.refresh(Book.class);
-    }
+//    @Before
+//    public void before() {
+//        esTemplate.deleteIndex(Book.class);
+//        esTemplate.createIndex(Book.class);
+//        esTemplate.putMapping(Book.class);
+//        esTemplate.refresh(Book.class);
+//    }
 
     @Test
     public void testSave() {
 
-        Book book = new Book("1001", "Elasticsearch Basics", "Rambabu Posa", "23-FEB-2017");
+        Book book = new Book("2", "Elasticsearch Basics", "Rambabu Posa", "23-FEB-2017");
         Book testBook = bookService.save(book);
+
 
         assertNotNull(testBook.getId());
         assertEquals(testBook.getTitle(), book.getTitle());
