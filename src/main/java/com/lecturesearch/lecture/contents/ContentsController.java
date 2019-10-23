@@ -43,6 +43,6 @@ public class ContentsController {
                     "\n" +
                     "파이썬의 기본부터 심화까지 차근차근 따라해보세요. 인프런이 제시하는 프로그래밍 학습 로드맵을 따라가면 어느덧 파이썬 프로그래밍을 마스터한 자신과 만나게 될 겁니다. ","2019년 7월 16일","12시간 39분", now);
             contentsService.insert(paramVO);
-     return "redirect:/pageList";
+     return "redirect:/main";
     }
 }
