@@ -4,10 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.validation.Valid;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -32,9 +34,16 @@ public class SearchController {
         return new ResponseEntity<>(board, HttpStatus.OK);
     }
 
-    @RequestMapping("/search/{title}")
-    public ResponseEntity searchBoard(@PathVariable String title){
-        List<Board> aa = searchService.searchTitle(title);
+//    @RequestMapping("/search/{title}")
+//    public ResponseEntity searchBoard(@PathVariable String title){
+//        List<Board> aa = searchService.searchTitle(title);
+//        return new ResponseEntity(aa,HttpStatus.OK);
+//    }
+
+    @RequestMapping("/search")
+    public ResponseEntity searchBoard(@RequestParam String titleAndContent){
+        System.out.println(titleAndContent);
+        List<Board> aa = searchService.searchTitle(titleAndContent);
         return new ResponseEntity(aa,HttpStatus.OK);
     }
 }
