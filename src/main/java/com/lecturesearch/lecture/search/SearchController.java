@@ -1,19 +1,17 @@
 package com.lecturesearch.lecture.search;
 
+import com.lecturesearch.lecture.contents.ContentsService;
+import com.lecturesearch.lecture.contents.ContentsVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.validation.Valid;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -22,6 +20,9 @@ public class SearchController {
 
     @Autowired
     SearchService searchService;
+
+    @Autowired
+    ContentsService contentsService;
 
     @RequestMapping("/save")
     public ResponseEntity<?> saveBoard(){
@@ -41,9 +42,10 @@ public class SearchController {
 //    }
 
     @RequestMapping("/search")
-    public ResponseEntity searchBoard(@RequestParam String titleAndContent){
+    public String searchContents(@RequestParam String titleAndContent, Model model){
         System.out.println(titleAndContent);
-        List<Board> aa = searchService.searchTitle(titleAndContent);
-        return new ResponseEntity(aa,HttpStatus.OK);
+        List<ContentsVO> aa = contentsService.searchTitle(titleAndContent);
+        model.addAttribute("aa",aa);
+        return "layout/resultPage";
     }
 }
