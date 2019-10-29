@@ -3,6 +3,7 @@ package com.lecturesearch.lecture.contents;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -16,4 +17,6 @@ public interface ContentsRepository extends ElasticsearchRepository<ContentsVO, 
 
     //컨텐츠 상세보기
     Optional<ContentsVO> findById(String no);
+
+    List<ContentsVO> findAllByTitle(String title);
 }
