@@ -112,14 +112,9 @@
 
     <div class="site-section site-section-sm bg-light">
       <div class="container">
-<!--        강좌가 없을 경우 start-->
-        <div style="text-align: center">
-          <h2 th:if="${pageList.getTotalElements()} == 0">현재 등록된 강좌가 없습니다.</h2>
-        </div>
-<!--        강좌가 없을 경우 end-->
         <div class="row mb-5">
 <!--         등록된 강좌가 있는 경우 start-->
-          <div th:if="${pageList.getTotalElements()} > 0" th:each="contents : ${pageList}" class="col-md-6 col-lg-4 mb-4">
+          <div th:each="contents : ${aa}" class="col-md-6 col-lg-4 mb-4">
             <div class="property-entry h-100">
               <a th:href="@{/contents/detail(no=${contents.no})}" class="property-thumbnail">
                 <div class="offer-type-wrap">
@@ -228,31 +223,31 @@
 <!--            </div>-->
           </div>
         </div>
-        <div class="row" th:if="${pageList.getTotalElements()} > 0">
-          <div class="col-md-12 text-center">
-            <!-- Pagination -->
-            <div class="site-pagination" style="text-align: center;display: inline-block;">
-              <ul class="pagination" th:with="startNumber=${T(Math).floor(pageList.number/10)}*10+1, endNumber=(${pageList.totalPages} > ${startNumber}+9) ? ${startNumber}+9 : ${pageList.totalPages}">
-                <li><a aria-label="Previous" href="/board/list?page=1">&laquo;</a></li>
-                <li th:style="${pageList.first} ? 'display:none'">
-                  <a th:href="@{/pageList(page=${pageList.number})}">&lsaquo;</a>
-                </li>
+<!--        <div class="row" th:if="${pageList.getTotalElements()} > 0">-->
+<!--          <div class="col-md-12 text-center">-->
+<!--            &lt;!&ndash; Pagination &ndash;&gt;-->
+<!--            <div class="site-pagination" style="text-align: center;display: inline-block;">-->
+<!--              <ul class="pagination" th:with="startNumber=${T(Math).floor(pageList.number/10)}*10+1, endNumber=(${pageList.totalPages} > ${startNumber}+9) ? ${startNumber}+9 : ${pageList.totalPages}">-->
+<!--                <li><a aria-label="Previous" href="/board/list?page=1">&laquo;</a></li>-->
+<!--                <li th:style="${pageList.first} ? 'display:none'">-->
+<!--                  <a th:href="@{/pageList(page=${pageList.number})}">&lsaquo;</a>-->
+<!--                </li>-->
 
-                <li th:each="page :${#numbers.sequence(startNumber, endNumber)}">
-                  <a th:href="@{/pageList(page=${page})}" th:text="${page}" th:class="(${page} == ${pageList.number}+1) ? 'active'"><span class="sr-only"></span></a>
-                </li>
+<!--                <li th:each="page :${#numbers.sequence(startNumber, endNumber)}">-->
+<!--                  <a th:href="@{/pageList(page=${page})}" th:text="${page}" th:class="(${page} == ${pageList.number}+1) ? 'active'"><span class="sr-only"></span></a>-->
+<!--                </li>-->
 
-                <li th:style="${pageList.last} ? 'display:none'">
-                  <a th:href="@{/pageList(page=${pageList.number}+2)}">&rsaquo;</a>
-                </li>
-                <li><a aria-label="Next" th:href="@{/pageList(page=${pageList.totalPages})}">&raquo;</a></li>
-              </ul>
-            </div>
-            <!-- /Pagination -->
-          </div>  
-        </div>
-        
-      </div>
+<!--                <li th:style="${pageList.last} ? 'display:none'">-->
+<!--                  <a th:href="@{/pageList(page=${pageList.number}+2)}">&rsaquo;</a>-->
+<!--                </li>-->
+<!--                <li><a aria-label="Next" th:href="@{/pageList(page=${pageList.totalPages})}">&raquo;</a></li>-->
+<!--              </ul>-->
+<!--            </div>-->
+<!--            &lt;!&ndash; /Pagination &ndash;&gt;-->
+<!--          </div>  -->
+<!--        </div>-->
+<!--        -->
+<!--      </div>-->
     </div>
 
     <div class="site-section">
