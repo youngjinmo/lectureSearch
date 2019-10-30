@@ -3,6 +3,9 @@ package com.lecturesearch.lecture.search;
 import com.lecturesearch.lecture.contents.ContentsService;
 import com.lecturesearch.lecture.contents.ContentsVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -42,10 +45,10 @@ public class SearchController {
 //    }
 
     @RequestMapping("/search")
-    public String searchContents(@RequestParam String titleAndContent, Model model){
-        System.out.println(titleAndContent);
-        List<ContentsVO> aa = contentsService.searchTitle(titleAndContent);
-        model.addAttribute("aa",aa);
-        return "layout/resultPage";
+    public String searchContents(@RequestParam String title, @PageableDefault Pageable pageable, Model model){
+        System.out.println(title);
+        Page<ContentsVO> resultPage = contentsService.searchTitle(title, pageable);
+        model.addAttribute("pageList", resultPage);
+        return "layout/main";
     }
 }

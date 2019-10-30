@@ -40,7 +40,8 @@ public class ContentsServiceImpl implements ContentsService {
     //아래는 Test용 메서드
 
     @Override
-    public List<ContentsVO> searchTitle(String title){
-        return contentsRepository.findAllByTitle(title);
+    public Page<ContentsVO> searchTitle(String title, Pageable pageable){
+        pageable = PageRequest.of(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1, pageable.getPageSize());
+        return contentsRepository.findAllByTitle(title, pageable);
     }
 }
