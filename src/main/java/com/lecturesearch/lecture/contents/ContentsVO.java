@@ -4,7 +4,7 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
-@Document(indexName = "dongryeol", type = "contents")
+@Document(indexName = "lecture", type = "contents")
 @Data
 public class ContentsVO {
 
@@ -13,9 +13,11 @@ public class ContentsVO {
     private String title;
     private String author;
     private String subject;
+    private String mainImage;
+    private String subImages;
     private int price;
     private String description;
-    private String uploadDate;
+    private String createdDate;
     private String runningTime;
     private String registrationDate;
 
@@ -30,13 +32,15 @@ public class ContentsVO {
 //        this.runningTime = runningTime;
 //    }
 
-    public ContentsVO(String title, String author, String subject, int price, String description,String uploadDate, String runningTime, String registrationDate) {
+    public ContentsVO(String title, String author, String subject, String mainImage, String subImages, int price, String description, String createdDate, String runningTime, String registrationDate) {
         this.title = title;
         this.author = author;
         this.subject = subject;
+        this.mainImage = mainImage;
+        this.subImages = subImages;
         this.price = price;
         this.description = description;
-        this.uploadDate = uploadDate;
+        this.createdDate = createdDate;
         this.runningTime = runningTime;
         this.registrationDate = registrationDate;
     }
