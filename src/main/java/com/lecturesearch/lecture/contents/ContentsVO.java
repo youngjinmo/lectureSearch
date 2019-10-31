@@ -18,6 +18,7 @@ public class ContentsVO {
     private String uploadDate;
     private String runningTime;
     private String registrationDate;
+    private String mainImg;
 
     public ContentsVO() {}
 
@@ -30,7 +31,7 @@ public class ContentsVO {
 //        this.runningTime = runningTime;
 //    }
 
-    public ContentsVO(String title, String author, String subject, int price, String description,String uploadDate, String runningTime, String registrationDate) {
+    public ContentsVO(String title, String author, String subject, int price, String description,String uploadDate, String runningTime, String registrationDate, String mainImg) {
         this.title = title;
         this.author = author;
         this.subject = subject;
@@ -39,5 +40,6 @@ public class ContentsVO {
         this.uploadDate = uploadDate;
         this.runningTime = runningTime;
         this.registrationDate = registrationDate;
+        this.mainImg = mainImg;
     }
 }
