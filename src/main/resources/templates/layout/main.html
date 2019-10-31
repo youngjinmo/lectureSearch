@@ -124,7 +124,8 @@
                   <span class="offer-type bg-danger">Sale</span>
                   <span class="offer-type bg-success">Rent</span>
                 </div>
-                <img src="images/img_1.jpg" alt="Image" class="img-fluid">
+<!--                <img src="images/img_1.jpg" alt="Image" class="img-fluid">-->
+                <img th:src="@{'images/'+${contents.mainImage}+'.jpg'}" alt="Image" class="img-fluid">
               </a>
               <div class="p-4 property-body">
                 <a href="#" class="property-favorite"><span class="icon-heart-o"></span></a>
@@ -231,19 +232,19 @@
             <!-- Pagination -->
             <div class="site-pagination" style="text-align: center;display: inline-block;">
               <ul class="pagination" th:with="startNumber=${T(Math).floor(pageList.number/10)}*10+1, endNumber=(${pageList.totalPages} > ${startNumber}+9) ? ${startNumber}+9 : ${pageList.totalPages}">
-                <li><a aria-label="Previous" href="/board/list?page=1">&laquo;</a></li>
+                <li><a aria-label="Previous" href="/main?page=1">&laquo;</a></li>
                 <li th:style="${pageList.first} ? 'display:none'">
-                  <a th:href="@{/pageList(page=${pageList.number})}">&lsaquo;</a>
+                  <a th:href="@{/main(page=${pageList.number})}">&lsaquo;</a>
                 </li>
 
                 <li th:each="page :${#numbers.sequence(startNumber, endNumber)}">
-                  <a th:href="@{/pageList(page=${page})}" th:text="${page}" th:class="(${page} == ${pageList.number}+1) ? 'active'"><span class="sr-only"></span></a>
+                  <a th:href="@{/main(page=${page})}" th:text="${page}" th:class="(${page} == ${pageList.number}+1) ? 'active'"><span class="sr-only"></span></a>
                 </li>
 
                 <li th:style="${pageList.last} ? 'display:none'">
-                  <a th:href="@{/pageList(page=${pageList.number}+2)}">&rsaquo;</a>
+                  <a th:href="@{/main(page=${pageList.number}+2)}">&rsaquo;</a>
                 </li>
-                <li><a aria-label="Next" th:href="@{/pageList(page=${pageList.totalPages})}">&raquo;</a></li>
+                <li><a aria-label="Next" th:href="@{/main(page=${pageList.totalPages})}">&raquo;</a></li>
               </ul>
             </div>
             <!-- /Pagination -->
