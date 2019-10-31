@@ -6,6 +6,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ContentsServiceImpl implements ContentsService {
 
@@ -37,4 +39,9 @@ public class ContentsServiceImpl implements ContentsService {
 
     //아래는 Test용 메서드
 
+    @Override
+    public Page<ContentsVO> searchTitle(String title, Pageable pageable){
+        pageable = PageRequest.of(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1, pageable.getPageSize());
+        return contentsRepository.findAllByTitle(title, pageable);
+    }
 }
