@@ -10,9 +10,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -45,10 +48,19 @@ public class SearchController {
 //    }
 
     @RequestMapping("/search")
-    public String searchContents(@RequestParam String title, @PageableDefault Pageable pageable, Model model){
+    public String searchContents(@RequestParam String title, @PageableDefault Pageable pageable, Model model, RedirectAttributes redirectAttributes, HttpServletRequest request){
+        System.out.println(title);
+        redirectAttributes.addAttribute("kw",request.getParameter("title"));
+        Page<ContentsVO> resultPage = contentsService.searchTitle(title, pageable);
+        model.addAttribute("pageList", resultPage);
+        return "/search/searchList";
+    }
+
+    @RequestMapping("/search/{page}")
+    public String searchContentsPaging(@PathVariable String page, @RequestParam String title, @PageableDefault Pageable pageable, Model model){
         System.out.println(title);
         Page<ContentsVO> resultPage = contentsService.searchTitle(title, pageable);
         model.addAttribute("pageList", resultPage);
-        return "layout/main";
+        return "redirect:/search/1";
     }
 }
