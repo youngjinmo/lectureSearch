@@ -59,7 +59,6 @@
                         <div class="col-md-12">
                             <strong class="text-success h1 mb-3" th:text="${contents.title}">$1,000,500</strong>
                         </div>
-
                     </div>
                     <div class="row mb-5">
                         <div class="col-md-6 col-lg-4 text-center border-bottom border-top py-3">
@@ -80,44 +79,32 @@
 
                     <div class="row no-gutters mt-5">
                         <div class="col-12">
-                            <h2 class="h4 text-black mb-3">Gallery</h2>
+                            <h2 class="h4 text-black mb-3">평가 및 리뷰</h2>
                         </div>
-                        <div class="col-sm-6 col-md-4 col-lg-3">
-                            <a href="images/img_1.jpg" class="image-popup gal-item"><img src="images/img_1.jpg" alt="Image" class="img-fluid"></a>
-                        </div>
-                        <div class="col-sm-6 col-md-4 col-lg-3">
-                            <a href="images/img_2.jpg" class="image-popup gal-item"><img src="images/img_2.jpg" alt="Image" class="img-fluid"></a>
-                        </div>
-                        <div class="col-sm-6 col-md-4 col-lg-3">
-                            <a href="images/img_3.jpg" class="image-popup gal-item"><img src="images/img_3.jpg" alt="Image" class="img-fluid"></a>
-                        </div>
-                        <div class="col-sm-6 col-md-4 col-lg-3">
-                            <a href="images/img_4.jpg" class="image-popup gal-item"><img src="images/img_4.jpg" alt="Image" class="img-fluid"></a>
-                        </div>
-                        <div class="col-sm-6 col-md-4 col-lg-3">
-                            <a href="images/img_5.jpg" class="image-popup gal-item"><img src="images/img_5.jpg" alt="Image" class="img-fluid"></a>
-                        </div>
-                        <div class="col-sm-6 col-md-4 col-lg-3">
-                            <a href="images/img_6.jpg" class="image-popup gal-item"><img src="images/img_6.jpg" alt="Image" class="img-fluid"></a>
-                        </div>
-                        <div class="col-sm-6 col-md-4 col-lg-3">
-                            <a href="images/img_7.jpg" class="image-popup gal-item"><img src="images/img_7.jpg" alt="Image" class="img-fluid"></a>
-                        </div>
-                        <div class="col-sm-6 col-md-4 col-lg-3">
-                            <a href="images/img_8.jpg" class="image-popup gal-item"><img src="images/img_8.jpg" alt="Image" class="img-fluid"></a>
-                        </div>
-                        <div class="col-sm-6 col-md-4 col-lg-3">
-                            <a href="images/img_1.jpg" class="image-popup gal-item"><img src="images/img_1.jpg" alt="Image" class="img-fluid"></a>
-                        </div>
-                        <div class="col-sm-6 col-md-4 col-lg-3">
-                            <a href="images/img_2.jpg" class="image-popup gal-item"><img src="images/img_2.jpg" alt="Image" class="img-fluid"></a>
-                        </div>
-                        <div class="col-sm-6 col-md-4 col-lg-3">
-                            <a href="images/img_3.jpg" class="image-popup gal-item"><img src="images/img_3.jpg" alt="Image" class="img-fluid"></a>
-                        </div>
-                        <div class="col-sm-6 col-md-4 col-lg-3">
-                            <a href="images/img_4.jpg" class="image-popup gal-item"><img src="images/img_4.jpg" alt="Image" class="img-fluid"></a>
-                        </div>
+<!--                        review-->
+                        <form action="/contents/review" name="reviewForm" class="border-bottom py-3">
+                            <div class="row form-group">
+                                <div class="col-md-12">
+                                    <label class="font-weight-bold" for="message">별점</label>
+                                    <img src="/images/star_x.png" id="star1" onmouseover="show(1)" onmouseout="noshow(1)" onclick="mark(1)">
+                                    <img src="/images/star_x.png" id="star2" onmouseover="show(2)" onmouseout="noshow(2)" onclick="mark(2)">
+                                    <img src="/images/star_x.png" id="star3" onmouseover="show(3)" onmouseout="noshow(3)" onclick="mark(3)">
+                                    <img src="/images/star_x.png" id="star4" onmouseover="show(4)" onmouseout="noshow(4)" onclick="mark(4)">
+                                    <img src="/images/star_x.png" id="star5" onmouseover="show(5)" onmouseout="noshow(5)" onclick="mark(5)">
+                                    <br/><span id="startext"></span>
+                                    <input type="hidden" name="star"/>
+                                    <textarea name="message" id="message" cols="70" rows="5" class="form-control" placeholder="Say hello to us"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="row form-group">
+                                <div class="col-md-12">
+                                    <input type="hidden" name="no" th:value="${contents.no}">
+                                    <input type="submit" value="Send Message" class="btn btn-primary  py-2 px-4 rounded-0">
+                                </div>
+                            </div>
+                        </form>
+<!--                        review-->
                     </div>
                 </div>
             </div>
@@ -140,7 +127,7 @@
                             <input type="text" id="phone" class="form-control">
                         </div>
                         <div class="form-group">
-                            <input type="submit" id="phone" class="btn btn-primary" value="Send Message">
+                            <input type="submit" id="" class="btn btn-primary" value="Send Message">
                         </div>
                     </form>
                 </div>
@@ -341,6 +328,76 @@
     </footer>
 
 </div>
+<script>
+    // 별점평가start
+    var i;
+    var imgName;
+    var starText;
+    var text = document.getElementById("startext");
+    var locked = 0;
+
+    function show(star) {
+        if (locked)
+            return;
+
+        for(i = 1; i <= star; i++){
+            imgName = "star" + i;
+            document.getElementById(imgName).src = "/images/star.png"
+        }
+
+        switch (star) {
+            case 1 :
+                starText = "별로에요";
+                break;
+            case 2 :
+                starText = "기대이하에요";
+                break;
+            case 3 :
+                starText = "괜찮은 강의였어요";
+                break;
+            case 4 :
+                starText = "기대해도 좋아요";
+                break;
+            case 5 :
+                starText = "좋은 강의였어요";
+                break;
+            default :
+                starText = "";
+        }
+        text.innerHTML = starText;
+    }
+
+    function noshow(star){
+        if(locked)
+            return;
+        for(i = 1; i <= star; i++){
+            imgName = "star" + i;
+            document.getElementById(imgName).src = "/images/star_x.png";
+        }
+        starText = "";
+        text.innerHTML = starText;
+    }
+
+    function lock(star) {
+        show(star);
+        locked = 1;
+    }
+
+    function mark(star) {
+        if (locked == 0){
+            lock(star);
+            document.reviewForm.star.value=star;
+        } else {
+            locked = 0;
+            for(i = 1; i <= 5; i++){
+                imgName = "star" + i;
+                document.getElementById(imgName).src = "/images/star_x.png";
+                document.reviewForm.star.value="";
+            }
+        }
+    }
+    // 별점평가end
+</script>
 
 <script src="/js/jquery-3.3.1.min.js"></script>
 <script src="/js/jquery-migrate-3.0.1.min.js"></script>
