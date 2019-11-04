@@ -14,6 +14,9 @@ public class ContentsServiceImpl implements ContentsService {
     @Autowired
     private ContentsRepository contentsRepository;
 
+    @Autowired
+    private ReviewRepository reviewRepository;
+
     //콘텐츠 리스트 보기
 //    @Override
 //    public Iterable<ContentsVO> contentsList() {
@@ -26,22 +29,28 @@ public class ContentsServiceImpl implements ContentsService {
         return contentsRepository.save(paramVO);
     }
 
+    //페이징 리스트보기
     @Override
     public Page<ContentsVO> findContentsList(Pageable pageable) {
         pageable = PageRequest.of(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1, pageable.getPageSize());
         return contentsRepository.findAll(pageable);
     }
 
+    //콘텐츠 상세보기
     @Override
     public ContentsVO detailView(String no) {
         return contentsRepository.findById(no).orElse(new ContentsVO());
     }
 
-    //아래는 Test용 메서드
-
+    //서치후 페이징리스트보기
     @Override
     public Page<ContentsVO> searchTitle(String title, Pageable pageable){
         pageable = PageRequest.of(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1, pageable.getPageSize());
         return contentsRepository.findAllByTitle(title, pageable);
+    }
+
+    @Override
+    public ReviewVO reviewWrite(ReviewVO paramVO) {
+        return reviewRepository.save(paramVO);
     }
 }

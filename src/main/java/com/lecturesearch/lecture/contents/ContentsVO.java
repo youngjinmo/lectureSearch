@@ -20,7 +20,6 @@ public class ContentsVO {
     private String createdDate;
     private String runningTime;
     private String registrationDate;
-    private String mainImg;
 
     public ContentsVO() {}
 
@@ -44,6 +43,5 @@ public class ContentsVO {
         this.createdDate = createdDate;
         this.runningTime = runningTime;
         this.registrationDate = registrationDate;
-        this.mainImg = mainImg;
     }
 }
