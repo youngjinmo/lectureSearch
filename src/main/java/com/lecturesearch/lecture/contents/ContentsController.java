@@ -45,4 +45,9 @@ public class ContentsController {
             contentsService.insert(paramVO);
      return "redirect:/main";
     }
+
+    @RequestMapping("/boardform")
+    public String boardForm(){
+        return "/layout/boardForm";
+    }
 }
