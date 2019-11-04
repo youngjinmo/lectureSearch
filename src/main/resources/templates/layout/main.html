@@ -193,7 +193,7 @@
         <!--        강좌가 없을 경우 end-->
         <div class="row mb-5">
           <!--         등록된 강좌가 있는 경우 start-->
-          <div th:if="${resultList.getTotalElements()} > 0" th:each="contents : ${resultList}" class="col-md-6 col-lg-4 mb-4">
+          <div th:if="${resultList.getTotalElements()} > 0" th:each="contents : ${resultList}" class="col-md-13 col-lg-13 mb-4">
             <div class="property-entry h-100">
               <a th:href="@{/contents/detail(no=${contents.no})}" class="property-thumbnail">
                 <div class="offer-type-wrap">
