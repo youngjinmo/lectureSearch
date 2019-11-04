@@ -50,9 +50,15 @@ public class ContentsController {
      return "redirect:/main";
     }
 
+
+    @RequestMapping("/boardform")
+    public String boardForm(){
+        return "/layout/boardForm";
+
     @RequestMapping("/review")
     public String reviewWrite(@ModelAttribute ReviewVO paramVO, Model model) {
         contentsService.reviewWrite(paramVO);
         return "redirect:/main";
+
     }
 }
