@@ -29,7 +29,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th style="padding:13px 0 0 15px;">생성날짜</th>
+                    <th style="padding:13px 0 0 15px;">게시날짜</th>
                     <td><input type="text" class="col-md-1 form-control input-sm" readonly="readonly" th:value="${board?.createdDate} ? ${#temporals.format(board.createdDate,'yyyy-MM-dd HH:mm')} : ${board?.createdDate}"/></td>
                 </tr>
                 <tr>
@@ -37,7 +37,31 @@
                     <td><input id="board_title" type="text" class="col-md-1 form-control input-sm" th:value="${board?.title}"/></td>
                 </tr>
                 <tr>
-                    <th style="padding:13px 0 0 15px;">부제목</th>
+                    <th style="padding:13px 0 0 15px;">강사</th>
+                    <td><input id="board_sub_title" type="text" class="col-md-1 form-control input-sm" th:value="${board?.subTitle}"/></td>
+                </tr>
+<!--                <tr>-->
+<!--                    <th style="padding:13px 0 0 15px;">주제</th>-->
+<!--                    <td><input id="board_sub_title" type="text" class="col-md-1 form-control input-sm" th:value="${board?.subTitle}"/></td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <th style="padding:13px 0 0 15px;">메인이미지</th>-->
+<!--                    <td><input id="board_sub_title" type="text" class="col-md-1 form-control input-sm" th:value="${board?.subTitle}"/></td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <th style="padding:13px 0 0 15px;">서브이미지</th>-->
+<!--                    <td><input id="board_sub_title" type="text" class="col-md-1 form-control input-sm" th:value="${board?.subTitle}"/></td>-->
+<!--                </tr>-->
+                <tr>
+                    <th style="padding:13px 0 0 15px;">가격</th>
+                    <td><input id="board_sub_title" type="text" class="col-md-1 form-control input-sm" th:value="${board?.subTitle}"/></td>
+                </tr>
+                <tr>
+                    <th style="padding:13px 0 0 15px;">강의시간</th>
+                    <td><input id="board_sub_title" type="text" class="col-md-1 form-control input-sm" th:value="${board?.subTitle}"/></td>
+                </tr>
+                <tr>
+                    <th style="padding:13px 0 0 15px;">강의제작날짜</th>
                     <td><input id="board_sub_title" type="text" class="col-md-1 form-control input-sm" th:value="${board?.subTitle}"/></td>
                 </tr>
                 <tr>
@@ -64,7 +88,7 @@
         <script th:src="@{/js/jquery.min.js}"></script>
         <script th:if="!${board?.idx}">
             $('#insert').click(function () {
-                var jsonData = JSON.stringify({
+                var jsonData = JS.ON.stringify({
                     title: $('#board_title').val(),
                     subTitle: $('#board_sub_title').val(),
                     content: $('#board_content').val(),
