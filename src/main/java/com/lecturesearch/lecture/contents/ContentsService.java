@@ -3,6 +3,8 @@ package com.lecturesearch.lecture.contents;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 public interface ContentsService {
 
 //    //콘텐츠 리스트 보기
@@ -16,4 +18,6 @@ public interface ContentsService {
 
     //콘텐츠 상세보기
     ContentsVO detailView(String no);
+
+   Page<ContentsVO> searchTitle(String title,Pageable pageable);
 }
