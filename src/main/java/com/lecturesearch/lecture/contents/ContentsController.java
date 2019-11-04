@@ -52,9 +52,9 @@ public class ContentsController {
 
 
     @RequestMapping("/boardform")
-    public String boardForm(){
+    public String boardForm() {
         return "/layout/boardForm";
-
+    }
     @RequestMapping("/review")
     public String reviewWrite(@ModelAttribute ReviewVO paramVO, Model model) {
         contentsService.reviewWrite(paramVO);

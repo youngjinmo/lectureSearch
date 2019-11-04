@@ -6,6 +6,25 @@
 
 <br>
 
+## 주요 구현 기능
+<ul>
+	<li>로그인 기능( Oauth2를 이용한 sns 로그인 및 spring scurity 를 이용한 로그인) </li>
+	<li>게시판 ( 페이징 처리 등) </li>
+	<li>검색 시스템 ( ElasticSearch, Nori analysis 를 활용한 형태소 분석 검색 ) </li>
+	<li>관리자 페이지 구성 ( 회원 통계 및 랭킹 시스템 관리 ) </li>
+</ul>
+<br>
+
+<h2>도구 버전</h2>
+	<ul>
+		<li> spring boot 2.2.0 </li>
+		<li> spring boot elasticsearch 3.2.0 </li>
+		<li> Elasticsearch 6.8.1 </li>
+		<li> Kibana 6.8.1 </li>
+	</ul>
+
+<br>
+
 ## 회의록
 
 <details>
@@ -163,3 +182,59 @@ JDK1.8.202(SE 8)(2019년 1월 15일) 버전 이하 사용시 무료
 	<li>일정표 작성하기</li>
 <ul>
 <br>
+</details>
+	
+<details>
+<summary>미팅 4회차</summary>
+모임 시간 :2019.10.03 10시<br>
+장소 :  강남역 12번 출구 인근 스타벅스<br>
+작성자 : <a href='https://github.com/GiyunPark'>박기윤</a><br>
+<br>
+	<h2>회의내용</h2>
+	<ul>
+		<li>공부 해오고 설명들은 내용 중 더 깊이 파고들 내용 정하기</li>
+	</ul>
+<br>
+	<h2>활동 내용</h2>
+	<ul>
+		<li>각자 공부해온 내용 설명 및 듣기</li>
+	</ul>
+<br>
+	<h2>다음 주 까지 할일</h2>
+	<ul>
+		<li>Bena Component 차이?</li>
+		<li>엘라스틱 서치란? </li>
+		<li>왜 JPA가 객체 지향인가?</li>
+	</ul>
+<br>
+</details>
+
+<details>
+<summary>미팅 5회차</summary>
+모임 시간 :2019.10.09 10시<br>
+장소 :  강남역 12번 출구 인근 스타벅스<br>
+작성자 : <a href='https://github.com/GiyunPark'>박기윤</a><br>
+<br>
+	<h2>회의내용</h2>
+	<ul>
+		<li>동적 사이트 구축을 위해 필요한 언어 결정하기 ex) JSP, thymeleaf
+		<li>회의 결과 : thymeleaf 로 결정</li>
+		<li>이유 : spring boo2 에서 권장하는 언어이고 러닝타임이 길지 않을 것 이라는 의견</li>
+	</ul>
+<br>
+	<h2>다음 주 까지 할 일</h2>
+	<ul>
+		<li>개인이 맡은 프로젝트 코드 개발 및 코드 리뷰 준비</li>
+	<ul>
+<br>
+	
+	<h2>활동 내용</h2>
+	<ul>
+		<li>docker elasticsearch, docker kibana 팀 전원 동일 환경 구성</li>
+		<li>elasticsearch, kibana, spring boot2를 연동하여 CRUD 동작 테스트</li>
+	</ul>
+<br>
+</details>
+	
+	
+	
