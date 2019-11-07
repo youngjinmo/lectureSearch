@@ -5,8 +5,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
+import java.io.File;
+import java.io.IOException;
 
 @Service
 public class ContentsServiceImpl implements ContentsService {
@@ -57,5 +59,17 @@ public class ContentsServiceImpl implements ContentsService {
     @Override
     public ContentsVO contentSave(ContentsVO contentsVO){
         return contentsRepository.save(contentsVO);
+    }
+
+    @Override
+    public void saveImages(MultipartFile[] files){
+        for(int i=0; i<files.length; i++){
+            File targetFile = new File("C:/Users/patro/Documents/test/"+files[i].getOriginalFilename());
+            try{
+                files[i].transferTo(targetFile);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
