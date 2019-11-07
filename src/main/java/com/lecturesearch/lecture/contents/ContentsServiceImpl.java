@@ -38,8 +38,8 @@ public class ContentsServiceImpl implements ContentsService {
 
     //콘텐츠 상세보기
     @Override
-    public ContentsVO detailView(String no) {
-        return contentsRepository.findById(no).orElse(new ContentsVO());
+    public ContentsVO detailView(String idx) {
+        return contentsRepository.findById(idx).orElse(new ContentsVO());
     }
 
     //서치후 페이징리스트보기
@@ -52,5 +52,10 @@ public class ContentsServiceImpl implements ContentsService {
     @Override
     public ReviewVO reviewWrite(ReviewVO paramVO) {
         return reviewRepository.save(paramVO);
+    }
+
+    @Override
+    public ContentsVO contentSave(ContentsVO contentsVO){
+        return contentsRepository.save(contentsVO);
     }
 }

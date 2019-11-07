@@ -17,10 +17,12 @@ public interface ContentsService {
     Page<ContentsVO> findContentsList(Pageable pageable);
 
     //콘텐츠 상세보기
-    ContentsVO detailView(String no);
+    ContentsVO detailView(String idx);
 
     //서치후페이징 리스트보기
    Page<ContentsVO> searchTitle(String title,Pageable pageable);
 
    ReviewVO reviewWrite(ReviewVO paramVO);
+
+   ContentsVO contentSave(ContentsVO contentsVO);
 }
