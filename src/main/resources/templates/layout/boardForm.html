@@ -47,7 +47,7 @@
                 <tr>
                     <th style="padding:13px 0 0 15px;">이미지 파일</th>
                     <td>
-                        <form th:action="@{/contents/images/upload}" method="post" enctype="multipart/form-data">
+                        <form id="image_form" th:action="@{/contents/images/upload}" method="post" enctype="multipart/form-data">
                             <input id="content_images" multiple="multiple" type="file" name="files" th:value="${content?.images}" />
                         </form>
                     </td>
@@ -80,10 +80,10 @@
                 </tr>
             </table>
             <div class="pull-left">
-                <a href="/board/list" class="btn btn-default">목록으로</a>
+                <a href="/main" class="btn btn-default">목록으로</a>
             </div>
             <div class="pull-right">
-                <button th:if="!${content?.idx}" type="button" class="btn btn-primary" id="insert">저장</button>
+                <button th:if="!${content?.idx}"  type="button" class="btn btn-primary" id="insert">저장</button>
                 <button th:if="${content?.idx}" type="button" class="btn btn-info" id="update">수정</button>
                 <button th:if="${content?.idx}" type="button" class="btn btn-danger" id="delete">삭제</button>
             </div>
@@ -104,6 +104,7 @@
 
             }
             $('#insert').click(function () {
+                document.getElementById('image_form').submit();
                 var jsonData = JSON.stringify({
                     title: $('#content_title').val(),
                     author: $('#content_author').val(),
