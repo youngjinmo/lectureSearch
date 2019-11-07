@@ -8,8 +8,9 @@
 </head>
 <body>
 
-<div class="container" style="justify-content: center">
-    <div class="container" style="width:50%; margin-left: auto; margin-right: auto; text-align: center; justify-content: center; align-content: center; flex-direction: column;">
+<div class="container" style="width: 100%; margin-left: auto; margin-right: auto;">
+<div class="container inner-left" style="width: 55%; float: left; margin-top: 7%;">
+    <div class="container inner-left social" style="width:100%; margin-left: auto; margin-right: auto; text-align: center;">
         <br/>
         <h2>소셜 로그인</h2><br>
         <table style="text-align: center; align-content: center; margin: auto; margin-bottom: 50px;">
@@ -28,7 +29,7 @@
         </table>
 
     </div>
-    <div class="container" style="width:50%; margin-left: auto; margin-right: auto; text-align: center; align-content: center; justify-content: center; flex-direction: column;">
+    <div class="container inner-left login" style="width:100%; margin-left: auto; margin-right: auto; text-align: center;">
         <h2>직접 로그인</h2><br>
         <form action="/login">
             <div class="form-group">
@@ -39,13 +40,34 @@
                     </tr>
                     <tr>
                         <td><label for="userPassword">Password</label></td>
-                        <td><input type="text" class="form-control" id="userPassword" name="userPassword" placeholder="비밀번호를 입력하세요."></td>
+                        <td><input type="password" class="form-control" id="userPassword" name="userPassword" placeholder="비밀번호를 입력하세요."></td>
                     </tr>
                 </table>
             </div>
             <button type="submit" class="btn btn-default">로그인하기</button>
         </form>
     </div>
+</div>
+
+
+<div class="container inner-right" style="float: left; width:30%; margin-left: auto; margin-right: auto; text-align: center; margin-top: 10%;">
+    <h2>회원가입</h2><br>
+    <form action="/create">
+        <div class="form-group">
+            <table style="text-align: center; align-content: center; margin: auto;">
+                <tr>
+                    <td style="width: 110px;"><label for="userEmail">Email</label></td>
+                    <td style="width: 250px;"><input type="text" class="form-control" id="createEmail" name="userEmail" placeholder="아이디를 입력하세요."></td>
+                </tr>
+                <tr>
+                    <td><label for="userPassword">Password</label></td>
+                    <td><input type="password" class="form-control" id="createPassword" name="userPassword" placeholder="비밀번호를 입력하세요."></td>
+                </tr>
+            </table>
+        </div>
+        <button type="submit" class="btn btn-default">가입하기</button>
+    </form>
+</div>
 </div>
 
 
