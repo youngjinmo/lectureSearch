@@ -63,16 +63,11 @@ public class ContentsController {
     @RequestMapping("/review")
     public String reviewWrite(@ModelAttribute ReviewVO paramVO, Model model, String contentsIdx) {
         contentsService.reviewWrite(paramVO);
-<<<<<<< HEAD
         return "redirect:/contents/detail?no="+contentsIdx;
     }
 
     @RequestMapping("/cartList")
     public String cartList() {
         return "/contents/cartList";
-=======
-        return "redirect:/main";
-
->>>>>>> upstream/submaster
     }
 }
