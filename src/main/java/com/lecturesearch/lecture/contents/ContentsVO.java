@@ -9,12 +9,11 @@ import org.springframework.data.elasticsearch.annotations.Document;
 public class ContentsVO {
 
     @Id
-    private String no;
+    private String idx;
     private String title;
     private String author;
     private String subject;
-    private String mainImage;
-    private String subImages;
+    private String images;
     private int price;
     private String description;
     private String createdDate;
@@ -32,12 +31,11 @@ public class ContentsVO {
 //        this.runningTime = runningTime;
 //    }
 
-    public ContentsVO(String title, String author, String subject, String mainImage, String subImages, int price, String description, String createdDate, String runningTime, String registrationDate) {
+    public ContentsVO(String title, String author, String subject, String images, int price, String description, String createdDate, String runningTime, String registrationDate) {
         this.title = title;
         this.author = author;
         this.subject = subject;
-        this.mainImage = mainImage;
-        this.subImages = subImages;
+        this.images = images;
         this.price = price;
         this.description = description;
         this.createdDate = createdDate;

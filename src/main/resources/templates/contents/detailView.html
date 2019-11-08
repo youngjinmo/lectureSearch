@@ -101,7 +101,7 @@
 
                                 <div class="row form-group">
                                     <div class="col-md-12">
-                                        <input type="hidden" name="contentsIdx" th:value="${contents.no}"/>
+                                        <input type="hidden" name="contentsIdx" th:value="${contents.idx}"/>
                                         <input type="hidden" id="star" name="star" value=""/>
                                         <input type="submit" value="확인" class="btn btn-primary  py-2 px-4 rounded-0" onclick="nowDate()"/>
                                     </div>
@@ -144,19 +144,19 @@
                                 <!-- Pagination -->
                                 <div class="site-pagination" style="text-align: center;display: inline-block;">
                                     <ul class="pagination" th:with="startNumber=${T(Math).floor(review.number/10)}*10+1, endNumber=(${review.totalPages} > ${startNumber}+9) ? ${startNumber}+9 : ${review.totalPages}">
-                                        <li><a aria-label="Previous" th:href="@{/contents/detail(no=${contents.no})}+'&page=1'">&laquo;</a></li>
+                                        <li><a aria-label="Previous" th:href="@{/contents/detail(idx=${contents.idx})}+'&page=1'">&laquo;</a></li>
                                         <li th:style="${review.first} ? 'display:none'">
-                                            <a th:href="@{/contents/detail(no=${contents.no},page=${review.number})}">&lsaquo;</a>
+                                            <a th:href="@{/contents/detail(idx=${contents.idx},page=${review.number})}">&lsaquo;</a>
                                         </li>
 
                                         <li th:each="page :${#numbers.sequence(startNumber, endNumber)}">
-                                            <a th:href="@{/contents/detail(no=${contents.no},page=${page})}" th:text="${page}" th:class="(${page} == ${review.number}+1) ? 'active'"><span class="sr-only"></span></a>
+                                            <a th:href="@{/contents/detail(idx=${contents.idx},page=${page})}" th:text="${page}" th:class="(${page} == ${review.number}+1) ? 'active'"><span class="sr-only"></span></a>
                                         </li>
 
                                         <li th:style="${review.last} ? 'display:none'">
-                                            <a th:href="@{/contents/detail(no=${contents.no},page=${review.number}+2)}">&rsaquo;</a>
+                                            <a th:href="@{/contents/detail(idx=${contents.idx},page=${review.number}+2)}">&rsaquo;</a>
                                         </li>
-                                        <li><a aria-label="Next" th:href="@{/contents/detail(no=${contents.no},page=${review.totalPages})}">&raquo;</a></li>
+                                        <li><a aria-label="Next" th:href="@{/contents/detail(idx=${contents.idx},page=${review.totalPages})}">&raquo;</a></li>
                                     </ul>
                                 </div>
                                 <!-- /Pagination -->

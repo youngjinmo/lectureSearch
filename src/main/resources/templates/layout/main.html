@@ -122,12 +122,12 @@
 <!--         등록된 강좌가 있는 경우 start-->
           <div th:if="${pageList.getTotalElements()} > 0" th:each="contents : ${pageList}" class="col-md-13 col-lg-13 mb-4">
             <div class="property-entry h-100">
-              <a th:href="@{/contents/detail(no=${contents.no})}" class="property-thumbnail">
-                <img th:src="@{'/images/'+${contents.mainImage}}" alt="Image" class="img-fluid">
+              <a th:href="@{/contents/detail(idx=${contents.idx})}" class="property-thumbnail">
+                <img th:src="@{'/images/'+${contents.images}}" alt="Image" class="img-fluid">
               </a>
               <div class="p-4 property-body">
                 <a href="#" class="property-favorite"><span class="icon-heart-o"></span></a>
-                <h2 class="property-title"><a th:text="${contents.title}" th:href="@{/contents/detail(no=${contents.no})}"></a></h2>
+                <h2 class="property-title"><a th:text="${contents.title}" th:href="@{/contents/detail(idx=${contents.idx})}"></a></h2>
 
 <!--                <span class="property-location d-block mb-3"><span class="property-icon icon-room"></span> 625 S. Berendo St Unit 607 Los Angeles, CA 90005</span>-->
                 <strong class="property-price text-primary mb-3 d-block text-success" th:text="|￦${contents.price}|">$2,265,500</strong>
@@ -196,17 +196,17 @@
           <!--         등록된 강좌가 있는 경우 start-->
           <div th:if="${resultList.getTotalElements()} > 0" th:each="contents : ${resultList}" class="col-md-13 col-lg-13 mb-4">
             <div class="property-entry h-100">
-              <a th:href="@{/contents/detail(no=${contents.no})}" class="property-thumbnail">
+              <a th:href="@{/contents/detail(idx=${contents.idx})}" class="property-thumbnail">
                 <div class="offer-type-wrap">
                   <span class="offer-type bg-danger">Sale</span>
                   <span class="offer-type bg-success">Rent</span>
                 </div>
                 <!--                <img src="images/img_1.jpg" alt="Image" class="img-fluid">-->
-                <img th:src="@{'images/'+${contents.mainImage}+'.jpg'}" alt="Image" class="img-fluid">
+                <img th:src="@{'images/'+${contents.images}+'.jpg'}" alt="Image" class="img-fluid">
               </a>
               <div class="p-4 property-body">
                 <a href="#" class="property-favorite"><span class="icon-heart-o"></span></a>
-                <h2 class="property-title"><a th:text="${contents.title}" th:href="@{/contents/detail(no=${contents.no})}"></a></h2>
+                <h2 class="property-title"><a th:text="${contents.title}" th:href="@{/contents/detail(idx=${contents.idx})}"></a></h2>
                 <span class="property-location d-block mb-3"><span class="property-icon icon-room"></span> 625 S. Berendo St Unit 607 Los Angeles, CA 90005</span>
                 <strong class="property-price text-primary mb-3 d-block text-success" th:text="|￦${contents.price}|">$2,265,500</strong>
                 <ul class="property-specs-wrap mb-3 mb-lg-0">
