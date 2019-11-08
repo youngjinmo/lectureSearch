@@ -53,4 +53,10 @@ public class ContentsServiceImpl implements ContentsService {
     public ReviewVO reviewWrite(ReviewVO paramVO) {
         return reviewRepository.save(paramVO);
     }
+
+    @Override
+    public Page<ReviewVO> findReviewList(String contentsIdx, Pageable pageable) {
+        pageable = PageRequest.of(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1, pageable.getPageSize());
+        return reviewRepository.findAllByContentsIdx(contentsIdx, pageable);
+    }
 }
