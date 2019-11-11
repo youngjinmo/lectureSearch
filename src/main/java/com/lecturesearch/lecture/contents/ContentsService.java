@@ -27,5 +27,6 @@ public interface ContentsService {
 
    ContentsVO contentSave(ContentsVO contentsVO);
 
-   void saveImages(MultipartFile[] files);
+   List<String> saveImages(MultipartFile[] files);
+
 }
