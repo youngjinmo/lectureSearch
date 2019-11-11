@@ -3,7 +3,6 @@ package com.lecturesearch.lecture.OAuth2;
 import com.lecturesearch.lecture.OAuth2.annotation.SocialUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class UserController {
@@ -22,7 +21,7 @@ public class UserController {
     @GetMapping("/create")
     public String create(String userEmail, String userPassword){
         System.out.println("email : "+userEmail+" password : "+userPassword);
-        return "layout/main";
+        return "redirect:main";
     }
 
 }
