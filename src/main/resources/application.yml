@@ -5,8 +5,8 @@ spring:
         registration:
           facebook:
               client-id:
-              client-secret: 
+              client-secret:
           google:
             client-id:
-            client-secret:
+            client-secret: 
 
