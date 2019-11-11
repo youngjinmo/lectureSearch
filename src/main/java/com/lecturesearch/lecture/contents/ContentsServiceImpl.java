@@ -5,8 +5,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
+import java.io.File;
+import java.io.IOException;
 
 @Service
 public class ContentsServiceImpl implements ContentsService {
@@ -38,8 +40,8 @@ public class ContentsServiceImpl implements ContentsService {
 
     //콘텐츠 상세보기
     @Override
-    public ContentsVO detailView(String no) {
-        return contentsRepository.findById(no).orElse(new ContentsVO());
+    public ContentsVO detailView(String idx) {
+        return contentsRepository.findById(idx).orElse(new ContentsVO());
     }
 
     //서치후 페이징리스트보기
@@ -53,4 +55,12 @@ public class ContentsServiceImpl implements ContentsService {
     public ReviewVO reviewWrite(ReviewVO paramVO) {
         return reviewRepository.save(paramVO);
     }
+
+    @Override
+    public Page<ReviewVO> findReviewList(String contentsIdx, Pageable pageable) {
+        pageable = PageRequest.of(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1, pageable.getPageSize());
+        return reviewRepository.findAllByContentsIdx(contentsIdx, pageable);
+    }
+
+
 }
