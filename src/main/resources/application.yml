@@ -4,9 +4,9 @@ spring:
       client:
         registration:
           facebook:
-              client-id: 2414664315458888
-              client-secret: 486141bb7a67c013cf8b7c7f78e7580c
+              client-id:
+              client-secret:
           google:
-            client-id: 516189372327-1tmhn90ecfs3k5o4mue7nkjc2sk16maq.apps.googleusercontent.com
-            client-secret: CYq_3XWPplr434RpRzP0jfiJ
+            client-id:
+            client-secret: 
 

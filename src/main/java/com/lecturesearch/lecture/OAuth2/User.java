@@ -53,4 +53,5 @@ public class User {
         this.createdDate=createdDate;
         this.updatedDate=updatedDate;
     }
+
 }
