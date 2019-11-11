@@ -23,10 +23,13 @@ public interface ContentsService {
     //서치후페이징 리스트보기
    Page<ContentsVO> searchTitle(String title,Pageable pageable);
 
+   //리뷰작성
    ReviewVO reviewWrite(ReviewVO paramVO);
 
    ContentsVO contentSave(ContentsVO contentsVO);
 
    List<String> saveImages(MultipartFile[] files);
 
+   //리뷰리스트
+    Page<ReviewVO> findReviewList(String contentsIdx, Pageable pageable);
 }

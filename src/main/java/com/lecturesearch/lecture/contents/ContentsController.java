@@ -1,6 +1,9 @@
 package com.lecturesearch.lecture.contents;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -31,9 +34,11 @@ public class ContentsController {
 //    }
 
     @RequestMapping("/detail")
-    public String detailView(String idx, Model model) {
+    public String detailView(String idx, Model model, @PageableDefault Pageable pageable) {
         ContentsVO i = contentsService.detailView(idx);
+        Page r = contentsService.findReviewList(idx, pageable);
         model.addAttribute("contents", i);
+        model.addAttribute("review", r);
         return "/contents/detailView";
     }
 
@@ -57,10 +62,9 @@ public class ContentsController {
         return "/layout/boardForm";
     }
     @RequestMapping("/review")
-    public String reviewWrite(@ModelAttribute ReviewVO paramVO, Model model) {
+    public String reviewWrite(@ModelAttribute ReviewVO paramVO, Model model, String contentsIdx) {
         contentsService.reviewWrite(paramVO);
-        return "redirect:/main";
-
+        return "redirect:/contents/detail?idx="+contentsIdx;
     }
 
 //    @PostMapping("/save")
@@ -96,6 +100,13 @@ public class ContentsController {
         
         contentsService.contentSave(contentsVO);
         return "redirect:/main";
+    }
+
+
+
+    @RequestMapping("/cartList")
+    public String cartList() {
+        return "/contents/cartList";
     }
 
 }
