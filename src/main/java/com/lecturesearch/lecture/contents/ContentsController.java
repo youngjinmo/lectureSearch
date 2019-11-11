@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -65,8 +67,46 @@ public class ContentsController {
         return "redirect:/contents/detail?idx="+contentsIdx;
     }
 
+//    @PostMapping("/save")
+//    @ResponseBody
+//    public ResponseEntity<?> saveContent(@RequestBody ContentsVO contentsVO){
+//        contentsVO.setRegistrationDate(LocalDateTime.now()
+//                .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+//        contentsService.contentSave(contentsVO);
+//        System.out.println(contentsVO.getImages());
+//        System.out.println(contentsVO.getPrice());
+//        return new ResponseEntity<>("{}", HttpStatus.CREATED);
+//    }
+
+    @RequestMapping(value = "/save", method = RequestMethod.POST,
+    consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public String saveContent(@RequestParam("title") String title, @RequestParam("author") String author,
+                                  @RequestParam("files") MultipartFile[] files, @RequestParam("price") String price,
+                                  @RequestParam("runningTime") String runningTime, @RequestParam("createdDate") String createdDate,
+                                  @RequestParam("description") String description){
+        List<String> imagesList;
+
+        imagesList = contentsService.saveImages(files);
+
+        ContentsVO contentsVO= ContentsVO.builder()
+                .title(title)
+                .author(author)
+                .images(imagesList)
+                .price(price)
+                .runningTime(runningTime)
+                .createdDate(createdDate)
+                .description(description)
+                .build();
+        
+        contentsService.contentSave(contentsVO);
+        return "redirect:/main";
+    }
+
+
+
     @RequestMapping("/cartList")
     public String cartList() {
         return "/contents/cartList";
     }
+
 }

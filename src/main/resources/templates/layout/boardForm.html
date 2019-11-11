@@ -16,6 +16,7 @@
             <input id="board_idx" type="hidden" th:value="${content?.idx}"/>
             <input id="board_create_date" type="hidden" th:value="${content?.createdDate}"/>
             <table class="table">
+                <form id="content_form" th:action="@{/contents/save}" method="post" enctype="multipart/form-data">
                 <tr>
                     <th style="padding:13px 0 0 15px">게시판 선택</th>
                     <td>
@@ -34,11 +35,11 @@
                 </tr>
                 <tr>
                     <th style="padding:13px 0 0 15px;">제목</th>
-                    <td><input id="content_title" type="text" class="col-md-1 form-control input-sm" th:value="${content?.title}"/></td>
+                    <td><input name="title" id="content_title" type="text" class="col-md-1 form-control input-sm" th:value="${content?.title}"/></td>
                 </tr>
                 <tr>
                     <th style="padding:13px 0 0 15px;">강사</th>
-                    <td><input id="content_author" type="text" class="col-md-1 form-control input-sm" th:value="${content?.author}"/></td>
+                    <td><input name="author" id="content_author" type="text" class="col-md-1 form-control input-sm" th:value="${content?.author}"/></td>
                 </tr>
 <!--                <tr>-->
 <!--                    <th style="padding:13px 0 0 15px;">주제</th>-->
@@ -47,9 +48,7 @@
                 <tr>
                     <th style="padding:13px 0 0 15px;">이미지 파일</th>
                     <td>
-                        <form id="image_form" th:action="@{/contents/images/upload}" method="post" enctype="multipart/form-data">
-                            <input id="content_images" multiple="multiple" type="file" name="files" th:value="${content?.images}" />
-                        </form>
+                            <input name="files" id="content_images" multiple="multiple" type="file" th:value="${content?.images}" />
                     </td>
                 </tr>
 <!--                <tr>-->
@@ -58,19 +57,19 @@
 <!--                </tr>-->
                 <tr>
                     <th style="padding:13px 0 0 15px;">가격</th>
-                    <td><input id="content_price" type="text" class="col-md-1 form-control input-sm" th:value="${content?.price}"/></td>
+                    <td><input name="price" id="content_price" type="text" class="col-md-1 form-control input-sm" th:value="${content?.price}"/></td>
                 </tr>
                 <tr>
                     <th style="padding:13px 0 0 15px;">강의시간</th>
-                    <td><input id="content_running_time" type="text" class="col-md-1 form-control input-sm" th:value="${content?.runningTime}"/></td>
+                    <td><input name="runningTime" id="content_running_time" type="text" class="col-md-1 form-control input-sm" th:value="${content?.runningTime}"/></td>
                 </tr>
                 <tr>
                     <th style="padding:13px 0 0 15px;">강의제작날짜</th>
-                    <td><input id="content_createdDate" type="text" class="col-md-1 form-control input-sm" th:value="${content?.createdDate}"/></td>
+                    <td><input name="createdDate" id="content_createdDate" type="text" class="col-md-1 form-control input-sm" th:value="${content?.createdDate}"/></td>
                 </tr>
                 <tr>
                     <th style="padding:13px 0 0 15px;">내용</th>
-                    <td><textarea id="content_description" class="col-md-1 form-control input-sm" maxlength="140" rows="7" style="height: 200px;"
+                    <td><textarea name="description" id="content_description" class="col-md-1 form-control input-sm" maxlength="140" rows="7" style="height: 200px;"
                                   th:text="${content?.description}"></textarea><span class="help-block"></span>
                     </td>
                 </tr>
@@ -78,60 +77,61 @@
                     <td></td>
                     <td></td>
                 </tr>
+                </form>
             </table>
             <div class="pull-left">
                 <a href="/main" class="btn btn-default">목록으로</a>
             </div>
             <div class="pull-right">
-                <button th:if="!${content?.idx}"  type="button" class="btn btn-primary" id="insert">저장</button>
+                <button th:if="!${content?.idx}" onclick=document.getElementById('content_form').submit(); type="button" class="btn btn-primary" >저장</button>
                 <button th:if="${content?.idx}" type="button" class="btn btn-info" id="update">수정</button>
                 <button th:if="${content?.idx}" type="button" class="btn btn-danger" id="delete">삭제</button>
             </div>
         </div>
 
         <script th:src="@{/js/jquery.min.js}"></script>
-        <script th:if="!${content?.idx}">
-            function filesToString(){
-                var nullCheck = $('#content_images').val();
-                if(!nullCheck) return;
-                    var fileInput = document.getElementById("content_images");
-                    var files = fileInput.files;
-                    var fileNames = files[0].name;
-                    for (var i = 1; i < files.length; i++) {
-                        fileNames += "," + files[i].name;
-                    }
-                    return fileNames;
+<!--        <script th:if="!${content?.idx}">-->
+<!--            function filesToString(){-->
+<!--                var nullCheck = $('#content_images').val();-->
+<!--                if(!nullCheck) return;-->
+<!--                    var fileInput = document.getElementById("content_images");-->
+<!--                    var files = fileInput.files;-->
+<!--                    var fileNames = files[0].name;-->
+<!--                    for (var i = 1; i < files.length; i++) {-->
+<!--                        fileNames += "," + files[i].name;-->
+<!--                    }-->
+<!--                    return fileNames;-->
 
-            }
-            $('#insert').click(function () {
-                document.getElementById('image_form').submit();
-                var jsonData = JSON.stringify({
-                    title: $('#content_title').val(),
-                    author: $('#content_author').val(),
-                    images: filesToString(),
-                    description: $('#content_description').val(),
-                    createdDate: $('#content_createdDate').val(),
-                    runningTime: $('#content_running_time').val(),
-                });
-                $.ajax({
-                    url: "http://localhost:8080/contents/save",
-                    type: "POST",
-                    data: jsonData,
-                    contentType: "application/json",
-                    headers: {
-                        "Authorization": "Basic " + btoa("giyun" + ":" + "test")
-                    },
-                    dataType: "json",
-                    success: function () {
-                        alert('저장 성공!');
-                        location.href = '/main';
-                    },
-                    error: function () {
-                        alert('저장 실패!');
-                    }
-                });
-            });
-        </script>
+<!--            }-->
+<!--            $('#insert').click(function () {-->
+<!--                document.getElementById('image_form').submit();-->
+<!--                var jsonData = JSON.stringify({-->
+<!--                    title: $('#content_title').val(),-->
+<!--                    author: $('#content_author').val(),-->
+<!--                    images: filesToString(),-->
+<!--                    description: $('#content_description').val(),-->
+<!--                    createdDate: $('#content_createdDate').val(),-->
+<!--                    runningTime: $('#content_running_time').val(),-->
+<!--                });-->
+<!--                $.ajax({-->
+<!--                    url: "http://localhost:8080/contents/save",-->
+<!--                    type: "POST",-->
+<!--                    data: jsonData,-->
+<!--                    contentType: "application/json",-->
+<!--                    headers: {-->
+<!--                        "Authorization": "Basic " + btoa("giyun" + ":" + "test")-->
+<!--                    },-->
+<!--                    dataType: "json",-->
+<!--                    success: function () {-->
+<!--                        alert('저장 성공!');-->
+<!--                        location.href = '/main';-->
+<!--                    },-->
+<!--                    error: function () {-->
+<!--                        alert('저장 실패!');-->
+<!--                    }-->
+<!--                });-->
+<!--            });-->
+<!--        </script>-->
         <script th:if="${content?.idx}">
             $('#update').click(function () {
                 var jsonData = JSON.stringify({
