@@ -126,7 +126,15 @@
                 <img th:src="@{'/images/'+${contents.images}}" alt="Image" class="img-fluid">
               </a>
               <div class="p-4 property-body">
-                <a href="#" class="property-favorite"><span class="icon-heart-o"></span></a>
+<!--                장바구니-->
+                <form action="/contents/cartInsert" method="get">
+                  <input type="hidden" name="email" value="1234@gmail.com">
+                  <input type="hidden" name="contentsIdx" th:value="${contents.idx}"/>
+                  <button type="submit">
+                    <span th:if="" class="property-favorite"><span class="icon-heart-o"></span></span>
+                  </button>
+                </form>
+<!--                장바구니-->
                 <h2 class="property-title"><a th:text="${contents.title}" th:href="@{/contents/detail(idx=${contents.idx})}"></a></h2>
 
 <!--                <span class="property-location d-block mb-3"><span class="property-icon icon-room"></span> 625 S. Berendo St Unit 607 Los Angeles, CA 90005</span>-->
@@ -202,7 +210,7 @@
                   <span class="offer-type bg-success">Rent</span>
                 </div>
                 <!--                <img src="images/img_1.jpg" alt="Image" class="img-fluid">-->
-                <img th:src="@{'images/'+${contents.images}+'.jpg'}" alt="Image" class="img-fluid">
+                <img th:src="@{'/images/'+${contents.images}}" alt="Image" class="img-fluid">
               </a>
               <div class="p-4 property-body">
                 <a href="#" class="property-favorite"><span class="icon-heart-o"></span></a>

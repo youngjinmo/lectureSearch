@@ -19,6 +19,9 @@ public class ContentsServiceImpl implements ContentsService {
     @Autowired
     private ReviewRepository reviewRepository;
 
+    @Autowired
+    private CartRepository cartRepository;
+
     //콘텐츠 리스트 보기
 //    @Override
 //    public Iterable<ContentsVO> contentsList() {
@@ -60,6 +63,11 @@ public class ContentsServiceImpl implements ContentsService {
     public Page<ReviewVO> findReviewList(String contentsIdx, Pageable pageable) {
         pageable = PageRequest.of(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1, pageable.getPageSize());
         return reviewRepository.findAllByContentsIdx(contentsIdx, pageable);
+    }
+
+    @Override
+    public CartVO cartInsert(CartVO paramVO) {
+        return cartRepository.save(paramVO);
     }
 
 

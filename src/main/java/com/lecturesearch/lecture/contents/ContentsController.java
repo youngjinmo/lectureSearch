@@ -69,4 +69,15 @@ public class ContentsController {
     public String cartList() {
         return "/contents/cartList";
     }
+
+    @RequestMapping("/cartInsert")
+    public String cartInsert(@ModelAttribute CartVO paramVO){
+        contentsService.cartInsert(paramVO);
+        return "redirect:/contents/cartList";
+    }
+
+    @RequestMapping("/cartDelete")
+    public String cartDelete(){
+        return "redirect:/contents/cartList";
+    }
 }
