@@ -9,6 +9,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 @Service
 public class ContentsServiceImpl implements ContentsService {
@@ -62,14 +66,25 @@ public class ContentsServiceImpl implements ContentsService {
     }
 
     @Override
-    public void saveImages(MultipartFile[] files){
+    public List<String> saveImages(MultipartFile[] files){
+        String imageName=null;
+        List<String> imagesList=new ArrayList<>();
         for(int i=0; i<files.length; i++){
-            File targetFile = new File("C:/Users/patro/Documents/test/"+files[i].getOriginalFilename());
+            try {
+                 imageName=HashEncryption.sha256(files[i].getOriginalFilename());
+                 imagesList.add(imageName);
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
+            File targetFile = new File("C:/Users/patro/Documents/GitHub/lectureSearch/src/main/resources/static/userImages/"+ imageName+".jpg");
             try{
                 files[i].transferTo(targetFile);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+        return imagesList;
     }
+
+
 }

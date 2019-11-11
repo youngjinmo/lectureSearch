@@ -15,16 +15,19 @@ spring:
       client:
         registration:
           facebook:
-              client-id:
-              client-secret:
+              client-id: 396280997606363
+              client-secret: 89ecdfeb60fcdeffeb77f63c28418375
           google:
-            client-id:
-            client-secret:
+            client-id: 611537370134-lv1ah700hrgodshjo9akun78t81eebkb.apps.googleusercontent.com
+            client-secret: jpwCGvEvt8UEY1_2Mt9mymXm
 custom:
   oauth2:
     kakao:
-       client-id:
+       client-id: 4edfd9af0ec0804a4b839c1f4aa77cfe
 
+    http:
+     multipart:
+        maxFileSize: 10MB
       #      accessTokenUri: https://graph.facebook.com/oauth/acces_token
 #      userAuthorizationUri: https://www.facebook.com/dialog/oauth?display=popup
 #      tokenName: oauth_token
