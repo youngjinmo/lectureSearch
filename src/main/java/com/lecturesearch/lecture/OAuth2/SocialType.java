@@ -2,8 +2,7 @@ package com.lecturesearch.lecture.OAuth2;
 
 public enum SocialType {
     FACEBOOK("facebook"),
-    GOOGLE("google"),
-    KAKAO("kakao");
+    GOOGLE("google");
 
     private final String ROLE_PREFIX= "ROLE_";
     private String name;

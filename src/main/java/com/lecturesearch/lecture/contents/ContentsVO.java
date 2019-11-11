@@ -1,27 +1,34 @@
 package com.lecturesearch.lecture.contents;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Document(indexName = "lecture", type = "contents")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ContentsVO {
 
     @Id
-    private String no;
+    private String idx;
     private String title;
     private String author;
     private String subject;
-    private String mainImage;
-    private String subImages;
-    private int price;
+    private List<String> images = new ArrayList<>();
+    private String price;
     private String description;
     private String createdDate;
     private String runningTime;
     private String registrationDate;
 
-    public ContentsVO() {}
 
 //    public ContentsVO(String no, String title, String subject, String price, String uploadDate, String runningTime) {
 //        this.no = no;
@@ -32,12 +39,12 @@ public class ContentsVO {
 //        this.runningTime = runningTime;
 //    }
 
-    public ContentsVO(String title, String author, String subject, String mainImage, String subImages, int price, String description, String createdDate, String runningTime, String registrationDate) {
+    @Builder
+    public ContentsVO(String title, String author, String subject, List<String> images, String price, String description, String createdDate, String runningTime, String registrationDate) {
         this.title = title;
         this.author = author;
         this.subject = subject;
-        this.mainImage = mainImage;
-        this.subImages = subImages;
+        this.images = images;
         this.price = price;
         this.description = description;
         this.createdDate = createdDate;

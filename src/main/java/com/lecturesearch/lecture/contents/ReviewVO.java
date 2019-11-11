@@ -11,11 +11,12 @@ public class ReviewVO {
     private String idx;
     private String star;
     private String message;
-    private String no;
+    private String contentsIdx;
+    private String date;
 
-    public ReviewVO(String star, String message, String no) {
-        this.star = star;
-        this.message = message;
-        this.no = no;
-    }
+//    public ReviewVO(String star, String message, String no) {
+//        this.star = star;
+//        this.message = message;
+//        this.no = no;
+//    }
 }

@@ -18,7 +18,7 @@ public interface ContentsRepository extends ElasticsearchRepository<ContentsVO, 
     ContentsVO save(ContentsVO paramVO);
 
     //컨텐츠 상세보기
-    Optional<ContentsVO> findById(String no);
+    Optional<ContentsVO> findById(String idx);
 
     //서치후 페이징 리스트보기
    Page<ContentsVO> findAllByTitle(String title, Pageable pageable);
