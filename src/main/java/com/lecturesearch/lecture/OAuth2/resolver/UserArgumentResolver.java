@@ -70,7 +70,6 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
     private User convertUser(String authority, Map<String, Object> map) {
         if(FACEBOOK.isEquals(authority)) return getModernUser(FACEBOOK, map);
         else if(GOOGLE.isEquals(authority)) return getModernUser(GOOGLE, map);
-        else if(KAKAO.isEquals(authority)) return getKaKaoUser(map);
         return null;
     }
 
@@ -80,17 +79,6 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
                 .email(String.valueOf(map.get("email")))
                 .principal(String.valueOf(map.get("id")))
                 .socialType(socialType)
-                .createdDate(LocalDateTime.now())
-                .build();
-    }
-
-    private User getKaKaoUser(Map<String, Object> map) {
-        Map<String, String> propertyMap = (HashMap<String, String>) map.get("properties");
-        return User.builder()
-                .name(propertyMap.get("nickname"))
-                .email(String.valueOf(map.get("kaccount_email")))
-                .principal(String.valueOf(map.get("id")))
-                .socialType(KAKAO)
                 .createdDate(LocalDateTime.now())
                 .build();
     }
