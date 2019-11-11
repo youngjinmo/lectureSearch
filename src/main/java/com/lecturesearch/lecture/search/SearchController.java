@@ -51,11 +51,9 @@ public class SearchController {
 
     @RequestMapping("/search")
     public String searchContents(@RequestParam String title, @PageableDefault Pageable pageable, Model model) {
-        System.out.println(title);
         saveTitle = title;
         Page<ContentsVO> resultPage = contentsService.searchTitle(title, pageable);
         model.addAttribute("resultList", resultPage);
-        System.out.println(resultPage);
         return "layout/main";
     }
 

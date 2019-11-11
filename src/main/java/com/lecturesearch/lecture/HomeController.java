@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletResponse;
+
 @Controller
 @RequestMapping("/")
 public class HomeController {
@@ -24,9 +26,10 @@ public class HomeController {
 //    }
 
     @RequestMapping("/main")
-    public String list(@PageableDefault Pageable pageable, Model model) {
+    public String list(@PageableDefault Pageable pageable, Model model, HttpServletResponse response) {
         Page i = contentsService.findContentsList(pageable);
         model.addAttribute("pageList", i);
+        response.setContentType("multipart/form-data");
         return "/layout/main";
     }
 }

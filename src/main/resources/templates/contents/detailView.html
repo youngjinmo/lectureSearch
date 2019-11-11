@@ -79,32 +79,91 @@
 
                     <div class="row no-gutters mt-5">
                         <div class="col-12">
-                            <h2 class="h4 text-black mb-3">평가 및 리뷰</h2>
+                            <h2 class="h4 text-black mb-3">후기 작성</h2>
                         </div>
-<!--                        review-->
-                        <form action="/contents/review" name="reviewForm" class="border-bottom py-3">
-                            <div class="row form-group">
-                                <div class="col-md-12">
-                                    <label class="font-weight-bold" for="message">별점</label>
-                                    <img src="/images/star_x.png" id="star1" onmouseover="show(1)" onmouseout="noshow(1)" onclick="mark(1)">
-                                    <img src="/images/star_x.png" id="star2" onmouseover="show(2)" onmouseout="noshow(2)" onclick="mark(2)">
-                                    <img src="/images/star_x.png" id="star3" onmouseover="show(3)" onmouseout="noshow(3)" onclick="mark(3)">
-                                    <img src="/images/star_x.png" id="star4" onmouseover="show(4)" onmouseout="noshow(4)" onclick="mark(4)">
-                                    <img src="/images/star_x.png" id="star5" onmouseover="show(5)" onmouseout="noshow(5)" onclick="mark(5)">
-                                    <br/><span id="startext"></span>
-                                    <input type="hidden" name="star"/>
-                                    <textarea name="message" id="message" cols="70" rows="5" class="form-control" placeholder="Say hello to us"></textarea>
+<!--                        review 작성-->
+                        <div>
+                            <form action="/contents/review" onsubmit="return check()" name="reviewForm" class="mb-5 border-bottom py-3">
+                                <div class="row form-group">
+                                    <div class="col-md-12">
+                                        <label class="font-weight-bold" for="message">별점</label>
+                                        <img src="/images/star_x.png" id="star1" onmouseover="show(1)" onmouseout="noshow(1)" onclick="mark(1)">
+                                        <img src="/images/star_x.png" id="star2" onmouseover="show(2)" onmouseout="noshow(2)" onclick="mark(2)">
+                                        <img src="/images/star_x.png" id="star3" onmouseover="show(3)" onmouseout="noshow(3)" onclick="mark(3)">
+                                        <img src="/images/star_x.png" id="star4" onmouseover="show(4)" onmouseout="noshow(4)" onclick="mark(4)">
+                                        <img src="/images/star_x.png" id="star5" onmouseover="show(5)" onmouseout="noshow(5)" onclick="mark(5)">
+                                        </input>
+                                        <br/><span id="startext"></span>
+                                        <input type="hidden" name="date"/>
+                                        <textarea name="message" id="message" cols="70" rows="5" class="form-control" placeholder="소중한 의견을 남겨주세요." th:maxlength="500"></textarea>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="row form-group">
-                                <div class="col-md-12">
-                                    <input type="hidden" name="no" th:value="${contents.no}">
-                                    <input type="submit" value="Send Message" class="btn btn-primary  py-2 px-4 rounded-0">
+                                <div class="row form-group">
+                                    <div class="col-md-12">
+                                        <input type="hidden" name="contentsIdx" th:value="${contents.idx}"/>
+                                        <input type="hidden" id="star" name="star" value=""/>
+                                        <input type="submit" value="확인" class="btn btn-primary  py-2 px-4 rounded-0" onclick="nowDate()"/>
+                                    </div>
                                 </div>
+                            </form>
+                        </div>
+<!--                        review 작성-->
+<!--                        작성된 리뷰리스트-->
+                        <h2 class="h4 text-black mb-3">수강 후기</h2>
+                        <div th:each="reviews : ${review}">
+                            <div style="margin-top: 10px;margin-bottom: 10px;">
+                                <img src="/images/profile.jpg" style="width:10%;height:10%;border-radius: 50%;margin-right: 10px;margin-left: 10px;float: left">
+                                <div>
+                                    <div th:if="${reviews.star == '1'}">
+                                        <img src="/images/star.png">
+                                    </div>
+                                    <div th:if="${reviews.star == '2'}">
+                                        <img src="/images/star.png"><img src="/images/star.png">
+                                    </div>
+                                    <div th:if="${reviews.star == '3'}">
+                                        <img src="/images/star.png"><img src="/images/star.png"><img src="/images/star.png">
+                                    </div>
+                                    <div th:if="${reviews.star == '4'}">
+                                        <img src="/images/star.png"><img src="/images/star.png"><img src="/images/star.png"><img src="/images/star.png">
+                                    </div>
+                                    <div th:if="${reviews.star == '5'}">
+                                        <img src="/images/star.png"><img src="/images/star.png"><img src="/images/star.png"><img src="/images/star.png"><img src="/images/star.png">
+                                    </div>
+                                    <span class="text-black mb-0 caption-text" th:text="${reviews.date}"></span>
+                                    <span class="text-black mb-0 caption-text">김진환 님</span>
+                                        <p th:text="${reviews.message}"></p>
+                                </div>
+
                             </div>
-                        </form>
-<!--                        review-->
+                        </div>
+<!--                        작성된 리뷰리스트-->
+<!--                        paging-->
+                        <div class="row" th:if="${review.getTotalElements()} > 0">
+                            <div class="col-md-12 text-center">
+                                <!-- Pagination -->
+                                <div class="site-pagination" style="text-align: center;display: inline-block;">
+                                    <ul class="pagination" th:with="startNumber=${T(Math).floor(review.number/10)}*10+1, endNumber=(${review.totalPages} > ${startNumber}+9) ? ${startNumber}+9 : ${review.totalPages}">
+                                        <li><a aria-label="Previous" th:href="@{/contents/detail(idx=${contents.idx})}+'&page=1'">&laquo;</a></li>
+                                        <li th:style="${review.first} ? 'display:none'">
+                                            <a th:href="@{/contents/detail(idx=${contents.idx},page=${review.number})}">&lsaquo;</a>
+                                        </li>
+
+                                        <li th:each="page :${#numbers.sequence(startNumber, endNumber)}">
+                                            <a th:href="@{/contents/detail(idx=${contents.idx},page=${page})}" th:text="${page}" th:class="(${page} == ${review.number}+1) ? 'active'"><span class="sr-only"></span></a>
+                                        </li>
+
+                                        <li th:style="${review.last} ? 'display:none'">
+                                            <a th:href="@{/contents/detail(idx=${contents.idx},page=${review.number}+2)}">&rsaquo;</a>
+                                        </li>
+                                        <li><a aria-label="Next" th:href="@{/contents/detail(idx=${contents.idx},page=${review.totalPages})}">&raquo;</a></li>
+                                    </ul>
+
+                                </div>
+                                <!-- /Pagination -->
+                            </div>
+                        </div>
+<!--                        paging-->
                     </div>
                 </div>
             </div>
@@ -328,13 +387,14 @@
     </footer>
 
 </div>
-<script>
+<script th:inline="javascript">
     // 별점평가start
     var i;
     var imgName;
     var starText;
     var text = document.getElementById("startext");
     var locked = 0;
+    var form = document.reviewForm
 
     function show(star) {
         if (locked)
@@ -386,17 +446,41 @@
     function mark(star) {
         if (locked == 0){
             lock(star);
-            document.reviewForm.star.value=star;
+            form.star.value=star;
         } else {
             locked = 0;
             for(i = 1; i <= 5; i++){
                 imgName = "star" + i;
                 document.getElementById(imgName).src = "/images/star_x.png";
-                document.reviewForm.star.value="";
+                form.star.value="";
             }
         }
     }
     // 별점평가end
+    // 리뷰등록일
+    function date_to_str(format) {
+        var year = format.getFullYear();
+        var month = format.getMonth() + 1;
+        if(month<10) month = '0' + month;
+        var date = format.getDate();
+        if(date<10) date = '0' + date;
+        return year + "." + month + "." + date;
+    }
+    var now =new Date();
+    var sysDate = date_to_str(now)
+
+    function nowDate() {
+        form.date.value = sysDate;
+    }
+
+    function check() {
+        if(form.star.value == ""){
+            alert("별점을 선택해주세요.");
+            return false;
+        }
+        return true;
+    }
+    // 리뷰등록일
 </script>
 
 <script src="/js/jquery-3.3.1.min.js"></script>

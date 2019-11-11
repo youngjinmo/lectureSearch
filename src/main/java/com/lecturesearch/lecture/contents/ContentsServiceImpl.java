@@ -5,7 +5,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -38,8 +44,8 @@ public class ContentsServiceImpl implements ContentsService {
 
     //콘텐츠 상세보기
     @Override
-    public ContentsVO detailView(String no) {
-        return contentsRepository.findById(no).orElse(new ContentsVO());
+    public ContentsVO detailView(String idx) {
+        return contentsRepository.findById(idx).orElse(new ContentsVO());
     }
 
     //서치후 페이징리스트보기
@@ -53,4 +59,37 @@ public class ContentsServiceImpl implements ContentsService {
     public ReviewVO reviewWrite(ReviewVO paramVO) {
         return reviewRepository.save(paramVO);
     }
+
+    @Override
+    public Page<ReviewVO> findReviewList(String contentsIdx, Pageable pageable) {
+        pageable = PageRequest.of(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1, pageable.getPageSize());
+        return reviewRepository.findAllByContentsIdx(contentsIdx, pageable);
+    }
+
+    @Override
+    public ContentsVO contentSave(ContentsVO contentsVO){
+        return contentsRepository.save(contentsVO);
+    }
+
+    @Override
+    public List<String> saveImages(MultipartFile[] files){
+        String imageName=null;
+        List<String> imagesList=new ArrayList<>();
+        for(int i=0; i<files.length; i++){
+            try {
+                 imageName=HashEncryption.sha256(files[i].getOriginalFilename());
+                 imagesList.add(imageName);
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
+            File targetFile = new File("C:/Users/patro/Documents/GitHub/lectureSearch/src/main/resources/static/userImages/"+ imageName+".jpg");
+            try{
+                files[i].transferTo(targetFile);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return imagesList;
+    }
+
 }
