@@ -35,6 +35,8 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
 
+    compile 'org.webjars:jquery-ui:1.11.4'
+
 // https://mvnrepository.com/artifact/org.springframework.data/spring-data-elasticsearch
     compile group: 'org.springframework.data', name: 'spring-data-elasticsearch', version: '3.2.0.RELEASE'
 
