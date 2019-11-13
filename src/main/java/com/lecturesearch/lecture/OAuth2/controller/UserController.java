@@ -1,5 +1,6 @@
-package com.lecturesearch.lecture.OAuth2;
+package com.lecturesearch.lecture.OAuth2.controller;
 
+import com.lecturesearch.lecture.OAuth2.User;
 import com.lecturesearch.lecture.OAuth2.annotation.SocialUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
