@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -35,7 +36,7 @@ public class ContentsController {
 //    }
 
     @RequestMapping("/detail")
-    public String detailView(String idx, Model model, @PageableDefault Pageable pageable) {
+    public String detailView(String idx, Model model, @PageableDefault Pageable pageable, HttpServletResponse response) {
         ContentsVO i = contentsService.detailView(idx);
         Page r = contentsService.findReviewList(idx, pageable);
         model.addAttribute("contents", i);

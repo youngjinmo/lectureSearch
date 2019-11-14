@@ -29,7 +29,6 @@ public class HomeController {
     public String list(@PageableDefault Pageable pageable, Model model, HttpServletResponse response) {
         Page i = contentsService.findContentsList(pageable);
         model.addAttribute("pageList", i);
-        response.setContentType("multipart/form-data");
         return "/layout/main";
     }
 }
