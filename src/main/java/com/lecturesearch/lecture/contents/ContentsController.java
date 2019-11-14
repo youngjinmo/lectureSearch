@@ -84,8 +84,8 @@ public class ContentsController {
     public String saveContent(@RequestParam("title") String title, @RequestParam("author") String author,
                                   @RequestParam("files") MultipartFile[] files, @RequestParam("price") String price,
                                   @RequestParam("runningTime") String runningTime, @RequestParam("createdDate") String createdDate,
-                                  @RequestParam("description") String description
-            , HttpServletResponse response){
+                                  @RequestParam("description") String description,
+                              HttpServletResponse response){
         List<String> imagesList;
 
         imagesList = contentsService.saveImages(files);
