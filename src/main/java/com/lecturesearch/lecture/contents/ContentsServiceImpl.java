@@ -70,6 +70,12 @@ public class ContentsServiceImpl implements ContentsService {
         pageable = PageRequest.of(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1, pageable.getPageSize());
         return reviewRepository.findAllByContentsIdx(contentsIdx, pageable);
     }
+
+    @Override
+    public ContentsVO contentSave(ContentsVO contentsVO){
+        return contentsRepository.save(contentsVO);
+    }
+
     @Override
     public List<String> saveImages(MultipartFile[] files){
         String imageName=null;
@@ -81,7 +87,7 @@ public class ContentsServiceImpl implements ContentsService {
             } catch (NoSuchAlgorithmException e) {
                 e.printStackTrace();
             }
-            File targetFile = new File("C:/Users/patro/Documents/GitHub/lectureSearch/src/main/resources/static/userImages/"+ imageName+".jpg");
+            File targetFile = new File("./resources/static/userImages/"+ imageName+".jpg");
             try{
                 files[i].transferTo(targetFile);
             } catch (IOException e) {
