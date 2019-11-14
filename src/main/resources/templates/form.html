@@ -6,7 +6,7 @@
     <title>login</title>
     <link rel="stylesheet" th:href="@{/css/base.css}" />
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
-    <link rel="stylesheet" th:href="@{webjars/jquery-ui/1.11.4/jquery-ui.min.css}" />
+<!--    <link rel="stylesheet" th:href="@{webjars/jquery-ui/1.11.4/jquery-ui.min.css}" />-->
 
 </head>
 <body>
@@ -53,7 +53,7 @@
             <button type="submit" class="btn btn-default">로그인하기</button>
             <br/>
 <!--            switching to signup-->
-            <p class="toggle-button">계정이 있으신가요?
+            <p class="toggle-button">계정이 없으신가요?
                 &nbsp;<a href="javascript:void(0)" id="showSignUp">회원가입</a>
             </p>
         </form>
@@ -69,32 +69,36 @@
         <div class="form-group">
             <table style="text-align: center; align-content: center; margin: auto;">
                 <tr>
-                    <td style="width: 110px;"><label for="signupEmail">Email</label></td>
-                    <td style="width: 250px;"><input type="email" class="form-control" id="signupEmail" name="email"
+                    <th style="width: 110px;"><label for="signUpEmail">Email</label></th>
+                    <td style="width: 250px;"><input type="email" class="form-control" id="signUpEmail" name="email"
                                                      placeholder="이메일주소를 입력하세요."></td>
                 </tr>
                 <tr>
-                    <td style="width: 110px;"><label for="signupName">User Name</label></td>
-                    <td style="width: 250px;"><input type="text" class="form-control" id="signupName" name="name"
+                    <th style="width: 110px;"><label for="signUpName">User Name</label></th>
+                    <td style="width: 250px;"><input type="text" class="form-control" id="signUpName" name="name"
                                                      placeholder="닉네임을 입력하세요."></td>
                 </tr>
                 <tr>
-                    <td><label for="signupPassword">Password</label></td>
-                    <td><input type="password" class="form-control" id="signupPassword" name="password"
+                    <th><label for="signUpPassword">Password</label></th>
+                    <td><input type="password" class="form-control" id="signUpPassword" name="password"
                                placeholder="비밀번호를 입력하세요."></td>
                 </tr>
-<!--                비밀번호 재입력-->
-<!--                <tr>-->
-<!--                    <td><label for="rePassword">Password</label></td>-->
-<!--                    <td><input type="password" class="form-control" id="rePassword" name="repassword"-->
-<!--                               placeholder="비밀번호를 재입력하세요."></td>-->
-<!--                </tr>-->
+                <tr>
+                    <th><label for="checkPW">Confirm Password</label></th>
+                    <td><input type="password" class="form-control" id="checkPW" name="chk_password"
+                               placeholder="비밀번호를 다시 입력해주세요."></td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td><span id="alert-success" style="display: none; color: #1a00fa;">비밀번호가 일치합니다.</span>
+                        <span id="alert-danger" style="display: none; color: #d92742; font-weight: bold; ">비밀번호가 일치하지 않습니다.</span></td>
+                </tr>
             </table>
         </div>
-        <button type="submit" class="btn btn-default">가입하기</button>
+        <button type="submit" class="btn btn-default" id="signUpBtn">가입하기</button>
 
 <!--        switching to login-->
-        <p class="toggle-button">계정이 없으신가요?
+        <p class="toggle-button">계정이 있으신가요?
             &nbsp;<a href="javascript:void(0)" id="showLogIn">로그인</a>
         </p>
     </form>
@@ -124,8 +128,40 @@
 
     });
 
+
+    // 회원가입 버튼 비활성화
+    $('#signUpBtn').attr("disabled", true);
+
+    var availableSignUp = false;
+
+    // 비밀번호 확인
+    $('#checkPW').focusout(function () {
+
+        var pwd1 = $("#signUpPassword").val();
+        var pwd2 = $("#checkPW").val();
+        if (pwd1 != "" || pwd2 != "") {
+            if (pwd1 == pwd2) {
+                $("#alert-success").css('display', 'inline-block');
+                $("#alert-danger").css('display', 'none');
+
+                availableSignUp = true;
+                // 조건 충족시 회원가입 버튼 활성화
+                if(availableSignUp){
+                    $('#signUpBtn').removeAttr("disabled");
+                }
+            } else {
+                alert("비밀번호가 일치하지 않습니다. 비밀번호를 확인하고 다시 입력해주세요.");
+                $("#alert-success").css('display', 'none');
+                $("#alert-danger").css('display', 'inline-block');
+            }
+        }
+    });
+
+
+
 </script>
 
+<script src="webjars/jquery-ui/1.11.4/jquery-ui.min.css"></script>
 <script src="js/jquery-3.3.1.min.js"></script>
 <script src="js/jquery-migrate-3.0.1.min.js"></script>
 <script src="js/jquery-ui.js"></script>
