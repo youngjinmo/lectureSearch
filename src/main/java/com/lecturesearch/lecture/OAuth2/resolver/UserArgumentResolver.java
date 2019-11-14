@@ -21,9 +21,11 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.Map;
 
-import static com.lecturesearch.lecture.OAuth2.SocialType.*;
+import static com.lecturesearch.lecture.OAuth2.SocialType.FACEBOOK;
+import static com.lecturesearch.lecture.OAuth2.SocialType.GOOGLE;
 
 
 @Component
@@ -37,13 +39,16 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        return parameter.getParameterAnnotation(SocialUser.class) != null && parameter.getParameterType().equals(User.class);
+        return parameter.getParameterAnnotation(SocialUser.class) != null &&
+                parameter.getParameterType().equals(User.class);
     }
 
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
-        HttpSession session = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest().getSession();
+        HttpSession session = ((ServletRequestAttributes)
+                RequestContextHolder.currentRequestAttributes()).getRequest().getSession();
         User user = (User) session.getAttribute("user");
+
         return getUser(user, session);
     }
 
@@ -53,8 +58,8 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
                 OAuth2AuthenticationToken authentication = (OAuth2AuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
                 Map<String, Object> map = authentication.getPrincipal().getAttributes();
                 User convertUser = convertUser(authentication.getAuthorizedClientRegistrationId(), map);
+                user = userRepository.findByEmail(convertUser.getEmail());
 
-//                user = userRepository.findByEmail(convertUser.getEmail());
                 if (user == null) { user = userRepository.save(convertUser); }
 
                 setRoleIfNotSame(user, authentication, map);
@@ -78,7 +83,7 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
                 .email(String.valueOf(map.get("email")))
                 .principal(String.valueOf(map.get("id")))
                 .socialType(socialType)
-                .createdDate(LocalDateTime.now())
+                .createdDate(LocalDateTime.now().toString())
                 .build();
     }
 

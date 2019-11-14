@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -83,7 +84,8 @@ public class ContentsController {
     public String saveContent(@RequestParam("title") String title, @RequestParam("author") String author,
                                   @RequestParam("files") MultipartFile[] files, @RequestParam("price") String price,
                                   @RequestParam("runningTime") String runningTime, @RequestParam("createdDate") String createdDate,
-                                  @RequestParam("description") String description){
+                                  @RequestParam("description") String description,
+                              HttpServletResponse response){
         List<String> imagesList;
 
         imagesList = contentsService.saveImages(files);
@@ -99,6 +101,7 @@ public class ContentsController {
                 .build();
         
         contentsService.contentSave(contentsVO);
+        response.setContentType("multipart/form-data");
         return "redirect:/main";
     }
 

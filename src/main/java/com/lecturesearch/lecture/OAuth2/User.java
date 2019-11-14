@@ -1,50 +1,41 @@
 package com.lecturesearch.lecture.OAuth2;
 
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
 
-import javax.persistence.*;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.time.LocalDateTime;
 
-@Getter
+@Data
 @NoArgsConstructor
-@Entity
-@Table
-//@Document(indexName = "lecture", type = "user")
-
+@Document(indexName = "user", type = "info")
 public class User {
 
     @Id
-    @Column
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idx;
+    private String idx;
 
-    @Column
     private String name;
 
-    @Column
     private String password;
 
-    @Column
     private String email;
 
-    @Column
     private String principal;
 
-    @Column
     @Enumerated(EnumType.STRING)
     private SocialType socialType;
 
-    @Column
-    private LocalDateTime createdDate;
+    private String createdDate;
 
-    @Column
-    private LocalDateTime updatedDate;
+    private String updatedDate;
 
     @Builder
-    public User(String name, String password, String email, LocalDateTime createdDate,
-                String principal, SocialType socialType , LocalDateTime updatedDate){
+    public User(String name, String password, String email, String createdDate,
+                String principal, SocialType socialType , String updatedDate){
         this.name=name;
         this.password=password;
         this.email=email;
