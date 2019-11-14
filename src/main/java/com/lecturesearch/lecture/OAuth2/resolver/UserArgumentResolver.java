@@ -3,7 +3,7 @@ package com.lecturesearch.lecture.OAuth2.resolver;
 
 import com.lecturesearch.lecture.OAuth2.SocialType;
 import com.lecturesearch.lecture.OAuth2.User;
-import com.lecturesearch.lecture.OAuth2.UserRepository;
+import com.lecturesearch.lecture.OAuth2.repository.UserRepository;
 import com.lecturesearch.lecture.OAuth2.annotation.SocialUser;
 import org.springframework.core.MethodParameter;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,7 +21,6 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.Map;
 
 import static com.lecturesearch.lecture.OAuth2.SocialType.*;
