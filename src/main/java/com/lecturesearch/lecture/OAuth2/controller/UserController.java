@@ -14,14 +14,14 @@ public class UserController {
         return "form";
     }
 
-    @GetMapping(value = "/{facebook|google}/complete")
+    @GetMapping(value = "/loginSuccess")
     public String loginComplete(@SocialUser User user) {
         System.out.println("email : "+user.getEmail()+" name : "+user.getName());
         return "redirect:/main";
     }
 
     @PostMapping("/create")
-    public String create(@SocialUser User user){
+    public String create(User user){
         System.out.println("email : "+user.getEmail()+" name : "+user.getName());
         return "redirect:/main";
     }
