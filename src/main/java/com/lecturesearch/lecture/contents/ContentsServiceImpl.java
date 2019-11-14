@@ -72,11 +72,6 @@ public class ContentsServiceImpl implements ContentsService {
     }
 
     @Override
-    public ContentsVO contentSave(ContentsVO contentsVO){
-        return contentsRepository.save(contentsVO);
-    }
-
-    @Override
     public List<String> saveImages(MultipartFile[] files){
         String imageName=null;
         List<String> imagesList=new ArrayList<>();
