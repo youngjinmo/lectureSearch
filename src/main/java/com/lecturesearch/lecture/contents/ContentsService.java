@@ -26,6 +26,10 @@ public interface ContentsService {
    //리뷰작성
    ReviewVO reviewWrite(ReviewVO paramVO);
 
+   ContentsVO contentSave(ContentsVO contentsVO);
+
+   List<String> saveImages(MultipartFile[] files);
+
    //리뷰리스트
     Page<ReviewVO> findReviewList(String contentsIdx, Pageable pageable);
 
