@@ -89,7 +89,8 @@ public class ContentsServiceImpl implements ContentsService {
             } catch (NoSuchAlgorithmException e) {
                 e.printStackTrace();
             }
-            File targetFile = new File("/Users/home/Java/git_clone/lectureSearch/src/main/resources/static/userImages"+ imageName+".jpg");
+            File targetFile = new File("/Users/home/Java/git_clone/lectureSearch/src/main/resources/static/userImages/"+ imageName+".jpg");
+//            File targetFile = new File("./resources/static/userImages/"+ imageName+".jpg");
             try{
                 files[i].transferTo(targetFile);
             } catch (IOException e) {
