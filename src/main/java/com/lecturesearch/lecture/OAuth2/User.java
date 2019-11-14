@@ -29,13 +29,13 @@ public class User {
     @Enumerated(EnumType.STRING)
     private SocialType socialType;
 
-    private LocalDateTime createdDate;
+    private String createdDate;
 
-    private LocalDateTime updatedDate;
+    private String updatedDate;
 
     @Builder
-    public User(String name, String password, String email, LocalDateTime createdDate,
-                String principal, SocialType socialType , LocalDateTime updatedDate){
+    public User(String name, String password, String email, String createdDate,
+                String principal, SocialType socialType , String updatedDate){
         this.name=name;
         this.password=password;
         this.email=email;
