@@ -22,7 +22,7 @@ public class UserController {
 
     @PostMapping("/create")
     public String create(User user){
-        System.out.println("email : "+user.getEmail()+" name : "+user.getName());
+        System.out.println("email : "+user.getEmail()+" name : "+user.getName()+" password : "+user.getPassword());
         return "redirect:/main";
     }
 
