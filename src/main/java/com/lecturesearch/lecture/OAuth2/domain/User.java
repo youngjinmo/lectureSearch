@@ -17,13 +17,13 @@ import java.time.LocalDateTime;
 public class User {
 
     @Id
-    private String idx;
+    private long idx;
 
     private String name;
 
-    private String password;
-
     private String email;
+
+    private String password;
 
     private String principal;
 

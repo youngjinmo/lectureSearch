@@ -1,5 +1,7 @@
 package com.lecturesearch.lecture;
 
+import com.lecturesearch.lecture.OAuth2.annotation.SocialUser;
+import com.lecturesearch.lecture.OAuth2.domain.User;
 import com.lecturesearch.lecture.contents.ContentsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -32,10 +34,11 @@ public class HomeController {
     }
 
     @RequestMapping("/main")
-    public String list(@PageableDefault Pageable pageable, Model model, HttpServletResponse response) {
+    public String list(@PageableDefault Pageable pageable, Model model, HttpServletResponse response, @SocialUser User user) {
         Page i = contentsService.findContentsList(pageable);
         model.addAttribute("pageList", i);
         response.setContentType("multipart/form-data");
+        model.addAttribute("user", user); // 로그인시 메뉴에서 이름 출력 by 영진
         return "/layout/main";
     }
 }

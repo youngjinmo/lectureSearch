@@ -27,19 +27,21 @@
 
                         <ul class="site-menu js-clone-nav d-none d-lg-block">
                             <li class="active">
+
+                                <!-- 회원접속시 이름 출력 (영진) -->
+                                <span th:if="${user}!=null" style="color: white"><span
+                                        th:text="${user.name}"></span>님 환영합니다. </span>
+
                                 <a href="/main">Home</a>
                             </li>
                             <li><a href="/contents/cartList">Cart</a></li>
                             <li><a href="#">About</a></li>
-                            <li><a href="#">Contact</a></li>
-<!--                            <div th:if"${session.notlogin()}">-->
-<!--                                <li><a href="#">Login</a></li>-->
-<!--                                <li><a href="#">Signup</a></li>-->
-<!--                            </div>-->
-<!--                            <div th:if"${session.logined()}">-->
-<!--                                <li><a href="#">About</a></li>-->
-<!--                                <li><a href="#">Logout</a></li>-->
-<!--                            </div>-->
+
+                            <li th:if="${user}==null"><a href="/login">Login/Signup</a></li>
+
+                            <li th:if="${user}!=null"><a href="#">About</a></li>
+                            <li th:if="${user}!=null"><a href="/logout">Logout</a></li>
+
                         </ul>
                     </nav>
                 </div>
