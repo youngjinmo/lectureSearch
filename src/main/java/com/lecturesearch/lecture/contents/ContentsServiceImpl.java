@@ -64,9 +64,8 @@ public class ContentsServiceImpl implements ContentsService {
     }
 
     @Override
-    public Page<ReviewVO> findReviewList(String contentsIdx, Pageable pageable) {
-        pageable = PageRequest.of(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1, pageable.getPageSize());
-        return reviewRepository.findAllByContentsIdx(contentsIdx, pageable);
+    public ContentsVO contentSave(ContentsVO contentsVO){
+        return contentsRepository.save(contentsVO);
     }
 
     @Override
@@ -74,8 +73,16 @@ public class ContentsServiceImpl implements ContentsService {
         return cartRepository.save(paramVO);
     }
 
-    public ContentsVO contentSave(ContentsVO contentsVO){
-        return contentsRepository.save(contentsVO);
+    @Override
+    public Page<ReviewVO> findReviewList(String contentsIdx, Pageable pageable) {
+        pageable = PageRequest.of(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1, pageable.getPageSize());
+        return reviewRepository.findAllByContentsIdx(contentsIdx, pageable);
+    }
+
+    @Override
+    public Page<CartVO> cartList(String email, Pageable pageable) {
+        pageable = PageRequest.of(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1, pageable.getPageSize());
+        return cartRepository.findAllByEmail(email, pageable);
     }
 
     @Override

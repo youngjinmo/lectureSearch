@@ -10,5 +10,6 @@ public interface ReviewRepository extends ElasticsearchRepository<ReviewVO, Stri
     //리뷰작성하기
     ReviewVO save(ReviewVO paramVO);
 
+    //리뷰 리스트
     Page<ReviewVO> findAllByContentsIdx(String contentsIdx, Pageable pageable);
 }

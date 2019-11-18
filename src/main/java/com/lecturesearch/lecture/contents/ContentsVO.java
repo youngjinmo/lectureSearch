@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,5 +1,7 @@
 package com.lecturesearch.lecture;
 
+import com.lecturesearch.lecture.OAuth2.User;
+import com.lecturesearch.lecture.OAuth2.annotation.SocialUser;
 import com.lecturesearch.lecture.contents.ContentsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,9 +28,12 @@ public class HomeController {
 //    }
 
     @RequestMapping("/main")
-    public String list(@PageableDefault Pageable pageable, Model model, HttpServletResponse response) {
+    public String list(@PageableDefault Pageable pageable, Model model, HttpServletResponse response, @SocialUser User user) {
         Page i = contentsService.findContentsList(pageable);
         model.addAttribute("pageList", i);
+        if(user != null){
+            model.addAttribute("user", user);
+        }
         return "/layout/main";
     }
 }

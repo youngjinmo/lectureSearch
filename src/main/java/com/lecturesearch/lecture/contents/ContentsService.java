@@ -33,6 +33,9 @@ public interface ContentsService {
    //리뷰리스트
     Page<ReviewVO> findReviewList(String contentsIdx, Pageable pageable);
 
+    //장바구니 리스트
+    Page<CartVO> cartList(String email, Pageable pageable);
+
     //장바구니 담기
     CartVO cartInsert(CartVO paramVO);
 

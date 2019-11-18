@@ -127,8 +127,8 @@
               </a>
               <div class="p-4 property-body">
 <!--                장바구니-->
-                <form action="/contents/cartInsert" method="get">
-                  <input type="hidden" name="email" value="1234@gmail.com">
+                <form action="/contents/cartInsert" method="get" th:if="${user} != null">
+                  <input type="hidden" name="email" th:value="${user.email}"></input>
                   <input type="hidden" name="contentsIdx" th:value="${contents.idx}"/>
                     <button type="submit" class="property-favorite"><span class="icon-heart-o"></span></button>
                 </form>

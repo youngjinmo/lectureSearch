@@ -1,5 +1,7 @@
 package com.lecturesearch.lecture.contents;
 
+import com.lecturesearch.lecture.OAuth2.User;
+import com.lecturesearch.lecture.OAuth2.annotation.SocialUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -85,8 +87,8 @@ public class ContentsController {
     public String saveContent(@RequestParam("title") String title, @RequestParam("author") String author,
                                   @RequestParam("files") MultipartFile[] files, @RequestParam("price") String price,
                                   @RequestParam("runningTime") String runningTime, @RequestParam("createdDate") String createdDate,
-                                  @RequestParam("description") String description
-            , HttpServletResponse response){
+                                  @RequestParam("description") String description,
+                              HttpServletResponse response){
         List<String> imagesList;
 
         imagesList = contentsService.saveImages(files);
@@ -109,12 +111,17 @@ public class ContentsController {
 
 
     @RequestMapping("/cartList")
-    public String cartList() {
+    public String cartList(@PageableDefault Pageable pageable, @SocialUser User user, Model model) {
+        String email = user.getEmail();
+        Page i = contentsService.cartList(email, pageable);
+//        System.out.println(i.);
+        model.addAttribute("cartList", i);
         return "/contents/cartList";
     }
 
     @RequestMapping("/cartInsert")
     public String cartInsert(@ModelAttribute CartVO paramVO){
+
         contentsService.cartInsert(paramVO);
         return "redirect:/contents/cartList";
     }
