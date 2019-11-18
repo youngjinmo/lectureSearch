@@ -34,12 +34,12 @@
                     <td><input type="text" class="col-md-1 form-control input-sm" readonly="readonly" th:value="${content?.registrationDate} ? ${#temporals.format(content.registrationDate,'yyyy-MM-dd HH:mm')} : ${content?.registrationDate}"/></td>
                 </tr>
                 <tr>
-                    <th style="padding:13px 0 0 15px;">제목</th>
-                    <td><input name="title" id="content_title" type="text" class="col-md-1 form-control input-sm" th:value="${content?.title}"/></td>
+                    <th style="padding:13px 0 0 15px;">*제목</th>
+                    <td><input name="title" id="content_title" type="text" class="col-md-1 form-control input-sm" th:value="${content?.title}" required/></td>
                 </tr>
                 <tr>
-                    <th style="padding:13px 0 0 15px;">강사</th>
-                    <td><input name="author" id="content_author" type="text" class="col-md-1 form-control input-sm" th:value="${content?.author}"/></td>
+                    <th style="padding:13px 0 0 15px;">*강사</th>
+                    <td><input name="author" id="content_author" type="text" class="col-md-1 form-control input-sm" th:value="${content?.author}" required/></td>
                 </tr>
 <!--                <tr>-->
 <!--                    <th style="padding:13px 0 0 15px;">주제</th>-->
@@ -56,34 +56,43 @@
 <!--                    <td><input id="board_sub_title" type="text" class="col-md-1 form-control input-sm" th:value="${board?.subTitle}"/></td>-->
 <!--                </tr>-->
                 <tr>
-                    <th style="padding:13px 0 0 15px;">가격</th>
-                    <td><input name="price" id="content_price" type="text" class="col-md-1 form-control input-sm" th:value="${content?.price}"/></td>
+                    <th style="padding:13px 0 0 15px;">*가격</th>
+                    <td><input name="price" id="content_price" type="text" class="col-md-1 form-control input-sm" th:value="${content?.price}" required/></td>
                 </tr>
                 <tr>
-                    <th style="padding:13px 0 0 15px;">강의시간</th>
-                    <td><input name="runningTime" id="content_running_time" type="text" class="col-md-1 form-control input-sm" th:value="${content?.runningTime}"/></td>
+                    <th style="padding:13px 0 0 15px;">*강의시간</th>
+                    <td><input name="runningTime" id="content_running_time" type="text" class="col-md-1 form-control input-sm" th:value="${content?.runningTime}" required/></td>
                 </tr>
                 <tr>
-                    <th style="padding:13px 0 0 15px;">강의제작날짜</th>
-                    <td><input name="createdDate" id="content_createdDate" type="text" class="col-md-1 form-control input-sm" th:value="${content?.createdDate}"/></td>
+                    <th style="padding:13px 0 0 15px;">*강의제작날짜</th>
+                    <td><input name="createdDate" id="content_createdDate" type="text" class="col-md-1 form-control input-sm"  th:value="${content?.createdDate}" required/></td>
                 </tr>
                 <tr>
-                    <th style="padding:13px 0 0 15px;">내용</th>
+                    <th style="padding:13px 0 0 15px;">*내용</th>
                     <td><textarea name="description" id="content_description" class="col-md-1 form-control input-sm" maxlength="140" rows="7" style="height: 200px;"
-                                  th:text="${content?.description}"></textarea><span class="help-block"></span>
+                                  th:text="${content?.description}" required></textarea><span class="help-block"></span>
                     </td>
                 </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                </tr>
+                 <tr>
+                     <th style="padding:13px 0 0 15px;">
+                         <div th:if="!${content?.idx}" class="pull-left">
+                             <a href="/main" class="btn btn-default">목록으로</a>
+                         </div>
+                     </th>
+                     <td>
+                    <div class="pull-right">
+                        <input th:if="!${content?.idx}" type="submit" class="btn btn-primary" th:value="저장"/>
+                    </div>
+                     </td>
+                  </tr>
+                    <input type="hidden" name="writer" th:value="${user.email}"/>
                 </form>
             </table>
-            <div class="pull-left">
+            <div class="pull-left" th:if="${content?.idx}">
                 <a href="/main" class="btn btn-default">목록으로</a>
             </div>
             <div class="pull-right">
-                <button th:if="!${content?.idx}" onclick=document.getElementById('content_form').submit(); type="button" class="btn btn-primary" >저장</button>
+<!--                <button th:if="!${content?.idx}" onclick=document.getElementById('content_form').submit(); type="button" class="btn btn-primary" >저장</button>-->
                 <button th:if="${content?.idx}" type="button" class="btn btn-info" id="update">수정</button>
                 <button th:if="${content?.idx}" type="button" class="btn btn-danger" id="delete">삭제</button>
             </div>

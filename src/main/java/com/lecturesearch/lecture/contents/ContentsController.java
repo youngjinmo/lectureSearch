@@ -1,24 +1,23 @@
 package com.lecturesearch.lecture.contents;
 
+import com.lecturesearch.lecture.OAuth2.User;
+import com.lecturesearch.lecture.OAuth2.annotation.SocialUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
+
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/contents")
@@ -59,7 +58,8 @@ public class ContentsController {
 
 
     @RequestMapping("/boardform")
-    public String boardForm() {
+    public String boardForm(@SocialUser User user, Model model) {
+        model.addAttribute("user", user);
         return "/layout/boardForm";
     }
     @RequestMapping("/review")
@@ -82,10 +82,14 @@ public class ContentsController {
     @RequestMapping(value = "/save", method = RequestMethod.POST,
     consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public String saveContent(@RequestParam("title") String title, @RequestParam("author") String author,
-                                  @RequestParam("files") MultipartFile[] files, @RequestParam("price") String price,
-                                  @RequestParam("runningTime") String runningTime, @RequestParam("createdDate") String createdDate,
-                                  @RequestParam("description") String description,
+                              @RequestParam("files") MultipartFile[] files, @RequestParam("price") String price,
+                              @RequestParam("runningTime") String runningTime, @RequestParam("createdDate") String createdDate,
+                              @RequestParam("description") String description, @RequestParam("writer") String writer,
                               HttpServletResponse response){
+//        SecurityContextHolder.clearContext();
+//        OAuth2AuthenticationToken authentication = (OAuth2AuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+//        String email= String.valueOf(authentication.getPrincipal().getAttributes().get("email"));
+
         List<String> imagesList;
 
         imagesList = contentsService.saveImages(files);
@@ -98,6 +102,7 @@ public class ContentsController {
                 .runningTime(runningTime)
                 .createdDate(createdDate)
                 .description(description)
+                .writer(writer)
                 .build();
         
         contentsService.contentSave(contentsVO);

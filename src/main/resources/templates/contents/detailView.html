@@ -62,16 +62,16 @@
                     </div>
                     <div class="row mb-5">
                         <div class="col-md-6 col-lg-4 text-center border-bottom border-top py-3">
-                            <span class="d-inline-block text-black mb-0 caption-text">Category</span>
-                            <strong class="d-block">Condo</strong>
+                            <span class="d-inline-block text-black mb-0 caption-text">작성자</span>
+                            <strong class="d-block"th:text="${contents.writer}"></strong>
                         </div>
                         <div class="col-md-6 col-lg-4 text-center border-bottom border-top py-3">
                             <span class="d-inline-block text-black mb-0 caption-text">강좌 등록일</span>
-                            <strong class="d-block" th:text="${contents.createdDate}">2018</strong>
+                            <strong class="d-block" th:text="${contents.createdDate}"></strong>
                         </div>
                         <div class="col-md-6 col-lg-4 text-center border-bottom border-top py-3">
                             <span class="d-inline-block text-black mb-0 caption-text">Price</span>
-                            <strong class="d-block" th:text="'￦' + ${contents.price}">$520</strong>
+                            <strong class="d-block" th:text="'￦' + ${contents.price}"></strong>
                         </div>
                     </div>
                     <h2 class="h4 text-black">More Info</h2>
