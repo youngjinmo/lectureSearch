@@ -27,6 +27,7 @@ public class ContentsVO {
     private String createdDate;
     private String runningTime;
     private String registrationDate;
+    private String writer;
 
 
 //    public ContentsVO(String no, String title, String subject, String price, String uploadDate, String runningTime) {
@@ -39,7 +40,9 @@ public class ContentsVO {
 //    }
 
     @Builder
-    public ContentsVO(String title, String author, String subject, List<String> images, String price, String description, String createdDate, String runningTime, String registrationDate) {
+    public ContentsVO(String title, String author, String subject, List<String> images,
+                      String price, String description, String createdDate, String runningTime,
+                      String registrationDate, String writer) {
         this.title = title;
         this.author = author;
         this.subject = subject;
@@ -49,5 +52,6 @@ public class ContentsVO {
         this.createdDate = createdDate;
         this.runningTime = runningTime;
         this.registrationDate = registrationDate;
+        this.writer = writer;
     }
 }
