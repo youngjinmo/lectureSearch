@@ -5,12 +5,11 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-class testAAA {
+class testTestPassword {
 
     @Test
     void test1() {
-        AAA aaa = new AAA();
-        aaa.test();
-
+        testPassword testPassword = new testPassword();
+        testPassword.test();
     }
 }
