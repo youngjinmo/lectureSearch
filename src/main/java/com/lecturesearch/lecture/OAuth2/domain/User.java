@@ -1,5 +1,6 @@
-package com.lecturesearch.lecture.OAuth2;
+package com.lecturesearch.lecture.OAuth2.domain;
 
+import com.lecturesearch.lecture.OAuth2.SocialType;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;

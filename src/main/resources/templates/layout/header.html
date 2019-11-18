@@ -16,6 +16,11 @@
                     <h1 class="mb-0"><a href="/main" class="text-white h2 mb-0"><strong>LectureSearch<span class="text-danger">.</span></strong></a></h1>
                 </div>
                 <div class="col-4 col-md-4 col-lg-8">
+
+<!--                    <div>-->
+<!--                        <span style="color: white">환영합니다. <span th:text="${user.name}"></span>님</span>-->
+<!--                    </div>-->
+
                     <nav class="site-navigation text-right text-md-right" role="navigation">
 
                         <div class="d-inline-block d-lg-none ml-md-0 mr-auto py-3"><a href="#" class="site-menu-toggle js-menu-toggle text-white"><span class="icon-menu h3"></span></a></div>
@@ -25,26 +30,16 @@
                                 <a href="/main">Home</a>
                             </li>
                             <li><a href="/contents/cartList">Cart</a></li>
-                            <li><a href="#">Rent</a></li>
-                            <li class="has-children">
-                                <a href="#">Properties</a>
-                                <ul class="dropdown arrow-top">
-                                    <li><a href="#">Condo</a></li>
-                                    <li><a href="#">Property Land</a></li>
-                                    <li><a href="#">Commercial Building</a></li>
-                                    <li class="has-children">
-                                        <a href="#">Sub Menu</a>
-                                        <ul class="dropdown">
-                                            <li><a href="#">Menu One</a></li>
-                                            <li><a href="#">Menu Two</a></li>
-                                            <li><a href="#">Menu Three</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li><a href="#">Blog</a></li>
                             <li><a href="#">About</a></li>
                             <li><a href="#">Contact</a></li>
+<!--                            <div th:if"${session.notlogin()}">-->
+<!--                                <li><a href="#">Login</a></li>-->
+<!--                                <li><a href="#">Signup</a></li>-->
+<!--                            </div>-->
+<!--                            <div th:if"${session.logined()}">-->
+<!--                                <li><a href="#">About</a></li>-->
+<!--                                <li><a href="#">Logout</a></li>-->
+<!--                            </div>-->
                         </ul>
                     </nav>
                 </div>
