@@ -23,6 +23,9 @@ public class ContentsServiceImpl implements ContentsService {
     @Autowired
     private ReviewRepository reviewRepository;
 
+    @Autowired
+    private CartRepository cartRepository;
+
     //콘텐츠 리스트 보기
 //    @Override
 //    public Iterable<ContentsVO> contentsList() {
@@ -66,9 +69,20 @@ public class ContentsServiceImpl implements ContentsService {
     }
 
     @Override
+    public CartVO cartInsert(CartVO paramVO) {
+        return cartRepository.save(paramVO);
+    }
+
+    @Override
     public Page<ReviewVO> findReviewList(String contentsIdx, Pageable pageable) {
         pageable = PageRequest.of(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1, pageable.getPageSize());
         return reviewRepository.findAllByContentsIdx(contentsIdx, pageable);
+    }
+
+    @Override
+    public Page<CartVO> cartList(String email, Pageable pageable) {
+        pageable = PageRequest.of(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1, pageable.getPageSize());
+        return cartRepository.findAllByEmail(email, pageable);
     }
 
     @Override
@@ -82,7 +96,8 @@ public class ContentsServiceImpl implements ContentsService {
             } catch (NoSuchAlgorithmException e) {
                 e.printStackTrace();
             }
-            File targetFile = new File("./resources/static/userImages/"+ imageName+".jpg");
+            File targetFile = new File("/Users/home/Java/git_clone/lectureSearch/src/main/resources/static/userImages/"+ imageName+".jpg");
+//            File targetFile = new File("./resources/static/userImages/"+ imageName+".jpg");
             try{
                 files[i].transferTo(targetFile);
             } catch (IOException e) {
@@ -91,5 +106,4 @@ public class ContentsServiceImpl implements ContentsService {
         }
         return imagesList;
     }
-
 }

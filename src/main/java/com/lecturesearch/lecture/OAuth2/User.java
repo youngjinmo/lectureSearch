@@ -8,7 +8,6 @@ import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor

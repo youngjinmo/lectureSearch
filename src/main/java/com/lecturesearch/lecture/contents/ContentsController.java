@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.util.List;
@@ -34,7 +35,7 @@ public class ContentsController {
 //    }
 
     @RequestMapping("/detail")
-    public String detailView(String idx, Model model, @PageableDefault Pageable pageable) {
+    public String detailView(String idx, Model model, @PageableDefault Pageable pageable, HttpServletResponse response) {
         ContentsVO i = contentsService.detailView(idx);
         Page r = contentsService.findReviewList(idx, pageable);
         model.addAttribute("contents", i);
@@ -113,8 +114,23 @@ public class ContentsController {
 
 
     @RequestMapping("/cartList")
-    public String cartList() {
+    public String cartList(@PageableDefault Pageable pageable, @SocialUser User user, Model model) {
+        String email = user.getEmail();
+        Page i = contentsService.cartList(email, pageable);
+//        System.out.println(i.);
+        model.addAttribute("cartList", i);
         return "/contents/cartList";
     }
 
+    @RequestMapping("/cartInsert")
+    public String cartInsert(@ModelAttribute CartVO paramVO){
+
+        contentsService.cartInsert(paramVO);
+        return "redirect:/contents/cartList";
+    }
+
+    @RequestMapping("/cartDelete")
+    public String cartDelete(){
+        return "redirect:/contents/cartList";
+    }
 }
