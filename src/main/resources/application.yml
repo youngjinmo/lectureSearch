@@ -8,5 +8,4 @@ spring:
               client-secret:
           google:
             client-id:
-            client-secret: 
-
+            client-secret:
