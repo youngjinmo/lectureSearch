@@ -49,9 +49,9 @@
             <div class="col-lg-8">
                 <div>
                     <div class="slide-one-item home-slider owl-carousel">
-                        <div><img src="/images/hero_bg_1.jpg" alt="Image" class="img-fluid"></div>
-                        <div><img src="/images/hero_bg_2.jpg" alt="Image" class="img-fluid"></div>
-                        <div><img src="/images/hero_bg_3.jpg" alt="Image" class="img-fluid"></div>
+                        <div><img th:src="@{'/userImages/'+${contents.images[0]}+'.jpg'}" alt="Image" class="img-fluid"></div>
+<!--                        <div><img th:src="@{'/userImages/'+${contents.images[1]}+'.jpg'}" alt="Image" class="img-fluid"></div>-->
+<!--                        <div><img th:src="@{'/userImages/'+${contents.images[2]}+'.jpg'}" alt="Image" class="img-fluid"></div>-->
                     </div>
                 </div>
                 <div class="bg-white property-body border-bottom border-left border-right">
