@@ -2,6 +2,7 @@ package com.lecturesearch.lecture.OAuth2.controller;
 
 import com.lecturesearch.lecture.OAuth2.domain.User;
 import com.lecturesearch.lecture.OAuth2.annotation.SocialUser;
+import com.lecturesearch.lecture.OAuth2.password.PasswordEncoding;
 import com.lecturesearch.lecture.OAuth2.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -34,11 +35,14 @@ public class UserController {
 
     @PostMapping("/create")
     public String create(User user){
-        // System.out.println("email : "+user.getEmail()+"  |  name : "+user.getName()+"  | password : "+user.getPassword
-        // ());
+        // 비밀번호 암호화
+        PasswordEncoding passwordEncoding = new PasswordEncoding();
+        String rawPassword = user.getPassword();
+        String encodedPassword = passwordEncoding.encode(rawPassword);
+        user.setPassword(encodedPassword);
+
+        // user 정보 콘솔 출력
         System.out.println("user : "+user);
-        // user.add(user);
-        // userRepository.save(user);
 
         return "redirect:/main";
     }

@@ -10,6 +10,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -36,8 +37,10 @@ public class User {
     private String updatedDate;
 
     @Builder
-    public User(String name, String password, String email, String createdDate,
-                String principal, SocialType socialType , String updatedDate){
+    public User(String name, String password,
+                String email, String createdDate,
+                String principal, SocialType socialType ,
+                String updatedDate){
         this.name=name;
         this.password=password;
         this.email=email;
