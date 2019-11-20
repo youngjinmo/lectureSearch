@@ -13,14 +13,8 @@ public class LectureApplicationTests {
 
     @Test
     public void contextLoads() {
-<<<<<<< HEAD
         testPassword testPassword =new testPassword();
         testPassword.test();
-
-||||||| merged common ancestors
-=======
-
->>>>>>> upstream/subMaster
     }
 
 }

@@ -5,12 +5,11 @@ import com.lecturesearch.lecture.OAuth2.annotation.SocialUser;
 import com.lecturesearch.lecture.OAuth2.password.PasswordEncoding;
 import com.lecturesearch.lecture.OAuth2.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -41,6 +40,16 @@ public class UserController {
         String rawPassword = user.getPassword();
         String encodedPassword = passwordEncoding.encode(rawPassword);
         user.setPassword(encodedPassword);
+
+        // 가입날짜 저장
+        Date date = new Date();
+        SimpleDateFormat convertDate = new SimpleDateFormat("yyyy년 MM월 dd일");
+        String createdDate = ""+convertDate.format(date);
+        user.setCreatedDate(createdDate);
+
+        // 수정날짜 저장
+        String updatedDate = ""+convertDate.format(date);
+        user.setUpdatedDate(updatedDate);
 
         // user 정보 콘솔 출력
         System.out.println("user : "+user);
