@@ -16,22 +16,26 @@
             <input id="board_idx" type="hidden" th:value="${content?.idx}"/>
             <input id="board_create_date" type="hidden" th:value="${content?.createdDate}"/>
             <table class="table">
-                <form id="content_form" th:action="@{/contents/save}" method="post" enctype="multipart/form-data">
+                <form id="content_form" th:action="!${content?.idx} ? @{/contents/save} : @{/contents/update}"
+                      th:method="!${content?.idx} ? post : put" enctype="multipart/form-data">
+                    <!--                <tr>-->
+<!--                    <th style="padding:13px 0 0 15px">게시판 선택</th>-->
+<!--                    <td>-->
+<!--                        <div class="pull-left">-->
+<!--                            <select class="form-control input-sm" id="board_type">-->
+<!--                                <option>&#45;&#45;분류&#45;&#45;</option>-->
+<!--                                <option th:value="notice" th:selected="${content?.boardType?.name() == 'notice'}">공지사항</option>-->
+<!--                                <option th:value="free" th:selected="${content?.boardType?.name() == 'free'}">자유게시판</option>-->
+<!--                            </select>-->
+<!--                        </div>-->
+<!--                    </td>-->
+<!--                </tr>-->
                 <tr>
-                    <th style="padding:13px 0 0 15px">게시판 선택</th>
-                    <td>
-                        <div class="pull-left">
-                            <select class="form-control input-sm" id="board_type">
-                                <option>--분류--</option>
-                                <option th:value="notice" th:selected="${content?.boardType?.name() == 'notice'}">공지사항</option>
-                                <option th:value="free" th:selected="${content?.boardType?.name() == 'free'}">자유게시판</option>
-                            </select>
-                        </div>
-                    </td>
+                    <td><input name="contentIdx" type="hidden" th:value="${content?.idx}"> </td>
                 </tr>
                 <tr>
                     <th style="padding:13px 0 0 15px;">게시날짜</th>
-                    <td><input type="text" class="col-md-1 form-control input-sm" readonly="readonly" th:value="${content?.registrationDate} ? ${#temporals.format(content.registrationDate,'yyyy-MM-dd HH:mm')} : ${content?.registrationDate}"/></td>
+                    <td><input type="text" class="col-md-1 form-control input-sm" readonly="readonly" th:value="${content?.registrationDate}"/></td>
                 </tr>
                 <tr>
                     <th style="padding:13px 0 0 15px;">*제목</th>
@@ -48,7 +52,7 @@
                 <tr>
                     <th style="padding:13px 0 0 15px;">이미지 파일</th>
                     <td>
-                            <input name="files" id="content_images" multiple="multiple" type="file" th:value="${content?.images}" />
+                            <input name="files" id="content_images" multiple="multiple" type="file" th:value="${content?.images}"/>
                     </td>
                 </tr>
 <!--                <tr>-->
@@ -82,6 +86,7 @@
                      <td>
                     <div class="pull-right">
                         <input th:if="!${content?.idx}" type="submit" class="btn btn-primary" th:value="저장"/>
+                        <button th:if="${content?.idx}" type="submit" class="btn btn-info" id="update">수정</button>
                     </div>
                      </td>
                   </tr>
@@ -90,11 +95,6 @@
             </table>
             <div class="pull-left" th:if="${content?.idx}">
                 <a href="/main" class="btn btn-default">목록으로</a>
-            </div>
-            <div class="pull-right">
-<!--                <button th:if="!${content?.idx}" onclick=document.getElementById('content_form').submit(); type="button" class="btn btn-primary" >저장</button>-->
-                <button th:if="${content?.idx}" type="button" class="btn btn-info" id="update">수정</button>
-                <button th:if="${content?.idx}" type="button" class="btn btn-danger" id="delete">삭제</button>
             </div>
         </div>
 
@@ -141,43 +141,30 @@
 <!--                });-->
 <!--            });-->
 <!--        </script>-->
-        <script th:if="${content?.idx}">
-            $('#update').click(function () {
-                var jsonData = JSON.stringify({
-                    title: $('#board_title').val(),
-                    subTitle: $('#board_sub_title').val(),
-                    content: $('#board_content').val(),
-                    boardType: $('#board_type option:selected').val(),
-                    createdDate: $('#board_create_date').val()
-                });
-                $.ajax({
-                    url: "http://localhost:8081/api/boards/" + $('#board_idx').val(),
-                    type: "PUT",
-                    data: jsonData,
-                    contentType: "application/json",
-                    dataType: "json",
-                    success: function () {
-                        alert('수정 성공!');
-                        location.href = '/board/list';
-                    },
-                    error: function () {
-                        alert('수정 실패!');
-                    }
-                });
-            });
-            $('#delete').click(function () {
-                $.ajax({
-                    url: "http://localhost:8081/api/boards/" + $('#board_idx').val(),
-                    type: "DELETE",
-                    success: function () {
-                        alert('삭제 성공!');
-                        location.href = '/board/list';
-                    },
-                    error: function () {
-                        alert('삭제 실패!');
-                    }
-                });
-            });
-        </script>
+<!--        <script th:if="${content?.idx}">-->
+<!--            $('#update').click(function () {-->
+<!--                var jsonData = JSON.stringify({-->
+<!--                    title: $('#board_title').val(),-->
+<!--                    subTitle: $('#board_sub_title').val(),-->
+<!--                    content: $('#board_content').val(),-->
+<!--                    boardType: $('#board_type option:selected').val(),-->
+<!--                    createdDate: $('#board_create_date').val()-->
+<!--                });-->
+<!--                $.ajax({-->
+<!--                    url: "http://localhost:8081/api/boards/" + $('#board_idx').val(),-->
+<!--                    type: "PUT",-->
+<!--                    data: jsonData,-->
+<!--                    contentType: "application/json",-->
+<!--                    dataType: "json",-->
+<!--                    success: function () {-->
+<!--                        alert('수정 성공!');-->
+<!--                        location.href = '/board/list';-->
+<!--                    },-->
+<!--                    error: function () {-->
+<!--                        alert('수정 실패!');-->
+<!--                    }-->
+<!--                });-->
+<!--            });-->
+<!--        </script>-->
     </body>
 </html>

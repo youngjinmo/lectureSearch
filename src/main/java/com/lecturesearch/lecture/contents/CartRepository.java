@@ -6,10 +6,13 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ReviewRepository extends ElasticsearchRepository<ReviewVO, String> {
-    //리뷰작성하기
-    ReviewVO save(ReviewVO paramVO);
+public interface CartRepository extends ElasticsearchRepository<CartVO, String> {
+    //장바구니 리스트
+    Page<CartVO> findAllByEmail(String email, Pageable pageable);
 
-    //리뷰 리스트
-    Page<ReviewVO> findAllByContentsIdx(String contentsIdx, Pageable pageable);
+    //장바구니 담기
+    CartVO save(CartVO paramVO);
+
+    //장바구니 삭제
+
 }
