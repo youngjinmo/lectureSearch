@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ContentsService {
 
@@ -30,6 +31,7 @@ public interface ContentsService {
 
    List<String> saveImages(MultipartFile[] files);
 
+   Optional<ContentsVO> findById(String idx);
    //리뷰리스트
     Page<ReviewVO> findReviewList(String contentsIdx, Pageable pageable);
 }

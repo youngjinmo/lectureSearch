@@ -13,6 +13,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ContentsServiceImpl implements ContentsService {
@@ -69,6 +70,11 @@ public class ContentsServiceImpl implements ContentsService {
     public Page<ReviewVO> findReviewList(String contentsIdx, Pageable pageable) {
         pageable = PageRequest.of(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1, pageable.getPageSize());
         return reviewRepository.findAllByContentsIdx(contentsIdx, pageable);
+    }
+
+    @Override
+    public Optional<ContentsVO> findById(String idx){
+        return contentsRepository.findById(idx);
     }
 
     @Override
