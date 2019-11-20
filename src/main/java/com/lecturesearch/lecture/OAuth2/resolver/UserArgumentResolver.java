@@ -10,7 +10,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.support.WebDataBinderFactory;
@@ -44,9 +43,10 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
     }
 
     @Override
-    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
-        HttpSession session = ((ServletRequestAttributes)
-                RequestContextHolder.currentRequestAttributes()).getRequest().getSession();
+    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
+                                  NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
+        HttpSession session =
+                ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest().getSession();
         User user = (User) session.getAttribute("user");
 
         return getUser(user, session);
@@ -55,10 +55,8 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
     private User getUser(User user, HttpSession session) {
         if(user == null) {
             try {
-                OAuth2AuthenticationToken authentication =
-                        (OAuth2AuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
-                Map<String, Object> map =
-                        authentication.getPrincipal().getAttributes();
+                OAuth2AuthenticationToken authentication = (OAuth2AuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+                Map<String, Object> map = authentication.getPrincipal().getAttributes();
                 User convertUser = convertUser(authentication.getAuthorizedClientRegistrationId(), map);
                 user = userRepository.findByEmail(convertUser.getEmail());
 

@@ -37,8 +37,12 @@ public class HomeController {
     public String list(@PageableDefault Pageable pageable, Model model, HttpServletResponse response, @SocialUser User user) {
         Page i = contentsService.findContentsList(pageable);
         model.addAttribute("pageList", i);
-        response.setContentType("multipart/form-data");
-        model.addAttribute("user", user); // 로그인시 메뉴에서 이름 출력 by 영진
+
+        // 로그인시 사용자이름 화면에서 출력
+        if(user != null){
+            model.addAttribute("user", user);
+        }
+
         return "/layout/main";
     }
 }
