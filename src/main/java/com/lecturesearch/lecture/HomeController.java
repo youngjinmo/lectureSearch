@@ -28,12 +28,7 @@ public class HomeController {
 //        return "/layout/main";
 //    }
 
-    @GetMapping("/")
-    public String home(){
-        return "main";
-    }
-
-    @RequestMapping("/main")
+    @RequestMapping(value = "/main")
     public String list(@PageableDefault Pageable pageable, Model model, HttpServletResponse response, @SocialUser User user) {
         Page i = contentsService.findContentsList(pageable);
         model.addAttribute("pageList", i);
@@ -42,7 +37,7 @@ public class HomeController {
         if(user != null){
             model.addAttribute("user", user);
         }
-
+        response.setContentType("multipart/form-data");
         return "/layout/main";
     }
 }

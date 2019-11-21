@@ -29,8 +29,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         CharacterEncodingFilter filter = new CharacterEncodingFilter();
         http
             .authorizeRequests()
-                .antMatchers("/**","/oauth2/**","/login/**","/css/**","/images/**","/js/**",
-                        "/console/**").permitAll()
+                .antMatchers("/","/oauth2/**","/login/**","/css/**","/images/**","/userImages/**","/js/**",
+                        "/console/**","/fonts/**","/main/**","/contents/detail").permitAll()
                 .antMatchers("/facebook").hasAuthority(FACEBOOK.getRoleType())
                 .antMatchers("/google").hasAuthority(GOOGLE.getRoleType())
                 .anyRequest().authenticated()
@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
                 .logout()
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/login")
+                .logoutSuccessUrl("/main")
                 .deleteCookies("JESSIONID")
                 .invalidateHttpSession(true)
             .and()

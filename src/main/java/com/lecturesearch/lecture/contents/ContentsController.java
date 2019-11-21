@@ -32,11 +32,15 @@ public class ContentsController {
 //    }
 
     @RequestMapping("/detail")
-    public String detailView(String idx, Model model, @PageableDefault Pageable pageable, HttpServletResponse response) {
-        ContentsVO i = contentsService.detailView(idx);
-        Page r = contentsService.findReviewList(idx, pageable);
-        model.addAttribute("contents", i);
-        model.addAttribute("review", r);
+    public String detailView(String idx, Model model, @PageableDefault Pageable pageable,
+                             @SocialUser User user, HttpServletResponse response) {
+        ContentsVO contents = contentsService.detailView(idx);
+        Page page = contentsService.findReviewList(idx, pageable);
+        model.addAttribute("contents", contents);
+        model.addAttribute("review", page);
+        model.addAttribute("user", user);
+
+        response.setContentType("multipart-form/data");
         return "/contents/detailView";
     }
 
@@ -60,12 +64,17 @@ public class ContentsController {
         model.addAttribute("user", user);
         return "/layout/boardForm";
     }
-    @RequestMapping("/updateboardform")
-    public String boardForm2(@SocialUser User user, Model model, String idx) {
+    @RequestMapping("/updateContent")
+    public String updateContent(@SocialUser User user, Model model, String idx) {
         ContentsVO i = contentsService.detailView(idx);
         model.addAttribute("user", user);
         model.addAttribute("content",i);
         return "/layout/boardForm";
+    }
+    @RequestMapping("deleteContent")
+    public String deleteContent(String idx){
+         contentsService.deleteContent(idx);
+         return "redirect:/main";
     }
 
     @RequestMapping("/review")
@@ -97,9 +106,9 @@ public class ContentsController {
                 .writer(writer)
                 .build();
         contentsVO.setRegistrationDate();
+        response.setContentType("multipart-form/data");
 
         contentsService.contentSave(contentsVO);
-        response.setContentType("multipart/form-data");
         return "redirect:/main";
     }
 
@@ -142,7 +151,6 @@ public class ContentsController {
 
     @RequestMapping("/cartInsert")
     public String cartInsert(@ModelAttribute CartVO paramVO){
-
         contentsService.cartInsert(paramVO);
         return "redirect:/contents/cartList";
     }
