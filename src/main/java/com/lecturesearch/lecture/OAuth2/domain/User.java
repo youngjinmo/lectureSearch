@@ -1,5 +1,6 @@
-package com.lecturesearch.lecture.OAuth2;
+package com.lecturesearch.lecture.OAuth2.domain;
 
+import com.lecturesearch.lecture.OAuth2.SocialType;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,7 +9,6 @@ import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -16,13 +16,13 @@ import java.time.LocalDateTime;
 public class User {
 
     @Id
-    private String idx;
+    private long idx;
 
     private String name;
 
-    private String password;
-
     private String email;
+
+    private String password;
 
     private String principal;
 
@@ -34,8 +34,9 @@ public class User {
     private String updatedDate;
 
     @Builder
-    public User(String name, String password, String email, String createdDate,
-                String principal, SocialType socialType , String updatedDate){
+    public User(String name, String password,
+                String email, String createdDate, String updatedDate,
+                String principal, SocialType socialType){
         this.name=name;
         this.password=password;
         this.email=email;

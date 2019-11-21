@@ -10,9 +10,12 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ContentsServiceImpl implements ContentsService {
@@ -22,6 +25,9 @@ public class ContentsServiceImpl implements ContentsService {
 
     @Autowired
     private ReviewRepository reviewRepository;
+
+    @Autowired
+    private CartRepository cartRepository;
 
     //콘텐츠 리스트 보기
 //    @Override
@@ -66,9 +72,29 @@ public class ContentsServiceImpl implements ContentsService {
     }
 
     @Override
+    public void deleteContent(String idx){
+        contentsRepository.deleteById(idx);
+    }
+
+    @Override
+    public CartVO cartInsert(CartVO paramVO) {
+        return cartRepository.save(paramVO);
+    }
+
+    @Override
     public Page<ReviewVO> findReviewList(String contentsIdx, Pageable pageable) {
         pageable = PageRequest.of(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1, pageable.getPageSize());
         return reviewRepository.findAllByContentsIdx(contentsIdx, pageable);
+    }
+
+    @Override
+    public Optional<ContentsVO> findById(String idx) {
+        return contentsRepository.findById(idx);
+    }
+
+    public Page<CartVO> cartList(String email, Pageable pageable) {
+        pageable = PageRequest.of(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1, pageable.getPageSize());
+        return cartRepository.findAllByEmail(email, pageable);
     }
 
     @Override
@@ -77,12 +103,13 @@ public class ContentsServiceImpl implements ContentsService {
         List<String> imagesList=new ArrayList<>();
         for(int i=0; i<files.length; i++){
             try {
-                 imageName=HashEncryption.sha256(files[i].getOriginalFilename());
+                 imageName=HashEncryption.sha256(files[i].getOriginalFilename()+LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
                  imagesList.add(imageName);
             } catch (NoSuchAlgorithmException e) {
                 e.printStackTrace();
             }
-            File targetFile = new File("./resources/static/userImages/"+ imageName+".jpg");
+//            File targetFile = new File("/Users/home/Java/git_clone/lectureSearch/src/main/resources/static/userImages/"+ imageName+".jpg");
+            File targetFile = new File("C:/Users/patro/Documents/GitHub/lectureSearch/src/main/resources/static/userImages/"+ imageName+".jpg");
             try{
                 files[i].transferTo(targetFile);
             } catch (IOException e) {
@@ -91,5 +118,4 @@ public class ContentsServiceImpl implements ContentsService {
         }
         return imagesList;
     }
-
 }

@@ -1,6 +1,5 @@
 package com.lecturesearch.lecture.OAuth2.config;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,8 +29,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         CharacterEncodingFilter filter = new CharacterEncodingFilter();
         http
             .authorizeRequests()
-                .antMatchers("/","/oauth2/**","/login/**","/css/**","/images/**","/js/**",
-                        "/console/**").permitAll()
+                .antMatchers("/","/oauth2/**","/login/**","/css/**","/images/**","/userImages/**","/js/**",
+                        "/console/**","/fonts/**","/main/**","/contents/detail").permitAll()
                 .antMatchers("/facebook").hasAuthority(FACEBOOK.getRoleType())
                 .antMatchers("/google").hasAuthority(GOOGLE.getRoleType())
                 .anyRequest().authenticated()
@@ -50,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
                 .logout()
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/")
+                .logoutSuccessUrl("/main")
                 .deleteCookies("JESSIONID")
                 .invalidateHttpSession(true)
             .and()

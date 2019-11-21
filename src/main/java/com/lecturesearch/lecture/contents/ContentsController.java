@@ -1,23 +1,20 @@
 package com.lecturesearch.lecture.contents;
 
+import com.lecturesearch.lecture.OAuth2.domain.User;
+import com.lecturesearch.lecture.OAuth2.annotation.SocialUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
+
 import java.util.List;
 
 @Controller
@@ -35,11 +32,15 @@ public class ContentsController {
 //    }
 
     @RequestMapping("/detail")
-    public String detailView(String idx, Model model, @PageableDefault Pageable pageable) {
-        ContentsVO i = contentsService.detailView(idx);
-        Page r = contentsService.findReviewList(idx, pageable);
-        model.addAttribute("contents", i);
-        model.addAttribute("review", r);
+    public String detailView(String idx, Model model, @PageableDefault Pageable pageable,
+                             @SocialUser User user, HttpServletResponse response) {
+        ContentsVO contents = contentsService.detailView(idx);
+        Page page = contentsService.findReviewList(idx, pageable);
+        model.addAttribute("contents", contents);
+        model.addAttribute("review", page);
+        model.addAttribute("user", user);
+
+        response.setContentType("multipart-form/data");
         return "/contents/detailView";
     }
 
@@ -59,32 +60,36 @@ public class ContentsController {
 
 
     @RequestMapping("/boardform")
-    public String boardForm() {
+    public String boardForm(@SocialUser User user, Model model) {
+        model.addAttribute("user", user);
         return "/layout/boardForm";
     }
+    @RequestMapping("/updateContent")
+    public String updateContent(@SocialUser User user, Model model, String idx) {
+        ContentsVO i = contentsService.detailView(idx);
+        model.addAttribute("user", user);
+        model.addAttribute("content",i);
+        return "/layout/boardForm";
+    }
+    @RequestMapping("deleteContent")
+    public String deleteContent(String idx){
+         contentsService.deleteContent(idx);
+         return "redirect:/main";
+    }
+
     @RequestMapping("/review")
     public String reviewWrite(@ModelAttribute ReviewVO paramVO, Model model, String contentsIdx) {
         contentsService.reviewWrite(paramVO);
         return "redirect:/contents/detail?idx="+contentsIdx;
     }
 
-//    @PostMapping("/save")
-//    @ResponseBody
-//    public ResponseEntity<?> saveContent(@RequestBody ContentsVO contentsVO){
-//        contentsVO.setRegistrationDate(LocalDateTime.now()
-//                .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-//        contentsService.contentSave(contentsVO);
-//        System.out.println(contentsVO.getImages());
-//        System.out.println(contentsVO.getPrice());
-//        return new ResponseEntity<>("{}", HttpStatus.CREATED);
-//    }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST,
     consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public String saveContent(@RequestParam("title") String title, @RequestParam("author") String author,
-                                  @RequestParam("files") MultipartFile[] files, @RequestParam("price") String price,
-                                  @RequestParam("runningTime") String runningTime, @RequestParam("createdDate") String createdDate,
-                                  @RequestParam("description") String description,
+                              @RequestParam("files") MultipartFile[] files, @RequestParam("price") String price,
+                              @RequestParam("runningTime") String runningTime, @RequestParam("createdDate") String createdDate,
+                              @RequestParam("description") String description, @RequestParam("writer") String writer,
                               HttpServletResponse response){
         List<String> imagesList;
 
@@ -98,18 +103,60 @@ public class ContentsController {
                 .runningTime(runningTime)
                 .createdDate(createdDate)
                 .description(description)
+                .writer(writer)
                 .build();
-        
+        contentsVO.setRegistrationDate();
+        response.setContentType("multipart-form/data");
+
+        contentsService.contentSave(contentsVO);
+        return "redirect:/main";
+    }
+
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public String updateContent(@RequestParam("title") String title, @RequestParam("author") String author,
+                                @RequestParam("files") MultipartFile[] files, @RequestParam("price") String price,
+                                @RequestParam("runningTime") String runningTime, @RequestParam("createdDate") String createdDate,
+                                @RequestParam("description") String description, @RequestParam("contentIdx") String contentIdx,
+                                HttpServletResponse response){
+        List<String> imagesList;
+
+        imagesList = contentsService.saveImages(files);
+
+        ContentsVO contentsDTO= ContentsVO.builder()
+                .title(title)
+                .author(author)
+                .images(imagesList)
+                .price(price)
+                .runningTime(runningTime)
+                .createdDate(createdDate)
+                .description(description)
+                .build();
+
+        ContentsVO contentsVO= contentsService.findById(contentIdx).get();
+        contentsVO.update(contentsDTO);
+
         contentsService.contentSave(contentsVO);
         response.setContentType("multipart/form-data");
         return "redirect:/main";
     }
 
-
-
     @RequestMapping("/cartList")
-    public String cartList() {
+    public String cartList(@PageableDefault Pageable pageable, @SocialUser User user, Model model) {
+        String email = user.getEmail();
+        Page i = contentsService.cartList(email, pageable);
+//        System.out.println(i.);
+        model.addAttribute("cartList", i);
         return "/contents/cartList";
     }
 
+    @RequestMapping("/cartInsert")
+    public String cartInsert(@ModelAttribute CartVO paramVO){
+        contentsService.cartInsert(paramVO);
+        return "redirect:/contents/cartList";
+    }
+
+    @RequestMapping("/cartDelete")
+    public String cartDelete(){
+        return "redirect:/contents/cartList";
+    }
 }

@@ -2,7 +2,7 @@ package com.lecturesearch.lecture.OAuth2.resolver;
 
 
 import com.lecturesearch.lecture.OAuth2.SocialType;
-import com.lecturesearch.lecture.OAuth2.User;
+import com.lecturesearch.lecture.OAuth2.domain.User;
 import com.lecturesearch.lecture.OAuth2.repository.UserRepository;
 import com.lecturesearch.lecture.OAuth2.annotation.SocialUser;
 import org.springframework.core.MethodParameter;
@@ -23,7 +23,8 @@ import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.util.Map;
 
-import static com.lecturesearch.lecture.OAuth2.SocialType.*;
+import static com.lecturesearch.lecture.OAuth2.SocialType.FACEBOOK;
+import static com.lecturesearch.lecture.OAuth2.SocialType.GOOGLE;
 
 
 @Component
@@ -37,13 +38,17 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        return parameter.getParameterAnnotation(SocialUser.class) != null && parameter.getParameterType().equals(User.class);
+        return parameter.getParameterAnnotation(SocialUser.class) != null &&
+                parameter.getParameterType().equals(User.class);
     }
 
     @Override
-    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
-        HttpSession session = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest().getSession();
+    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
+                                  NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
+        HttpSession session =
+                ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest().getSession();
         User user = (User) session.getAttribute("user");
+
         return getUser(user, session);
     }
 
