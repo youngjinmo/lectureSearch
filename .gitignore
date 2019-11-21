@@ -25,7 +25,6 @@ build/
 out/
 
 ### NetBeans ###
-.DS_Store
 /nbproject/private/
 /nbbuild/
 /dist/
@@ -33,5 +32,5 @@ out/
 /.nb-gradle/
 
 ### VS Code ###
-.vscode/
 .DS_Store
+.vscode/

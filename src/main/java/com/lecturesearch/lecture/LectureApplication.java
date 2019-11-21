@@ -1,12 +1,10 @@
 package com.lecturesearch.lecture;
 
-//import com.lecturesearch.lecture.OAuth2.resolver.UserArgumentResolver;
 import com.lecturesearch.lecture.OAuth2.resolver.UserArgumentResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import java.util.List;

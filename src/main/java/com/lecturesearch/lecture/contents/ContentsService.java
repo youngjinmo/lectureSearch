@@ -29,6 +29,8 @@ public interface ContentsService {
 
    ContentsVO contentSave(ContentsVO contentsVO);
 
+   void deleteContent(String idx);
+
    List<String> saveImages(MultipartFile[] files);
 
    Optional<ContentsVO> findById(String idx);
