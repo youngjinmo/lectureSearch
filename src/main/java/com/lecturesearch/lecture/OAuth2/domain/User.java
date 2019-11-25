@@ -1,5 +1,6 @@
-package com.lecturesearch.lecture.OAuth2;
+package com.lecturesearch.lecture.OAuth2.domain;
 
+import com.lecturesearch.lecture.OAuth2.SocialType;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,6 +9,11 @@ import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -15,13 +21,13 @@ import javax.persistence.Enumerated;
 public class User {
 
     @Id
-    private String idx;
+    private long idx;
 
     private String name;
 
-    private String password;
-
     private String email;
+
+    private String password;
 
     private String principal;
 
@@ -33,8 +39,9 @@ public class User {
     private String updatedDate;
 
     @Builder
-    public User(String name, String password, String email, String createdDate,
-                String principal, SocialType socialType , String updatedDate){
+    public User(String name, String password,
+                String email, String createdDate, String updatedDate,
+                String principal, SocialType socialType){
         this.name=name;
         this.password=password;
         this.email=email;
@@ -42,6 +49,13 @@ public class User {
         this.socialType=socialType;
         this.createdDate=createdDate;
         this.updatedDate=updatedDate;
+    }
+
+    public void setCreatedDate(){//facebook, google 에서 제공하는 시간대와 맞춤
+        this.createdDate=LocalDateTime.ofInstant(new Date().toInstant(), ZoneId.systemDefault()).toString();
+    }
+    public void setUpdatedDate() {
+        this.updatedDate=LocalDateTime.ofInstant(new Date().toInstant(), ZoneId.systemDefault()).toString();
     }
 
 }

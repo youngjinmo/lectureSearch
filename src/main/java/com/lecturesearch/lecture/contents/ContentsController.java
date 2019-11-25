@@ -1,6 +1,6 @@
 package com.lecturesearch.lecture.contents;
 
-import com.lecturesearch.lecture.OAuth2.User;
+import com.lecturesearch.lecture.OAuth2.domain.User;
 import com.lecturesearch.lecture.OAuth2.annotation.SocialUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
