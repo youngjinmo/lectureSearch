@@ -1,3 +1,4 @@
+README.md
 .DS_Store
 HELP.md
 .gradle
@@ -17,6 +18,7 @@ build/
 .sts4-cache
 
 ### IntelliJ IDEA ###
+README.md
 .DS_Store
 .idea
 *.iws
