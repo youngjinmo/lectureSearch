@@ -66,9 +66,47 @@
         width: 250px;
     }
 
-    #socialLogin {
-
+    /*  OAuth2 Login Button  */
+    html, body {
+        height: 100%;
     }
+
+    #socialLogin {
+        display: flex;
+        justify-content: center;
+    }
+
+    .button {
+        width: 330px;
+        height: 45px;
+        font-size: 18px;
+        color: #000;
+        background-color: #fff;
+        border: none;
+        border-radius: 10px;
+    }
+
+    .button:hover {
+        box-shadow: 0px 4px 8px;
+        transform: translateY(-4px);
+    }
+
+    #btn-fb {
+        background-color: #3b5998;
+        color: #FFFFFF;
+    }
+
+    #btn-g {
+        background-color: #ea4335;
+        color: #fff;
+    }
+
+    #form-group-signUp {
+        text-align: center;
+        align-content: center;
+        margin-bottom: 5px;
+    }
+
 </style>
 
 <body>
@@ -91,21 +129,27 @@
                             <!-- 소셜 로그인-->
                             <div id="socialLogin">
                                 <table style="margin-bottom: 30px;">
-                                    <tr>
+                                    <tr> <!-- facebook -->
                                         <td>
-                                            <div class="fb-login-button"
-                                                 data-width="" data-size="large"
-                                                 data-button-type="continue_with" data-auto-logout-link="false"
-                                                 data-use-continue-as="true"
-                                            ></div>
+                                            <div class="oauth2-social-btn">
+                                                <button class="button" id="btn-fb"
+                                                        style="margin-bottom: 8px;"
+                                                        href="javascript:;"
+                                                        data-social="facebook">
+                                                    Facebook으로 로그인
+                                                </button>
+                                            </div>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr> <!-- google -->
                                         <td>
-                                            <a href="javascript:;" class="btn_social" data-social="google" style="color:white;">
-                                                <img th:src="@{images/google-login.png}" style="width: 245px; height:
-                                                 50px;"/>
-                                            </a>
+                                            <div class="oauth2-social-btn">
+                                                <button class="button" id="btn-g"
+                                                        href="javascript:;"
+                                                        data-social="facebook">
+                                                    Google로 로그인
+                                                </button>
+                                            </div>
                                         </td>
                                     </tr>
                                 </table>
@@ -123,7 +167,7 @@
                                     <tr>
                                         <th><label for="loginPassword">비밀번호</label></th>
                                         <td><input type="password" class="form-control" id="loginPassword" name="password"
-                                                   placeholder="비밀번호를 입력하세요."></td>
+                                                   placeholder="비밀번호를 입력하세요." style="margin-top: 5px;"></td>
                                     </tr>
                                 </table>
                             </div>
@@ -142,7 +186,7 @@
                     <h2 class="user-title">회원가입</h2>
                     <form action="/create" method="post">
                         <div class="form-group">
-                            <table style="text-align: center; align-content: center; margin: auto;">
+                            <table id="form-group-signUp">
                                 <tr>
                                     <th><label for="signUpEmail">이메일</label></th>
                                     <td><input type="email" class="form-control" id="signUpEmail" name="email"
@@ -180,18 +224,6 @@
 </div>
 
 
-<!-- Facebook Login API -->
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v2.9&appId=2414664315458888";
-    fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
 <footer th:replace="/layout/footer"></footer>
 
 
@@ -199,7 +231,13 @@
 
 <script th:src="@{js/jquery.min.js}"></script>
 <script>
-    $('.btn_social').click(function() {
+
+    $('#btn-fb').click(function() {
+        var socialType = $(this).data('social');
+        location.href="/oauth2/authorization/"+socialType;
+    });
+
+    $('#btn-g').click(function() {
         var socialType = $(this).data('social');
         location.href="/oauth2/authorization/"+socialType;
     });
