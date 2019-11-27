@@ -4,6 +4,7 @@ import com.lecturesearch.lecture.OAuth2.domain.User;
 import com.lecturesearch.lecture.OAuth2.annotation.SocialUser;
 import com.lecturesearch.lecture.OAuth2.password.PasswordEncoding;
 import com.lecturesearch.lecture.OAuth2.repository.UserRepository;
+import com.lecturesearch.lecture.OAuth2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,10 +18,8 @@ import java.util.List;
 @Controller
 public class UserController {
 
-    private List<User> user = new ArrayList<User>();
-
     @Autowired
-    private UserRepository userRepository;
+    UserService userService;
 
     @GetMapping("/login")
     public String login(){
@@ -41,20 +40,11 @@ public class UserController {
         String encodedPassword = passwordEncoding.encode(rawPassword);
         user.setPassword(encodedPassword);
 
-        // 가입날짜 저장
-        Date date = new Date();
-        SimpleDateFormat convertDate = new SimpleDateFormat("yyyy년 MM월 dd일");
-        String createdDate = ""+convertDate.format(date);
-        user.setCreatedDate(createdDate);
+        user.setCreatedDate();
 
-        // 수정날짜 저장
-        String updatedDate = ""+convertDate.format(date);
-        user.setUpdatedDate(updatedDate);
+        userService.saveUser(user);
 
-        // user 정보 콘솔 출력
-        System.out.println("user : "+user);
-
-        return "redirect:/main";
+        return "redirect:/login";
     }
 
     @GetMapping("/userlist")

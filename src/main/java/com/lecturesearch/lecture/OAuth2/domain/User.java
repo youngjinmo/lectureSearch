@@ -9,6 +9,11 @@ import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -44,6 +49,13 @@ public class User {
         this.socialType=socialType;
         this.createdDate=createdDate;
         this.updatedDate=updatedDate;
+    }
+
+    public void setCreatedDate(){//facebook, google 에서 제공하는 시간대와 맞춤
+        this.createdDate=LocalDateTime.ofInstant(new Date().toInstant(), ZoneId.systemDefault()).toString();
+    }
+    public void setUpdatedDate() {
+        this.updatedDate=LocalDateTime.ofInstant(new Date().toInstant(), ZoneId.systemDefault()).toString();
     }
 
 }
