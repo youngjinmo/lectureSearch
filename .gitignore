@@ -1,7 +1,7 @@
 
 **/application.yml
 
-*.yml
+*.yaml
 .DS_Store
 HELP.md
 .gradle
