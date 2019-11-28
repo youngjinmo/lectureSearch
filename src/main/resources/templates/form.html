@@ -76,7 +76,7 @@
         justify-content: center;
     }
 
-    .button {
+    .oauth2-btn-img {
         width: 330px;
         height: 45px;
         font-size: 18px;
@@ -86,7 +86,7 @@
         border-radius: 10px;
     }
 
-    .button:hover {
+    .oauth2-btn-img:hover {
         box-shadow: 0px 4px 8px;
         transform: translateY(-4px);
     }
@@ -132,7 +132,7 @@
                                     <tr> <!-- facebook -->
                                         <td>
                                             <div class="oauth2-social-btn">
-                                                <button class="button" id="btn-fb"
+                                                <button class="oauth2-btn-img" id="btn-fb"
                                                         style="margin-bottom: 8px;"
                                                         href="javascript:;"
                                                         data-social="facebook">
@@ -144,7 +144,7 @@
                                     <tr> <!-- google -->
                                         <td>
                                             <div class="oauth2-social-btn">
-                                                <button class="button" id="btn-g"
+                                                <button class="oauth2-btn-img" id="btn-g"
                                                         href="javascript:;"
                                                         data-social="google">
                                                     Google로 로그인
@@ -155,7 +155,7 @@
                                 </table>
                             </div>
 
-                        <form action="/login" method="get">
+                        <form th:action="@{'/login'}" method="get">
                             <!--일반 로그인-->
                             <div class="form-group">
                                 <table style="text-align: center; align-content: center; margin: auto; margin-bottom: 20px;">
@@ -184,7 +184,7 @@
                 <div id="registerForm" style="width:50%; margin-left: auto; margin-right: auto; text-align: center;">
                     <!-- 회원가입 뷰 -->
                     <h2 class="user-title">회원가입</h2>
-                    <form action="/create" method="post">
+                    <form th:action="@{'/create'}" method="post">
                         <div class="form-group">
                             <table id="form-group-signUp">
                                 <tr>
