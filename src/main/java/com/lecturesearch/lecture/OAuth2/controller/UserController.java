@@ -47,10 +47,5 @@ public class UserController {
         return "redirect:/login";
     }
 
-    @GetMapping("/userlist")
-    public String list(){
-        return "userlist";
-    }
-
 }
 
