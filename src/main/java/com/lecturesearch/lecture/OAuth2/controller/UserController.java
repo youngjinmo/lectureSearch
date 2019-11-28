@@ -31,11 +31,8 @@ public class UserController {
 
     @PostMapping("/create")
     public String create(User user){
-        // 비밀번호 암호화
-        PasswordEncoding passwordEncoding = new PasswordEncoding();
-        String rawPassword = user.getPassword();
-        String encodedPassword = passwordEncoding.encode(rawPassword);
-        user.setPassword(encodedPassword);
+
+        user.setEncodePassword(user.getPassword());
 
         user.setCreatedDate();
         user.setLastVisitDate();
