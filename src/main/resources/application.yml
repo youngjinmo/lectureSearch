@@ -7,5 +7,5 @@ spring:
               client-id:
               client-secret:
           google:
-            client-id: 
+            client-id:
             client-secret:

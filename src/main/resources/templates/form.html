@@ -112,6 +112,27 @@
         margin-bottom: 5px;
     }
 
+    .container {
+        width:100%;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+    }
+
+    #loginForm {
+        width:50%;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;"
+    }
+
+    .form-group table {
+        text-align: center;
+        align-content: center;
+        margin: auto;
+        margin-bottom: 20px;
+    }
+
 </style>
 
 <body>
@@ -127,9 +148,9 @@
         <div class="row align-items-center justify-content-center text-center">
             <div class="col-md-10">
 
-                <div class="container" style="width:100%; margin-left: auto; margin-right: auto; text-align: center;">
+                <div class="container">
                     <!-- 로그인 뷰 -->
-                    <div id="loginForm" style="width:50%; margin-left: auto; margin-right: auto; text-align: center;">
+                    <div id="loginForm">
                         <h2 class="user-title">로그인</h2>
                             <!-- 소셜 로그인-->
                             <div id="socialLogin">
@@ -163,7 +184,7 @@
                         <form th:action="@{'/login'}" method="get">
                             <!--일반 로그인-->
                             <div class="form-group">
-                                <table style="text-align: center; align-content: center; margin: auto; margin-bottom: 20px;">
+                                <table>
                                     <tr>
                                         <th><label for="loginEmail">이메일</label></th>
                                         <td><input type="text" class="form-control" id="loginEmail" name="email"
