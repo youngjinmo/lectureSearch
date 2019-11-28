@@ -30,7 +30,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/","/oauth2/**","/login/**","/css/**","/images/**","/userImages/**","/js/**",
-                        "/console/**","/fonts/**","/main/**","/contents/detail","/create/**").permitAll()
+                        "/console/**","/fonts/**","/main/**","/contents/detail","/create/**",
+                        "/adminCss/**","/adminImages/**","/contactform/**","/lib/**","/admin/**","/static/**").permitAll()
                 .antMatchers("/facebook").hasAuthority(FACEBOOK.getRoleType())
                 .antMatchers("/google").hasAuthority(GOOGLE.getRoleType())
                 .anyRequest().authenticated()
