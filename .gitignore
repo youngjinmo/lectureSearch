@@ -1,15 +1,3 @@
-<<<<<<< HEAD
-||||||| c661f89
-
-**/application.yml
-
-*.yml
-=======
-
-**/application.yml
-
-*.yaml
->>>>>>> upstream/subMaster
 .DS_Store
 HELP.md
 .gradle
