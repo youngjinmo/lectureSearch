@@ -44,6 +44,7 @@ public class UserController {
         user.setPassword(encodedPassword);
 
         user.setCreatedDate();
+        user.setLastVisitDate();
 
         userService.saveUser(user);
 
