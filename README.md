@@ -183,7 +183,7 @@ JDK1.8.202(SE 8)(2019년 1월 15일) 버전 이하 사용시 무료
 <ul>
 <br>
 </details>
-	
+
 <details>
 <summary>미팅 4회차</summary>
 모임 시간 :2019.10.03 10시<br>
@@ -227,7 +227,7 @@ JDK1.8.202(SE 8)(2019년 1월 15일) 버전 이하 사용시 무료
 		<li>개인이 맡은 프로젝트 코드 개발 및 코드 리뷰 준비</li>
 	<ul>
 <br>
-	
+
 	<h2>활동 내용</h2>
 	<ul>
 		<li>docker elasticsearch, docker kibana 팀 전원 동일 환경 구성</li>
