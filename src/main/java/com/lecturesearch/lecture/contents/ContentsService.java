@@ -33,11 +33,15 @@ public interface ContentsService {
    //리뷰리스트
     Page<ReviewVO> findReviewList(String contentsIdx, Pageable pageable);
 
+    //리뷰삭제
+    void reviewDelete(String idx);
+
     //장바구니 리스트
-    Page<CartVO> cartList(String email, Pageable pageable);
+    Iterable<CartVO> cartList(String email);
 
     //장바구니 담기
     CartVO cartInsert(CartVO paramVO);
 
     //장바구니 삭제
+    void cartDelete(String contentsIdx);
 }

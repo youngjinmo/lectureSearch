@@ -450,6 +450,7 @@ pre {
   overflow-y: scroll; }
 
 .container {
+  word-break: break-word;
   width: 100%;
   padding-right: 15px;
   padding-left: 15px;

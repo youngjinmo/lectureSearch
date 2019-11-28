@@ -6,21 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -38,9 +31,10 @@ public class ContentsController {
 //    }
 
     @RequestMapping("/detail")
-    public String detailView(String idx, Model model, @PageableDefault Pageable pageable, HttpServletResponse response) {
+    public String detailView(String idx, Model model, @PageableDefault Pageable pageable, HttpServletResponse response, @SocialUser User user) {
         ContentsVO i = contentsService.detailView(idx);
         Page r = contentsService.findReviewList(idx, pageable);
+        model.addAttribute("user", user);
         model.addAttribute("contents", i);
         model.addAttribute("review", r);
         return "/contents/detailView";
@@ -65,10 +59,19 @@ public class ContentsController {
     public String boardForm() {
         return "/layout/boardForm";
     }
+
+    //후기작성
     @RequestMapping("/review")
-    public String reviewWrite(@ModelAttribute ReviewVO paramVO, Model model, String contentsIdx) {
+    public String reviewWrite(@ModelAttribute ReviewVO paramVO, String contentsIdx) {
         contentsService.reviewWrite(paramVO);
         return "redirect:/contents/detail?idx="+contentsIdx;
+    }
+
+    //후기삭제
+    @RequestMapping("/reviewDelete")
+    public String reviewDelete(String idx, String contentsIdx){
+        contentsService.reviewDelete(idx);
+        return "redirect:/contents/detail?idx=" +contentsIdx;
     }
 
 //    @PostMapping("/save")
@@ -113,21 +116,48 @@ public class ContentsController {
     @RequestMapping("/cartList")
     public String cartList(@PageableDefault Pageable pageable, @SocialUser User user, Model model) {
         String email = user.getEmail();
-        Page i = contentsService.cartList(email, pageable);
-//        System.out.println(i.);
-        model.addAttribute("cartList", i);
+        Iterable<CartVO> i = contentsService.cartList(email);
+
+        ArrayList<String> arrList = new ArrayList<String>();
+        for(CartVO cart : i){
+            arrList.add(cart.getContentsIdx());
+        }
+        List<ContentsVO> cartList = new ArrayList<>();
+        for (String k : arrList) {
+            cartList.add(contentsService.detailView(k));
+        }
+            model.addAttribute("list", cartList);
         return "/contents/cartList";
     }
 
     @RequestMapping("/cartInsert")
-    public String cartInsert(@ModelAttribute CartVO paramVO){
+    public String cartInsert(@ModelAttribute CartVO paramVO, @SocialUser User user, @RequestParam String contentsIdx){
+        String email = user.getEmail();
+        Iterable<CartVO> i = contentsService.cartList(email);
+        ArrayList<String> arrList = new ArrayList<String>();
+        for(CartVO cart : i){
+            arrList.add(cart.getContentsIdx());
+        }
 
-        contentsService.cartInsert(paramVO);
+        boolean verify = true;
+        String contentsIndex = paramVO.getContentsIdx();
+        for (String s : arrList) {
+            if (s.equals(contentsIndex)) {
+                verify = false;
+            }
+        }
+
+        if(verify){
+            contentsService.cartInsert(paramVO);
+        } else {
+            contentsService.cartDelete(contentsIdx);
+        }
         return "redirect:/contents/cartList";
     }
 
     @RequestMapping("/cartDelete")
-    public String cartDelete(){
+    public String cartDelete(String contentsIdx){
+            contentsService.cartDelete(contentsIdx);
         return "redirect:/contents/cartList";
     }
 }

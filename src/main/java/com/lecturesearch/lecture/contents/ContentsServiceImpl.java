@@ -11,7 +11,6 @@ import java.io.File;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -74,15 +73,24 @@ public class ContentsServiceImpl implements ContentsService {
     }
 
     @Override
+    public void cartDelete(String contentsIdx) {
+        cartRepository.deleteById(contentsIdx);
+    }
+
+    @Override
     public Page<ReviewVO> findReviewList(String contentsIdx, Pageable pageable) {
         pageable = PageRequest.of(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1, pageable.getPageSize());
         return reviewRepository.findAllByContentsIdx(contentsIdx, pageable);
     }
 
     @Override
-    public Page<CartVO> cartList(String email, Pageable pageable) {
-        pageable = PageRequest.of(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1, pageable.getPageSize());
-        return cartRepository.findAllByEmail(email, pageable);
+    public void reviewDelete(String idx) {
+        reviewRepository.deleteById(idx);
+    }
+
+    @Override
+    public Iterable<CartVO> cartList(String email) {
+       return cartRepository.findAllByEmail(email);
     }
 
     @Override
