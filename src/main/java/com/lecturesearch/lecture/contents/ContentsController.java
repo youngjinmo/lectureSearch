@@ -1,6 +1,6 @@
 package com.lecturesearch.lecture.contents;
 
-import com.lecturesearch.lecture.OAuth2.User;
+import com.lecturesearch.lecture.OAuth2.domain.User;
 import com.lecturesearch.lecture.OAuth2.annotation.SocialUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -31,12 +31,15 @@ public class ContentsController {
 //    }
 
     @RequestMapping("/detail")
-    public String detailView(String idx, Model model, @PageableDefault Pageable pageable, HttpServletResponse response, @SocialUser User user) {
-        ContentsVO i = contentsService.detailView(idx);
-        Page r = contentsService.findReviewList(idx, pageable);
+    public String detailView(String idx, Model model, @PageableDefault Pageable pageable,
+                             @SocialUser User user, HttpServletResponse response) {
+        ContentsVO contents = contentsService.detailView(idx);
+        Page page = contentsService.findReviewList(idx, pageable);
+        model.addAttribute("contents", contents);
+        model.addAttribute("review", page);
         model.addAttribute("user", user);
-        model.addAttribute("contents", i);
-        model.addAttribute("review", r);
+
+        response.setContentType("multipart-form/data");
         return "/contents/detailView";
     }
 
@@ -56,8 +59,22 @@ public class ContentsController {
 
 
     @RequestMapping("/boardform")
-    public String boardForm() {
+    public String boardForm(@SocialUser User user, Model model) {
+        model.addAttribute("user", user);
         return "/layout/boardForm";
+    }
+
+    @RequestMapping("/updateContent")
+    public String updateContent(@SocialUser User user, Model model, String idx) {
+        ContentsVO i = contentsService.detailView(idx);
+        model.addAttribute("user", user);
+        model.addAttribute("content",i);
+        return "/layout/boardForm";
+    }
+    @RequestMapping("deleteContent")
+    public String deleteContent(String idx){
+         contentsService.deleteContent(idx);
+         return "redirect:/main";
     }
 
     //후기작성
@@ -88,9 +105,9 @@ public class ContentsController {
     @RequestMapping(value = "/save", method = RequestMethod.POST,
     consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public String saveContent(@RequestParam("title") String title, @RequestParam("author") String author,
-                                  @RequestParam("files") MultipartFile[] files, @RequestParam("price") String price,
-                                  @RequestParam("runningTime") String runningTime, @RequestParam("createdDate") String createdDate,
-                                  @RequestParam("description") String description,
+                              @RequestParam("files") MultipartFile[] files, @RequestParam("price") String price,
+                              @RequestParam("runningTime") String runningTime, @RequestParam("createdDate") String createdDate,
+                              @RequestParam("description") String description, @RequestParam("writer") String writer,
                               HttpServletResponse response){
         List<String> imagesList;
 
@@ -104,14 +121,42 @@ public class ContentsController {
                 .runningTime(runningTime)
                 .createdDate(createdDate)
                 .description(description)
+                .writer(writer)
                 .build();
-        
+        contentsVO.setRegistrationDate();
+        response.setContentType("multipart-form/data");
+
+        contentsService.contentSave(contentsVO);
+        return "redirect:/main";
+    }
+
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public String updateContent(@RequestParam("title") String title, @RequestParam("author") String author,
+                                @RequestParam("files") MultipartFile[] files, @RequestParam("price") String price,
+                                @RequestParam("runningTime") String runningTime, @RequestParam("createdDate") String createdDate,
+                                @RequestParam("description") String description, @RequestParam("contentIdx") String contentIdx,
+                                HttpServletResponse response){
+        List<String> imagesList;
+
+        imagesList = contentsService.saveImages(files);
+
+        ContentsVO contentsDTO= ContentsVO.builder()
+                .title(title)
+                .author(author)
+                .images(imagesList)
+                .price(price)
+                .runningTime(runningTime)
+                .createdDate(createdDate)
+                .description(description)
+                .build();
+
+        ContentsVO contentsVO= contentsService.findById(contentIdx).get();
+        contentsVO.update(contentsDTO);
+
         contentsService.contentSave(contentsVO);
         response.setContentType("multipart/form-data");
         return "redirect:/main";
     }
-
-
 
     @RequestMapping("/cartList")
     public String cartList(@PageableDefault Pageable pageable, @SocialUser User user, Model model) {

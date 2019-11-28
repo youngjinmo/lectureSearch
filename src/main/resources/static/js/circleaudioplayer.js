@@ -302,4 +302,4 @@ var cap = new CircleAudioPlayer({
   size: 120,
   borderWidth: 4
 });
-cap.appendTo(playerContainer);
+// cap.appendTo(playerContainer);

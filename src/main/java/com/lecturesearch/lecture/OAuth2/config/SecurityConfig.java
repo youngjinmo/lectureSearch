@@ -1,6 +1,5 @@
 package com.lecturesearch.lecture.OAuth2.config;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,31 +28,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception{
         CharacterEncodingFilter filter = new CharacterEncodingFilter();
         http
-            .authorizeRequests()
-                .antMatchers("/","/oauth2/**","/login/**","/css/**","/images/**","/js/**",
-                        "/console/**").permitAll()
+                .authorizeRequests()
+                .antMatchers("/","/oauth2/**","/login/**","/css/**","/images/**","/userImages/**","/js/**",
+                        "/console/**","/fonts/**","/main/**","/contents/detail","/create/**",
+                        "/adminCss/**","/adminImages/**","/contactform/**","/lib/**","/admin/**","/static/**").permitAll()
                 .antMatchers("/facebook").hasAuthority(FACEBOOK.getRoleType())
                 .antMatchers("/google").hasAuthority(GOOGLE.getRoleType())
                 .anyRequest().authenticated()
-            .and()
+                .and()
                 .oauth2Login()
                 .defaultSuccessUrl("/loginSuccess")
                 .failureUrl("/loginFailure")
-            .and()
+                .and()
                 .headers().frameOptions().disable()
-            .and()
-                    .exceptionHandling()
-                    .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login"))
-            .and()
+                .and()
+                .exceptionHandling()
+                .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login"))
+                .and()
                 .formLogin()
                 .successForwardUrl("/loginSuccess")
-            .and()
+                .and()
                 .logout()
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/")
+                .logoutSuccessUrl("/main")
                 .deleteCookies("JESSIONID")
                 .invalidateHttpSession(true)
-            .and()
+                .and()
                 .addFilterBefore(filter, CsrfFilter.class)
                 .csrf().disable();
 
@@ -91,4 +91,3 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 }
-

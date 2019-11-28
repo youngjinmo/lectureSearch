@@ -1,10 +1,12 @@
+
+**/application.yml
+
+*.yml
 .DS_Store
 HELP.md
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
-!**/src/main/**
-!**/src/test/**
 
 ### STS ###
 .DS_Store
@@ -25,7 +27,6 @@ build/
 out/
 
 ### NetBeans ###
-.DS_Store
 /nbproject/private/
 /nbbuild/
 /dist/
@@ -33,5 +34,5 @@ out/
 /.nb-gradle/
 
 ### VS Code ###
-.vscode/
 .DS_Store
+.vscode/
