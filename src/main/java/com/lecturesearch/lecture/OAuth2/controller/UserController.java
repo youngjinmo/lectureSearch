@@ -28,7 +28,10 @@ public class UserController {
 
     @GetMapping(value = "/loginSuccess")
     public String loginComplete(@SocialUser User user) {
-        System.out.println("email : "+user.getEmail()+"  | name : "+user.getName());
+       User loginUser = userService.findByEmail(user.getEmail());
+       loginUser.setLastVisitDate();
+       loginUser.countVisitNum();
+       userService.saveUser(loginUser);
         return "redirect:/main";
     }
 
