@@ -1,11 +1,12 @@
-README.md
+
+**/application.yml
+
+*.yml
 .DS_Store
 HELP.md
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
-!**/src/main/**
-!**/src/test/**
 
 ### STS ###
 .DS_Store
@@ -18,7 +19,6 @@ build/
 .sts4-cache
 
 ### IntelliJ IDEA ###
-README.md
 .DS_Store
 .idea
 *.iws

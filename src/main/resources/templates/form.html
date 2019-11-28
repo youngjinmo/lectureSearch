@@ -58,6 +58,11 @@
         color: #99ccff;
     }
 
+    .form-group {
+        display: flex;
+        justify-content: center;
+    }
+
     .form-group table tr {
         width: 110px;
     }
@@ -76,7 +81,7 @@
         justify-content: center;
     }
 
-    .button {
+    .oauth2-btn-img {
         width: 330px;
         height: 45px;
         font-size: 18px;
@@ -86,7 +91,7 @@
         border-radius: 10px;
     }
 
-    .button:hover {
+    .oauth2-btn-img:hover {
         box-shadow: 0px 4px 8px;
         transform: translateY(-4px);
     }
@@ -132,7 +137,7 @@
                                     <tr> <!-- facebook -->
                                         <td>
                                             <div class="oauth2-social-btn">
-                                                <button class="button" id="btn-fb"
+                                                <button class="oauth2-btn-img" id="btn-fb"
                                                         style="margin-bottom: 8px;"
                                                         href="javascript:;"
                                                         data-social="facebook">
@@ -144,7 +149,7 @@
                                     <tr> <!-- google -->
                                         <td>
                                             <div class="oauth2-social-btn">
-                                                <button class="button" id="btn-g"
+                                                <button class="oauth2-btn-img" id="btn-g"
                                                         href="javascript:;"
                                                         data-social="google">
                                                     Google로 로그인
@@ -155,7 +160,7 @@
                                 </table>
                             </div>
 
-                        <form action="/login" method="get">
+                        <form th:action="@{'/login'}" method="get">
                             <!--일반 로그인-->
                             <div class="form-group">
                                 <table style="text-align: center; align-content: center; margin: auto; margin-bottom: 20px;">
@@ -184,7 +189,7 @@
                 <div id="registerForm" style="width:50%; margin-left: auto; margin-right: auto; text-align: center;">
                     <!-- 회원가입 뷰 -->
                     <h2 class="user-title">회원가입</h2>
-                    <form action="/create" method="post">
+                    <form th:action="@{'/create'}" method="post">
                         <div class="form-group">
                             <table id="form-group-signUp">
                                 <tr>
@@ -264,10 +269,9 @@
     var availableSignUp = false;
 
     // 비밀번호 보안 검증
-    var pwd1 = $("#signUpPassword").val();
-    var pwd2 = $("#checkPW").val();
 
     $('#signUpPassword').focusout(function(){
+        var pwd1 = $("#signUpPassword").val();
         if(pwd1.length<6 || pwd1.length>=16){
             alert("비밀번호는 6자리 이상, 16자리 미만으로 사용 가능합니다.");
         }
@@ -276,12 +280,14 @@
     // 비밀번호 확인
     $('#checkPW').focusout(function () {
 
+        var pwd1 = $("#signUpPassword").val();
+        var pwd2 = $("#checkPW").val();
         console.log(pwd1+" : "+pwd2);
         console.log(pwd1.length+" : "+pwd2.length);
         console.log("boolean : "+(pwd1.length==pwd2.length));
 
         if (pwd1 != "" && pwd2 != "") {
-            if (pwd2.equals(pwd1)) {
+            if (pwd2 == pwd1) {
                 availableSignUp = true;
                 // 조건 충족시 회원가입 버튼 활성화
                 if(availableSignUp){
