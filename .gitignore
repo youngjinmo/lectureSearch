@@ -1,7 +1,4 @@
-
-**/application.yml
-
-*.yml
+src/main/resources/*.yml
 .DS_Store
 HELP.md
 .gradle
@@ -9,6 +6,7 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 
 ### STS ###
+src/main/resources/*.yml
 .DS_Store
 .apt_generated
 .classpath
@@ -19,6 +17,7 @@ build/
 .sts4-cache
 
 ### IntelliJ IDEA ###
+src/main/resources/*.yml
 .DS_Store
 .idea
 *.iws
@@ -27,6 +26,7 @@ build/
 out/
 
 ### NetBeans ###
+src/main/resources/*.yml
 /nbproject/private/
 /nbbuild/
 /dist/
@@ -34,5 +34,6 @@ out/
 /.nb-gradle/
 
 ### VS Code ###
+src/main/resources/*.yml
 .DS_Store
 .vscode/
