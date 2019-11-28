@@ -12,9 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -64,6 +63,7 @@ public class ContentsController {
         model.addAttribute("user", user);
         return "/layout/boardForm";
     }
+
     @RequestMapping("/updateContent")
     public String updateContent(@SocialUser User user, Model model, String idx) {
         ContentsVO i = contentsService.detailView(idx);
@@ -77,12 +77,30 @@ public class ContentsController {
          return "redirect:/main";
     }
 
+    //후기작성
     @RequestMapping("/review")
-    public String reviewWrite(@ModelAttribute ReviewVO paramVO, Model model, String contentsIdx) {
+    public String reviewWrite(@ModelAttribute ReviewVO paramVO, String contentsIdx) {
         contentsService.reviewWrite(paramVO);
         return "redirect:/contents/detail?idx="+contentsIdx;
     }
 
+    //후기삭제
+    @RequestMapping("/reviewDelete")
+    public String reviewDelete(String idx, String contentsIdx){
+        contentsService.reviewDelete(idx);
+        return "redirect:/contents/detail?idx=" +contentsIdx;
+    }
+
+//    @PostMapping("/save")
+//    @ResponseBody
+//    public ResponseEntity<?> saveContent(@RequestBody ContentsVO contentsVO){
+//        contentsVO.setRegistrationDate(LocalDateTime.now()
+//                .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+//        contentsService.contentSave(contentsVO);
+//        System.out.println(contentsVO.getImages());
+//        System.out.println(contentsVO.getPrice());
+//        return new ResponseEntity<>("{}", HttpStatus.CREATED);
+//    }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST,
     consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -143,20 +161,48 @@ public class ContentsController {
     @RequestMapping("/cartList")
     public String cartList(@PageableDefault Pageable pageable, @SocialUser User user, Model model) {
         String email = user.getEmail();
-        Page i = contentsService.cartList(email, pageable);
-//        System.out.println(i.);
-        model.addAttribute("cartList", i);
+        Iterable<CartVO> i = contentsService.cartList(email);
+
+        ArrayList<String> arrList = new ArrayList<String>();
+        for(CartVO cart : i){
+            arrList.add(cart.getContentsIdx());
+        }
+        List<ContentsVO> cartList = new ArrayList<>();
+        for (String k : arrList) {
+            cartList.add(contentsService.detailView(k));
+        }
+            model.addAttribute("list", cartList);
         return "/contents/cartList";
     }
 
     @RequestMapping("/cartInsert")
-    public String cartInsert(@ModelAttribute CartVO paramVO){
-        contentsService.cartInsert(paramVO);
+    public String cartInsert(@ModelAttribute CartVO paramVO, @SocialUser User user, @RequestParam String contentsIdx){
+        String email = user.getEmail();
+        Iterable<CartVO> i = contentsService.cartList(email);
+        ArrayList<String> arrList = new ArrayList<String>();
+        for(CartVO cart : i){
+            arrList.add(cart.getContentsIdx());
+        }
+
+        boolean verify = true;
+        String contentsIndex = paramVO.getContentsIdx();
+        for (String s : arrList) {
+            if (s.equals(contentsIndex)) {
+                verify = false;
+            }
+        }
+
+        if(verify){
+            contentsService.cartInsert(paramVO);
+        } else {
+            contentsService.cartDelete(contentsIdx);
+        }
         return "redirect:/contents/cartList";
     }
 
     @RequestMapping("/cartDelete")
-    public String cartDelete(){
+    public String cartDelete(String contentsIdx){
+            contentsService.cartDelete(contentsIdx);
         return "redirect:/contents/cartList";
     }
 }

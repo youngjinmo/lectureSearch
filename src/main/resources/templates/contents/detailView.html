@@ -92,7 +92,7 @@
                         </div>
 <!--                        review 작성-->
                         <div>
-                            <form action="/contents/review" onsubmit="return check()" name="reviewForm" class="mb-5 border-bottom py-3">
+                            <form action="/contents/review" onsubmit="return check()" name="reviewForm" class="mb-5 border-bottom py-3" method="post">
                                 <div class="row form-group">
                                     <div class="col-md-12">
                                         <label class="font-weight-bold" for="message">별점</label>
@@ -101,18 +101,21 @@
                                         <img src="/images/star_x.png" id="star3" onmouseover="show(3)" onmouseout="noshow(3)" onclick="mark(3)">
                                         <img src="/images/star_x.png" id="star4" onmouseover="show(4)" onmouseout="noshow(4)" onclick="mark(4)">
                                         <img src="/images/star_x.png" id="star5" onmouseover="show(5)" onmouseout="noshow(5)" onclick="mark(5)">
-                                        </input>
                                         <br/><span id="startext"></span>
                                         <input type="hidden" name="date"/>
-                                        <textarea name="message" id="message" cols="70" rows="5" class="form-control" placeholder="소중한 의견을 남겨주세요." th:maxlength="500"></textarea>
+                                        <textarea th:if="${user}" name="message" id="message" cols="70" rows="5" class="form-control" placeholder="소중한 의견을 남겨주세요." th:maxlength="500"></textarea>
+                                        <textarea th:if="${user == null}" name="message" id="message" cols="70" rows="5" class="form-control" placeholder="리뷰를 작성하려면 로그인 해주세요." th:maxlength="500" readonly="readonly" required="required"></textarea>
                                     </div>
                                 </div>
 
                                 <div class="row form-group">
                                     <div class="col-md-12">
                                         <input type="hidden" name="contentsIdx" th:value="${contents.idx}"/>
+                                        <input th:if="${user}" type="hidden" name="writer" th:value="${user.email}"/>
+                                        <input th:if="${user}" type="hidden" name="name" th:value="${user.name}"/>
                                         <input type="hidden" id="star" name="star" value=""/>
-                                        <input type="submit" value="확인" class="btn btn-primary  py-2 px-4 rounded-0" onclick="nowDate()"/>
+                                        <input th:if="${user}" type="submit" value="확인" class="btn btn-primary  py-2 px-4 rounded-0" onclick="nowDate()"/>
+                                        <a th:if="${user == null}" href="/login"><button type="button" class="btn btn-primary  py-2 px-4 rounded-0">로그인</button></a>
                                     </div>
                                 </div>
                             </form>
@@ -140,7 +143,10 @@
                                         <img src="/images/star.png"><img src="/images/star.png"><img src="/images/star.png"><img src="/images/star.png"><img src="/images/star.png">
                                     </div>
                                     <span class="text-black mb-0 caption-text" th:text="${reviews.date}"></span>
-                                    <span class="text-black mb-0 caption-text">김진환 님</span>
+                                    <span class="text-black mb-0 caption-text" th:text="${reviews.name} + '님'"></span>
+                                    <span th:if="${user}">
+                                        <a th:if="${user.email} == ${reviews.writer}" th:href="@{/contents/reviewDelete(idx=${reviews.idx}, contentsIdx=${reviews.contentsIdx})}"><img src="/images/delete.png"></a>
+                                    </span>
                                         <p th:text="${reviews.message}"></p>
                                 </div>
 
