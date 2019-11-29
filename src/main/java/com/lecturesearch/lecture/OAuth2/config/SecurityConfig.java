@@ -28,32 +28,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception{
         CharacterEncodingFilter filter = new CharacterEncodingFilter();
         http
-            .authorizeRequests()
+                .authorizeRequests()
                 .antMatchers("/","/oauth2/**","/login/**","/css/**","/images/**","/userImages/**","/js/**",
                         "/console/**","/fonts/**","/main/**","/contents/detail","/create/**",
-                        "/adminCss/**","/adminImages/**","/contactform/**","/lib/**","/admin/**","/static/**").permitAll()
+                        "/adminCss/**","/adminImages/**","/contactform/**","/lib/**","/admin/**","/static/**","/changeStatus").permitAll()
                 .antMatchers("/facebook").hasAuthority(FACEBOOK.getRoleType())
                 .antMatchers("/google").hasAuthority(GOOGLE.getRoleType())
                 .anyRequest().authenticated()
-            .and()
+                .and()
                 .oauth2Login()
                 .defaultSuccessUrl("/loginSuccess")
                 .failureUrl("/loginFailure")
-            .and()
+                .and()
                 .headers().frameOptions().disable()
-            .and()
-                    .exceptionHandling()
-                    .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login"))
-            .and()
+                .and()
+                .exceptionHandling()
+                .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login"))
+                .and()
                 .formLogin()
                 .successForwardUrl("/loginSuccess")
-            .and()
+                .and()
                 .logout()
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/main")
                 .deleteCookies("JESSIONID")
                 .invalidateHttpSession(true)
-            .and()
+                .and()
                 .addFilterBefore(filter, CsrfFilter.class)
                 .csrf().disable();
 
@@ -91,4 +91,3 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 }
-
