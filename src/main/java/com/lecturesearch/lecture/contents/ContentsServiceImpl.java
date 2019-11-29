@@ -13,7 +13,6 @@ import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,7 +55,7 @@ public class ContentsServiceImpl implements ContentsService {
 
     //서치후 페이징리스트보기
     @Override
-    public Page<ContentsVO> searchTitle(String title, Pageable pageable){
+    public Page<ContentsVO> searchTitle(String title, Pageable pageable) {
         pageable = PageRequest.of(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1, pageable.getPageSize());
         return contentsRepository.findAllByTitle(title, pageable);
     }
@@ -67,12 +66,12 @@ public class ContentsServiceImpl implements ContentsService {
     }
 
     @Override
-    public ContentsVO contentSave(ContentsVO contentsVO){
+    public ContentsVO contentSave(ContentsVO contentsVO) {
         return contentsRepository.save(contentsVO);
     }
 
     @Override
-    public void deleteContent(String idx){
+    public void deleteContent(String idx) {
         contentsRepository.deleteById(idx);
     }
 
@@ -82,35 +81,49 @@ public class ContentsServiceImpl implements ContentsService {
     }
 
     @Override
+    public void cartDelete(String contentsIdx) {
+        cartRepository.deleteById(contentsIdx);
+    }
+
+    @Override
     public Page<ReviewVO> findReviewList(String contentsIdx, Pageable pageable) {
         pageable = PageRequest.of(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1, pageable.getPageSize());
         return reviewRepository.findAllByContentsIdx(contentsIdx, pageable);
     }
 
     @Override
+    public void reviewDelete(String idx) {
+        reviewRepository.deleteById(idx);
+    }
+
+    @Override
+    public Iterable<CartVO> cartList(String email) {
+        return cartRepository.findAllByEmail(email);
+    }
+
     public Optional<ContentsVO> findById(String idx) {
         return contentsRepository.findById(idx);
     }
 
-    public Page<CartVO> cartList(String email, Pageable pageable) {
-        pageable = PageRequest.of(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1, pageable.getPageSize());
-        return cartRepository.findAllByEmail(email, pageable);
-    }
+//    public Page<CartVO> cartList(String email, Pageable pageable) {
+//        pageable = PageRequest.of(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1, pageable.getPageSize());
+//        return cartRepository.findAllByEmail(email, pageable);
+//    }
 
     @Override
-    public List<String> saveImages(MultipartFile[] files){
-        String imageName=null;
-        List<String> imagesList=new ArrayList<>();
-        for(int i=0; i<files.length; i++){
+    public List<String> saveImages(MultipartFile[] files) {
+        String imageName = null;
+        List<String> imagesList = new ArrayList<>();
+        for (int i = 0; i < files.length; i++) {
             try {
-                 imageName=HashEncryption.sha256(files[i].getOriginalFilename()+LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-                 imagesList.add(imageName);
+                imageName = HashEncryption.sha256(files[i].getOriginalFilename() + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+                imagesList.add(imageName);
             } catch (NoSuchAlgorithmException e) {
                 e.printStackTrace();
             }
 //            File targetFile = new File("/Users/home/Java/git_clone/lectureSearch/src/main/resources/static/userImages/"+ imageName+".jpg");
-            File targetFile = new File("C:/Users/patro/Documents/GitHub/lectureSearch/src/main/resources/static/userImages/"+ imageName+".jpg");
-            try{
+            File targetFile = new File("/Users/home/Java/git_clone/lectureSearch/src/main/resources/static/userImages/" + imageName + ".jpg");
+            try {
                 files[i].transferTo(targetFile);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -119,3 +132,4 @@ public class ContentsServiceImpl implements ContentsService {
         return imagesList;
     }
 }
+

@@ -7,8 +7,18 @@ import org.springframework.data.elasticsearch.annotations.Document;
 @Document(indexName = "cart", type="contents")
 @Data
 public class CartVO {
-        @Id
-        private String idx;
-        private String email;
-        private String contentsIdx;
+
+    @Id
+    private String contentsIdx;
+    private String email;
+
+
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getContentsIdx() {
+        return contentsIdx;
+    }
 }
