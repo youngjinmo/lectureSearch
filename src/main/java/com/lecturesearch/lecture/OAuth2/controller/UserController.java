@@ -7,8 +7,7 @@ import com.lecturesearch.lecture.OAuth2.repository.UserRepository;
 import com.lecturesearch.lecture.OAuth2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -31,6 +30,7 @@ public class UserController {
        User loginUser = userService.findByEmail(user.getEmail());
        loginUser.setLastVisitDate();
        loginUser.countVisitNum();
+       loginUser.setStatusNormal();
        userService.saveUser(loginUser);
         return "redirect:/main";
     }
@@ -45,10 +45,23 @@ public class UserController {
 
         user.setCreatedDate();
         user.setLastVisitDate();
+        user.setStatusNormal();
 
         userService.saveUser(user);
 
         return "redirect:/login";
+    }
+
+    @RequestMapping("/changeStatus")
+    public String changeStatus(@RequestBody @RequestParam("email") String email){
+        User selectedUser = userService.findByEmail(email);
+        if(selectedUser.getStatus().equals("normal")){
+            selectedUser.setStatusBlocked();
+        }else {
+            selectedUser.setStatusNormal();
+        }
+        userService.saveUser(selectedUser);
+        return "redirect:/admin/usersData";
     }
 
     @GetMapping("/userlist")

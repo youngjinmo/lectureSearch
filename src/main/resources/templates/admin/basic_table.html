@@ -448,12 +448,12 @@
                 <tbody>
                   <tr th:each="user : ${users}">
                     <td>
-                      <a href="basic_table.html#" name="email" th:text="${user?.email}"></a>
+                      <a href="basic_table.html#" id="userEmail" name="email" th:text="${user?.email}"></a>
                     </td>
                     <td class="hidden-phone" name="name" th:text="${user?.name}"></td>
                     <td name="createdDate" th:text="${user?.createdDate}"></td>
                     <td name="lastVisit" th:text="${user?.lastVisitDate}"></td>
-                    <td name="status" th:text="${user?.status}"><span class="label label-success label-mini"></span></td>
+                    <td name="status"><span th:class="${user.status=='normal'}?'label label-success label-mini userStatus':'label label-danger label-mini userStatus'" th:text="${user?.status}"></span></td>
                     <td name="numOfVisit" th:text="${user.numOfVisit}"></td>
                     <td>
                       <button class="btn btn-success btn-xs"><i class="fa fa-check"></i></button>
@@ -503,7 +503,22 @@
   <!--common script for all pages-->
   <script src="/lib/common-scripts.js"></script>
   <!--script for this page-->
-  
+  <script>
+    $('.userStatus').click(function() {
+      var userEmail =$(this).parent().prev().prev().prev().prev().text();
+        $.ajax({
+          url: "http://localhost:8080/changeStatus",
+          type: "POST",
+          data: {"email" : userEmail},
+          dataType: "text",
+          success: function () {
+          location.reload();
+          }
+        })
+    });
+
+  </script>
+
 </body>
 
 </html>
