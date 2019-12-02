@@ -133,10 +133,9 @@
         margin-bottom: 20px;
     }
 
-    /*.check-btn-available-signup {*/
-    /*    margin-left: 10%;*/
-    /*    color: white;*/
-    /*}*/
+    .form-group table tr td input:hover{
+        border: 3px solid #76FEC0;
+    }
 
 </style>
 
@@ -297,7 +296,6 @@
     });
 
     // 회원가입 검증
-
     // 회원가입 버튼 비활성화
     $('#signUpBtn').attr("disabled", true);
 
@@ -315,11 +313,11 @@
             },
             success: function(data){
                 if(data){
-                    alert("사용할 수 있는 이메일입니다.");
                     $('#signUpName').focus();
                 } else {
-                    alert("사용할 수 없는 이메일입니다.");
+                    alert("사용할 수 없거나 이미 사용중인 이메일입니다.");
                     $('#signUpEmail').focus();
+                    $('#signUpEmail').css("border", "2px solid red");
                 }
             }
         });
