@@ -111,6 +111,11 @@ public class ContentsServiceImpl implements ContentsService {
 //    }
 
     @Override
+    public List<ContentsVO> findAll(){
+        return contentsRepository.findAll();
+    }
+
+    @Override
     public List<String> saveImages(MultipartFile[] files) {
         String imageName = null;
         List<String> imagesList = new ArrayList<>();
