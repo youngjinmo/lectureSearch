@@ -58,6 +58,12 @@ public class User {
     public void setLastVisitDate() {
         this.lastVisitDate=LocalDateTime.ofInstant(new Date().toInstant(), ZoneId.systemDefault()).toString();
     }
+    public void setStatusNormal(){
+        this.status="normal";
+    }
+    public void setStatusBlocked(){
+        this.status="blocked";
+    }
     public void countVisitNum(){
         this.numOfVisit+=1;
     }

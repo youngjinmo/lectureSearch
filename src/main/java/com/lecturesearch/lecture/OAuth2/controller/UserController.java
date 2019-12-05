@@ -20,11 +20,13 @@ public class UserController {
 
     @GetMapping(value = "/loginSuccess")
     public String loginComplete(@SocialUser User user) {
-        User loginUser = userService.findByEmail(user.getEmail()).get();
-        loginUser.setLastVisitDate();
-        loginUser.countVisitNum();
-        userService.saveUser(loginUser);
-        return "redirect:/main";
+       User loginUser = userService.findByEmail(user.getEmail()).get();
+       loginUser.setLastVisitDate();
+       loginUser.countVisitNum();
+       loginUser.setStatusNormal();
+       userService.saveUser(loginUser);
+
+       return "redirect:/main";
     }
 
     @PostMapping("/create")
@@ -33,6 +35,7 @@ public class UserController {
         user.setEncodePassword(user.getPassword());
         user.setCreatedDate();
         user.setLastVisitDate();
+        user.setStatusNormal();
 
         userService.saveUser(user);
 
@@ -45,10 +48,21 @@ public class UserController {
     @RequestMapping(value="/emailChk", method = RequestMethod.POST)
     public @ResponseBody boolean postIdCheck(@RequestParam("email") String email) {
         boolean result = true;
-        if(userService.findByEmail(email).isPresent()){
+        if (userService.findByEmail(email).isPresent()) {
             result = false;
         }
         return result;
+    }
+    @RequestMapping("/changeStatus")
+    public String changeStatus(@RequestBody @RequestParam("email") String email){
+        User selectedUser = userService.findByEmail(email).get();
+        if(selectedUser.getStatus().equals("normal")){
+            selectedUser.setStatusBlocked();
+        }else {
+            selectedUser.setStatusNormal();
+        }
+        userService.saveUser(selectedUser);
+        return "redirect:/admin/usersData";
     }
 
 }
