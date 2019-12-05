@@ -58,9 +58,10 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
                 OAuth2AuthenticationToken authentication = (OAuth2AuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
                 Map<String, Object> map = authentication.getPrincipal().getAttributes();
                 User convertUser = convertUser(authentication.getAuthorizedClientRegistrationId(), map);
-                user = userRepository.findByEmail(convertUser.getEmail()).get();
 
-                if (user == null) { user = userRepository.save(convertUser); }
+                if (!userRepository.findByEmail(convertUser.getEmail()).isPresent()) {
+                    user = userRepository.save(convertUser);
+                }
 
                 setRoleIfNotSame(user, authentication, map);
                 session.setAttribute("user", user);

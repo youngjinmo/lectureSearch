@@ -47,6 +47,10 @@ public class User {
         this.numOfVisit=numOfVisit;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     public void setEncodePassword(String password){
         PasswordEncoding passwordEncoding = new PasswordEncoding();
         this.password = passwordEncoding.encode(password);
