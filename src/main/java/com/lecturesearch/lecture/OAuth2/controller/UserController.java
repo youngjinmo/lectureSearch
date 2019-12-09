@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 
@@ -16,14 +17,15 @@ public class UserController {
 
     @Autowired
     UserService userService;
+    User userInfo;
 
     @GetMapping("/login")
     public String login(){
         return "form";
     }
 
-    @PostMapping("/login")
-    public String loginComplete(String email, String password, User userinfo){
+    @PostMapping("/loginPass")
+    public String loginPass(String email, String password, HttpSession httpSession){
         System.out.println("email :" + email + " password : " + password);
         Optional user = userService.findByEmail(email); // email로 user조회
 
@@ -34,14 +36,15 @@ public class UserController {
             // user가 존재하지 않는다.
             System.out.println("user가 존재하지않음."); //test
             return "redirect:/login";
-        } else if(passwordEncoding.matches(password, userinfo.getPassword())){
-            // email이 존재한다면, 비밀번호와 비교
-            System.out.println("비밀번호 일치"); //test
-            return "redirect:/main";
-        } else {
+        } else if(!passwordEncoding.matches(password, userInfo.getPassword())){
             // email이 존재하지만, 비밀번호가 일치하지 않는다면,
             System.out.println("비밀번호 불일치"); //test
             return "redirect:/login";
+        } else {
+            // email이 존재하고, 비밀번호가 일치할 때
+            System.out.println("비밀번호 일치"); //test
+            httpSession.setAttribute("user",user);
+            return "redirect:/main";
         }
     }
 
@@ -58,10 +61,8 @@ public class UserController {
     @PostMapping("/create")
     public String create(User user){
         // 비밀번호 암호화
-        PasswordEncoding passwordEncoding = new PasswordEncoding();
         String rawPassword = user.getPassword();
-        String encodedPassword = passwordEncoding.encode(rawPassword);
-        user.setPassword(encodedPassword);
+        user.setEncodePassword(rawPassword);
 
         user.setCreatedDate();
         user.setLastVisitDate();

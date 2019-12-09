@@ -32,6 +32,7 @@ public class User {
     private String status;
     private long numOfVisit;
 
+
     @Builder
     public User(String name, String password,
                 String email, String createdDate, String lastVisitDate,
@@ -50,6 +51,10 @@ public class User {
     public void setEncodePassword(String password){
         PasswordEncoding passwordEncoding = new PasswordEncoding();
         this.password = passwordEncoding.encode(password);
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public void setCreatedDate(){//facebook, google 에서 제공하는 시간대와 맞춤
