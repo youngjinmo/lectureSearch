@@ -3,6 +3,7 @@ package com.lecturesearch.lecture.OAuth2.service;
 import com.lecturesearch.lecture.OAuth2.domain.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
 
@@ -10,7 +11,7 @@ public interface UserService {
 
     List<User> findAll();
 
-    User findByEmail(String email);
+    Optional<User> findByEmail(String email);
 
     void deleteUser(String idx);
 }

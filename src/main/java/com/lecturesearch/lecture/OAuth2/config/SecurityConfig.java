@@ -29,9 +29,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         CharacterEncodingFilter filter = new CharacterEncodingFilter();
         http
                 .authorizeRequests()
-                .antMatchers("/","/oauth2/**","/login/**","/css/**","/images/**","/userImages/**","/js/**",
-                        "/console/**","/fonts/**","/main/**","/contents/detail","/create/**",
-                        "/adminCss/**","/adminImages/**","/contactform/**","/lib/**","/admin/**","/static/**","/changeStatus").permitAll()
+                .antMatchers("/","/oauth2/**","/login/**","/css/**","/images/**","/userImages/**","/js/**","/console" +
+                        "/**","/fonts/**","/main/**","/contents/detail","/create/**", "/adminCss/**","/adminImages/**","/contactform/**","/lib/**","/admin/**","/static/**","/changeStatus","/emailChk/**").permitAll()
+
                 .antMatchers("/facebook").hasAuthority(FACEBOOK.getRoleType())
                 .antMatchers("/google").hasAuthority(GOOGLE.getRoleType())
                 .anyRequest().authenticated()

@@ -1,6 +1,7 @@
 package com.lecturesearch.lecture.OAuth2.domain;
 
 import com.lecturesearch.lecture.OAuth2.SocialType;
+import com.lecturesearch.lecture.OAuth2.password.PasswordEncoding;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -44,6 +45,11 @@ public class User {
         this.lastVisitDate=lastVisitDate;
         this.status=status;
         this.numOfVisit=numOfVisit;
+    }
+
+    public void setEncodePassword(String password){
+        PasswordEncoding passwordEncoding = new PasswordEncoding();
+        this.password = passwordEncoding.encode(password);
     }
 
     public void setCreatedDate(){//facebook, google 에서 제공하는 시간대와 맞춤

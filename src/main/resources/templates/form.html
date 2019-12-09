@@ -21,7 +21,6 @@
     <link rel="stylesheet" th:href="@{/fonts/flaticon/font/flaticon.css}">
     <link rel="stylesheet" th:href="@{/css/fl-bigmug-line.css}">
 
-
     <link rel="stylesheet" th:href="@{/css/aos.css}">
 
     <link rel="stylesheet" th:href="@{/css/style.css}">
@@ -120,6 +119,32 @@
     .form-group table tr td input:hover{
         border: 3px solid #76FEC0;
     }
+
+    .container {
+        width:100%;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+    }
+
+    #loginForm {
+        width:50%;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;"
+    }
+
+    .form-group table {
+        text-align: center;
+        align-content: center;
+        margin: auto;
+        margin-bottom: 20px;
+    }
+
+    .form-group table tr td input:hover{
+        border: 3px solid #76FEC0;
+    }
+
 </style>
 
 <body>
@@ -310,6 +335,7 @@
             },
             success: function(data){
                 if(data){
+                    $('#signUpEmail').css("border", "1px solid white");
                     $('#signUpName').focus();
                 } else {
                     alert("사용할 수 없거나 이미 사용중인 이메일입니다.");
@@ -320,6 +346,7 @@
         });
     });
 
+
     // 비밀번호 보안 검증
     $('#signUpPassword').blur(function(){
         let pwd1 = $("#signUpPassword").val();
@@ -329,6 +356,7 @@
             $('#signUpPassword').css("border", "2px solid red");
         } else {
             $('#signUpPassword').css("border", "1px solid white");
+            $('#signUpPassword').focus();
         }
     });
     // 비밀번호 확인
@@ -339,13 +367,14 @@
         console.log(pwd1+" : "+pwd2);
         console.log(pwd1.length+" : "+pwd2.length);
         console.log("boolean : "+(pwd1.length==pwd2.length));
-        if(pwd2.length>0){
+        if(pwd2.length>0) {
             if (pwd1 != "" && pwd2 != "") {
                 if (pwd2 === pwd1) {
                     $('#checkPW').css("border", "1px solid white");
                     availableSignUp = true;
                     // 조건 충족시 회원가입 버튼 활성화
-                    if(availableSignUp){
+                    if (availableSignUp) {
+                        $('#checkPW').css("border", "1px solid white");
                         $('#signUpBtn').removeAttr("disabled");
                     }
                 } else {
