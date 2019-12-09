@@ -48,4 +48,6 @@ public interface ContentsService {
 
     //장바구니 삭제
     void cartDelete(String contentsIdx);
+
+    List<ContentsVO> findAll();
 }

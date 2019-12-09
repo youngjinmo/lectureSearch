@@ -23,4 +23,6 @@ public interface ContentsRepository extends ElasticsearchRepository<ContentsVO, 
 
     //서치후 페이징 리스트보기
    Page<ContentsVO> findAllByTitle(String title, Pageable pageable);
+
+   List<ContentsVO> findAll();
 }

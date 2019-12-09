@@ -359,13 +359,10 @@
               </a>
             <ul class="sub">
               <li class="active">
-                <a href="basic_table.html">사용자 정보</a>
+                <a href="usersData">사용자 정보</a>
               </li>
               <li>
-                <a href="responsive_table.html">Responsive Table</a>
-              </li>
-              <li>
-                <a href="advanced_table.html">Advanced Table</a>
+                <a href="lectureData">강의 정보</a>
               </li>
             </ul>
           </li>
@@ -448,7 +445,7 @@
                 <tbody>
                   <tr th:each="user : ${users}">
                     <td>
-                      <a href="basic_table.html#" id="userEmail" name="email" th:text="${user?.email}"></a>
+                      <a href="user_table.html#" id="userEmail" name="email" th:text="${user?.email}"></a>
                     </td>
                     <td class="hidden-phone" name="name" th:text="${user?.name}"></td>
                     <td name="createdDate" th:text="${user?.createdDate}"></td>
@@ -458,7 +455,7 @@
                     <td>
                       <button class="btn btn-success btn-xs"><i class="fa fa-check"></i></button>
                       <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
-                      <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>
+                      <a th:href="@{/admin/deleteUser(idx=${user.idx})}"><button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button></a>
                     </td>
                   </tr>
               </table>
@@ -487,7 +484,7 @@
           -->
           Created with Dashio template by <a href="https://templatemag.com/">TemplateMag</a>
         </div>
-        <a href="basic_table.html#" class="go-top">
+        <a href="user_table.html#" class="go-top">
           <i class="fa fa-angle-up"></i>
           </a>
       </div>
