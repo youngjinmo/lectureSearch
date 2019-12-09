@@ -54,7 +54,7 @@ public class User {
     }
 
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
     public void setCreatedDate(){//facebook, google 에서 제공하는 시간대와 맞춤

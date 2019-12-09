@@ -16,8 +16,8 @@ import java.util.Optional;
 public class UserController {
 
     @Autowired
-    UserService userService;
-    User userInfo;
+    private UserService userService;
+
 
     @GetMapping("/login")
     public String login(){
@@ -27,7 +27,7 @@ public class UserController {
     @PostMapping("/loginPass")
     public String loginPass(String email, String password, HttpSession httpSession){
         System.out.println("email :" + email + " password : " + password);
-        Optional user = userService.findByEmail(email); // email로 user조회
+        User user = userService.findByEmail(email).get(); // email로 user조회
 
         PasswordEncoding passwordEncoding = new PasswordEncoding();
 
@@ -36,7 +36,7 @@ public class UserController {
             // user가 존재하지 않는다.
             System.out.println("user가 존재하지않음."); //test
             return "redirect:/login";
-        } else if(!passwordEncoding.matches(password, userInfo.getPassword())){
+        } else if(!passwordEncoding.matches(password, user.getPassword())){
             // email이 존재하지만, 비밀번호가 일치하지 않는다면,
             System.out.println("비밀번호 불일치"); //test
             return "redirect:/login";
