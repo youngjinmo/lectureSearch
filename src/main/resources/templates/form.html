@@ -293,53 +293,44 @@
     var availableSignUp = false;
 
     // 이메일 중복 검사 및 형식 검사
-    $('#signUpEmail').blur(function(){
+    $('#signUpEmail').blur(function() {
         var email = $('#signUpEmail').val();
-        if(email!="" || email!=" ") {
+        if (email != "" || email != null) {
             if (email.search('@') != -1) {
-                if (email.search('.co') != -1
-                    || email.search('.kr') != -1
-                    || email.search('.com') != -1
-                    || email.search('.net') != -1
-                    || email.search('.org') != -1) {
-                    // 이메일에 @가 포함되어 있을 때
-                    // 이메일 형식 통과시 DB에서 중복 검사
-                    $.ajax({
-                        type: 'post',
-                        url: './emailChk',
-                        data: {'email': email},
-                        success: function (data) {
-                            if (data == 1) {
-                                $('#signUpEmail').css("background-color", "#54d1b9");
-                                $('#signUpEmail').css("color", "#000000");
-                            } else {
-                                $('#signUpEmail').css("background-color", "#a52a2a");
-                                $('#signUpEmail').css("color", "#ffffff");
-                                alert("가입할 수 없는 이메일입니다.");
-                            }
+                // 이메일에 @가 포함되어 있을 때
+                // 이메일 형식 통과시 DB에서 중복 검사
+                $.ajax({
+                    type: 'post',
+                    url: '/emailChk',
+                    data: {'email': email},
+                    success: function (data) {
+                        if (data===1) {
+                            $('#signUpEmail').css("background-color", "#54d1b9");
+                            $('#signUpEmail').css("color", "#000000");
+                        } else if(data===0) {
+                            $('#signUpEmail').css("background-color", "#a52a2a");
+                            $('#signUpEmail').css("color", "#ffffff");
+                            alert("가입할 수 없는 이메일입니다.");
                         }
-                    });
-                } else {
-                    $('#signUpEmail').css("background-color", "#a52a2a");
-                    $('#signUpEmail').css("color", "#ffffff");
-                    alert("이메일형식이 올바르지 않습니다.");
-                }
+                    }
+                });
+            } else {
+                $('#signUpEmail').css("background-color", "#a52a2a");
+                $('#signUpEmail').css("color", "#ffffff");
+                alert("이메일형식이 올바르지 않습니다.");
             }
-        } else {
-            alert("이메일형식이 올바르지 않습니다.");
         }
     });
 
     $('#signUpName').blur(function(){
        var id = this.id;
        var name = $('#'+id).val();
-       if(name=="" || name==" "){
-           $('#'+id).css("background-color", "#a52a2a");
-           $('#'+id).css("color", "#ffffff");
-           alert("이름을 입력해주세요");
-       } else {
+       if(name!==null || name!==""){
            $('#'+id).css("background-color", "#54d1b9");
            $('#'+id).css("color", "#000000");
+       } else {
+           $('#'+id).css("background-color", "#a52a2a");
+           $('#'+id).css("color", "#ffffff");
        }
     });
 

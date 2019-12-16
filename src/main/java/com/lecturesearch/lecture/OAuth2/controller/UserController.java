@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import javax.swing.text.html.Option;
+import java.util.Optional;
 
 
 @Controller
@@ -16,7 +18,6 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
 
     @GetMapping("/login")
     public String login(){
@@ -43,18 +44,25 @@ public class UserController {
             // email이 존재하고, 비밀번호가 일치할 때
             System.out.println("비밀번호 일치"); //test
             httpSession.setAttribute("user",user);
+
+            user.setLastVisitDate();
+            user.countVisitNum();
+            user.setStatusNormal();
+            userService.saveUser(user);
             return "redirect:/main";
         }
     }
 
-    @RequestMapping(value="/emailChk", method=RequestMethod.POST)
     @ResponseBody
-    public boolean emailCheck(@RequestBody String email) {
-        if(userService.findByEmail(email)==null){
-            return true;
+    @RequestMapping(value="/emailChk", method=RequestMethod.POST)
+    public int emailCheck(@RequestBody String email) {
+        int result = 0;
+        if(userService.findByEmail(email).isPresent()){
+            result = 0;
         } else {
-            return false;
+            result = 1;
         }
+        return result;
     }
 
     // OAuth2를 통한 로그인 요청

@@ -3,7 +3,6 @@ package com.lecturesearch.lecture.OAuth2.config;
 import org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -33,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
                 .antMatchers("/","/oauth2/**","/login/**","/css/**","/images/**","/userImages/**","/js/**","/console" +
                         "/**","/fonts/**","/main/**","/contents/detail","/create/**", "/adminCss/**","/adminImages" +
-                        "/**","/contactform/**","/lib/**","/admin/**","/static/**","/changeStatus","/emailChk/**","/loginPass").permitAll()
+                        "/**","/contactform/**","/lib/**","/admin/**","/static/**","/changeStatus","/emailChk","/loginPass").permitAll()
 
                 .antMatchers("/facebook").hasAuthority(FACEBOOK.getRoleType())
                 .antMatchers("/google").hasAuthority(GOOGLE.getRoleType())
