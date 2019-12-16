@@ -3,6 +3,7 @@ package com.lecturesearch.lecture.OAuth2.config;
 import org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -27,8 +28,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception{
         CharacterEncodingFilter filter = new CharacterEncodingFilter();
+
         http
-                .authorizeRequests()
+            .authorizeRequests()
                 .antMatchers("/","/oauth2/**","/login/**","/css/**","/images/**","/userImages/**","/js/**","/console" +
                         "/**","/fonts/**","/main/**","/contents/detail","/create/**", "/adminCss/**","/adminImages" +
                         "/**","/contactform/**","/lib/**","/admin/**","/static/**","/changeStatus","/emailChk/**","/loginPass").permitAll()
@@ -37,25 +39,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/google").hasAuthority(GOOGLE.getRoleType())
                 .anyRequest().authenticated()
                 .and()
-                .oauth2Login()
+            .oauth2Login()
                 .defaultSuccessUrl("/loginSuccess")
                 .failureUrl("/loginFailure")
                 .and()
-                .headers().frameOptions().disable()
+            .headers().frameOptions().disable()
                 .and()
-                .exceptionHandling()
+            .exceptionHandling()
                 .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login"))
                 .and()
-                .formLogin()
+            .formLogin()
                 .successForwardUrl("/loginSuccess")
                 .and()
-                .logout()
+            .logout()
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/main")
                 .deleteCookies("JESSIONID")
                 .invalidateHttpSession(true)
                 .and()
-                .addFilterBefore(filter, CsrfFilter.class)
+            .addFilterBefore(filter, CsrfFilter.class)
                 .csrf().disable();
 
     }

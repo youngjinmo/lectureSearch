@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.Optional;
 
 
 @Controller
@@ -26,8 +25,8 @@ public class UserController {
 
     @PostMapping("/loginPass")
     public String loginPass(String email, String password, HttpSession httpSession){
-        System.out.println("email :" + email + " password : " + password);
-        User user = userService.findByEmail(email).get(); // email로 user조회
+        User user = userService.findByEmail(email).get(); // email로 user 객체 가져오기
+        System.out.println("Welcome! "+user.getEmail());  // test
 
         PasswordEncoding passwordEncoding = new PasswordEncoding();
 
@@ -48,6 +47,17 @@ public class UserController {
         }
     }
 
+    @RequestMapping(value="/emailChk", method=RequestMethod.POST)
+    @ResponseBody
+    public boolean emailCheck(@RequestBody String email) {
+        if(userService.findByEmail(email)==null){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // OAuth2를 통한 로그인 요청
     @GetMapping(value = "/loginSuccess")
     public String loginComplete(@SocialUser User user) {
         User loginUser = userService.findByEmail(user.getEmail()).get();

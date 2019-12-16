@@ -117,7 +117,7 @@
         margin-bottom: 20px;
     }
     .form-group table tr td input:hover{
-        border: 3px solid #76FEC0;
+        border: 2px solid ;#98FB98
     }
 
     .container {
@@ -139,10 +139,6 @@
         align-content: center;
         margin: auto;
         margin-bottom: 20px;
-    }
-
-    .form-group table tr td input:hover{
-        border: 3px solid #76FEC0;
     }
 
 </style>
@@ -210,6 +206,7 @@
                                 </table>
                             </div>
                             <button type="submit" class="btn btn-default">로그인하기</button>
+                            <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
                             <br/>
                             <!--회원가입/로그인 토글-->
                             <p class="toggle-button"><span>계정이 없으신가요?&nbsp;</span><a href="javascript:void(0)" id="showSignUp">회원가입</a>
@@ -244,7 +241,7 @@
                                     <th><label for="checkPW">비밀번호 확인</label></th>
                                     <td>
                                         <input type="password" class="form-control" id="checkPW" name="chk_password"
-                                               placeholder="재입력후, 오른쪽 버튼을 클릭해주세요.">
+                                               placeholder="비밀번호를 다시 입력해주세요.">
                                     </td>
                                 </tr>
                             </table>
@@ -274,20 +271,18 @@
 <script th:src="@{js/jquery.min.js}"></script>
 <script type="text/javascript">
     $('#btn-fb').click(function() {
-        let socialType = $(this).data('social');
+        var socialType = $(this).data('social');
         location.href="/oauth2/authorization/"+socialType;
     });
     $('#btn-g').click(function() {
-        let socialType = $(this).data('social');
+        var socialType = $(this).data('social');
         location.href="/oauth2/authorization/"+socialType;
     });
     $("#showLogIn").click(function() {
-        console.log('login btn clicked');
         $("#registerForm").hide();
         $("#loginForm").show();
     });
     $("#showSignUp").click(function() {
-        console.log('regsiter btn clicked');
         $("#loginForm").hide();
         $("#registerForm").show();
     });
@@ -295,92 +290,93 @@
     // 회원가입 검증
     // 회원가입 버튼 비활성화
     $('#signUpBtn').attr("disabled", true);
-    let availableSignUp = false;
+    var availableSignUp = false;
 
     // 이메일 중복 검사 및 형식 검사
-    $('#signUpEmail').blur(function () {
-        let email = $('#signUpEmail').val();
-
-        // 이메일 형식 검사
-        const emailFormats = ['.co', '.kr', 'com', 'org', 'net', 'ac'];
-        let bool = 0;
-        if(email.search('@')!=-1){
-            $('#signUpEmail').css("border", "1px solid white");
-            for(let i=0; i<emailFormats.length; i++){
-                let chkEmail = email.search(emailFormats[i]);
-                if(chkEmail==-1){
-                    bool++;
+    $('#signUpEmail').blur(function(){
+        var email = $('#signUpEmail').val();
+        if(email!="" || email!=" ") {
+            if (email.search('@') != -1) {
+                if (email.search('.co') != -1
+                    || email.search('.kr') != -1
+                    || email.search('.com') != -1
+                    || email.search('.net') != -1
+                    || email.search('.org') != -1) {
+                    // 이메일에 @가 포함되어 있을 때
+                    // 이메일 형식 통과시 DB에서 중복 검사
+                    $.ajax({
+                        type: 'post',
+                        url: './emailChk',
+                        data: {'email': email},
+                        success: function (data) {
+                            if (data == 1) {
+                                $('#signUpEmail').css("background-color", "#54d1b9");
+                                $('#signUpEmail').css("color", "#000000");
+                            } else {
+                                $('#signUpEmail').css("background-color", "#a52a2a");
+                                $('#signUpEmail').css("color", "#ffffff");
+                                alert("가입할 수 없는 이메일입니다.");
+                            }
+                        }
+                    });
+                } else {
+                    $('#signUpEmail').css("background-color", "#a52a2a");
+                    $('#signUpEmail').css("color", "#ffffff");
+                    alert("이메일형식이 올바르지 않습니다.");
                 }
             }
-            if(email.length>0 && bool == -emailFormats.length){
-                errorEmail();
-            }
-
         } else {
-            errorEmail();
-        }
-
-        function errorEmail() {
-            $('#signUpEmail').focus();
-            $('#signUpEmail').css("border", "2px solid red");
             alert("이메일형식이 올바르지 않습니다.");
         }
-
-        // 이메일 중복 검사
-        $.ajax({
-            url : "http://localhost:8080/emailChk",
-            type : "post",
-            data:{
-                "email":$('#signUpEmail').val()
-            },
-            success: function(data){
-                if(data){
-                    $('#signUpEmail').css("border", "1px solid white");
-                    $('#signUpName').focus();
-                } else {
-                    alert("사용할 수 없거나 이미 사용중인 이메일입니다.");
-                    $('#signUpEmail').focus();
-                    $('#signUpEmail').css("border", "2px solid red");
-                }
-            }
-        });
     });
 
+    $('#signUpName').blur(function(){
+       var id = this.id;
+       var name = $('#'+id).val();
+       if(name!="" || name!=" "){
+           $('#'+id).css("background-color", "#54d1b9");
+           $('#'+id).css("color", "#000000");
+       } else {
+           $('#'+id).css("background-color", "#a52a2a");
+           $('#'+id).css("color", "#ffffff");
+           alert("이름을 입력해주세요");
+       }
+    });
 
     // 비밀번호 보안 검증
     $('#signUpPassword').blur(function(){
-        let pwd1 = $("#signUpPassword").val();
+        var id = this.id;
+        var pwd1 = $('#'+id).val();
         if(pwd1.length>0 && pwd1.length<6 || pwd1.length>=16){
+            $('#'+id).css("background-color", "#a52a2a");
+            $('#'+id).css("color", "#ffffff");
             alert("비밀번호는 6자리 이상, 16자리 미만으로 사용 가능합니다.");
-            $('#signUpPassword').focus();
-            $('#signUpPassword').css("border", "2px solid red");
         } else {
-            $('#signUpPassword').css("border", "1px solid white");
-            $('#checkPW').focus();
+            $('#'+id).css("background-color", "#54d1b9");
+            $('#'+id).css("color", "#000000");
         }
     });
+
     // 비밀번호 확인
     $('#checkPW').blur(function () {
-        let pwd1 = $("#signUpPassword").val();
-        let pwd2 = $("#checkPW").val();
+        var id = this.id;
+        var pwd1 = $('#signUpPassword').val();
+        var pwd2 = $('#'+id).val();
 
-        console.log(pwd1+" : "+pwd2);
-        console.log(pwd1.length+" : "+pwd2.length);
-        console.log("boolean : "+(pwd1.length==pwd2.length));
         if(pwd2.length>0) {
             if (pwd1 != "" && pwd2 != "") {
                 if (pwd2 === pwd1) {
-                    $('#checkPW').css("border", "1px solid white");
+                    $('#'+id).css("background-color", "#54d1b9");
+                    $('#'+id).css("color", "#000000");
                     availableSignUp = true;
                     // 조건 충족시 회원가입 버튼 활성화
                     if (availableSignUp) {
-                        $('#checkPW').css("border", "1px solid white");
                         $('#signUpBtn').removeAttr("disabled");
                     }
                 } else {
+                    $('#'+id).css("background-color", "#a52a2a");
+                    $('#'+id).css("color", "#ffffff");
                     alert("비밀번호가 일치하지 않습니다. 비밀번호를 확인하고 다시 입력해주세요.");
-                    $('#checkPW').focus();
-                    $('#checkPW').css("border", "2px solid red");
                 }
             }
         }
