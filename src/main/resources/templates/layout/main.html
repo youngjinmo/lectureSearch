@@ -16,7 +16,7 @@
     <link rel="stylesheet" th:href="@{/css/bootstrap-datepicker.css}">
     <link rel="stylesheet" th:href="@{/css/mediaelementplayer.css}">
     <link rel="stylesheet" th:href="@{/css/animate.css}">
-    <link rel="stylesheet" th:href="@{/fonts/flaticon/font/flaticon.css}">
+    <link rel="stylesheet" th:href="@{/fonts/flaticon-2/font/flaticon.css}">
     <link rel="stylesheet" th:href="@{/css/fl-bigmug-line.css}">
     
   
@@ -28,7 +28,7 @@
   <body>
   <div class="site-loader"></div>
   
-  <header th:replace="/layout/header"></header>
+  <header th:replace="layout/header"></header>
 
     <div class="slide-one-item home-slider owl-carousel">
 
@@ -80,11 +80,11 @@
           <div class="col-md-12">
             <div class="view-options bg-white py-3 px-3 d-md-flex align-items-center">
               <form th:action="@{/contents/boardform}"><input type="submit" value="게시글 작성하기" class="btn btn-primary"></form>
-              <div class="mr-auto">
-                <a href="index.html" class="icon-view view-module active"><span class="icon-view_module"></span></a>
-                <a href="view-list.html" class="icon-view view-list"><span class="icon-view_list"></span></a>
-                
-              </div>
+<!--              <div class="mr-auto">-->
+<!--                <a href="index.html" class="icon-view view-module active"><span class="icon-view_module"></span></a>-->
+<!--                <a href="view-list.html" class="icon-view view-list"><span class="icon-view_list"></span></a>-->
+<!--                -->
+<!--              </div>-->
               <div class="ml-auto d-flex align-items-center">
                 <div>
                   <a href="#" class="view-list px-3 border-right active">All</a>
@@ -277,34 +277,34 @@
         <div class="row justify-content-center">
           <div class="col-md-7 text-center">
             <div class="site-section-title">
-              <h2>Why Choose Us?</h2>
+              <h2>왜 Lecture Search 인가?</h2>
             </div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis maiores quisquam saepe architecto error corporis aliquam. Cum ipsam a consectetur aut sunt sint animi, pariatur corporis, eaque, deleniti cupiditate officia.</p>
+            <p>Lecture Search는 한번의 검색으로 다양한 관련 강의들과 플랫폼을 제공 해준다</p>
           </div>
         </div>
 
         <div class="row">
           <div class="col-md-6 col-lg-4">
             <a href="#" class="service text-center">
-              <span class="icon flaticon-house"></span>
-              <h2 class="service-heading">Research Subburbs</h2>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt iure qui natus perspiciatis ex odio molestia.</p>
+              <span class="icon flaticon-planet-earth"></span>
+              <h2 class="service-heading">개발 장소</h2>
+              <p>선릉역 디캠프, 강남역 스타벅스</p>
               <p><span class="read-more">Read More</span></p>
             </a>
           </div>
           <div class="col-md-6 col-lg-4">
             <a href="#" class="service text-center">
-              <span class="icon flaticon-sold"></span>
-              <h2 class="service-heading">Sold Houses</h2>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt iure qui natus perspiciatis ex odio molestia.</p>
+              <span class="icon flaticon-gears"></span>
+              <h2 class="service-heading">개발 기간</h2>
+              <p>총 개발기간 4개월, 매주 정기 모임 월,목 요일 오전 10시 ~ 오후 7시</p>
               <p><span class="read-more">Read More</span></p>
             </a>
           </div>
           <div class="col-md-6 col-lg-4">
             <a href="#" class="service text-center">
-              <span class="icon flaticon-camera"></span>
-              <h2 class="service-heading">Security Priority</h2>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt iure qui natus perspiciatis ex odio molestia.</p>
+              <span class="icon flaticon-worker"></span>
+              <h2 class="service-heading">참여인원</h2>
+              <p>3명</p>
               <p><span class="read-more">Read More</span></p>
             </a>
           </div>
@@ -317,34 +317,34 @@
         <div class="row justify-content-center mb-5">
           <div class="col-md-7 text-center">
             <div class="site-section-title">
-              <h2>Recent Blog</h2>
+              <h2>강의 관련 플랫폼</h2>
             </div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis maiores quisquam saepe architecto error corporis aliquam. Cum ipsam a consectetur aut sunt sint animi, pariatur corporis, eaque, deleniti cupiditate officia.</p>
+            <p>양질의 강의들을 제공하는 플랫폼 들로써.....(생략)</p>
           </div>
         </div>
         <div class="row">
           <div class="col-md-6 col-lg-4 mb-5" data-aos="fade-up" data-aos-delay="100">
-            <a href="#"><img src="images/delete.png" alt="Image" class="img-fluid"></a>
+            <a href="#"><img src="/images/inflearnImg.png" alt="Image" class="img-fluid"></a>
             <div class="p-4 bg-white">
               <span class="d-block text-secondary small text-uppercase">Jan 20th, 2019</span>
-              <h2 class="h5 text-black mb-3"><a href="#">Art Gossip by Mike Charles</a></h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias enim, ipsa exercitationem veniam quae sunt.</p>
+              <h2 class="h5 text-black mb-3"><a href="#">인프런</a></h2>
+              <p>실력있는 한국의 많은 개발자들이 자체 제작한 강의를 접할 수 있다.</p>
             </div>
           </div>
           <div class="col-md-6 col-lg-4 mb-5" data-aos="fade-up" data-aos-delay="200">
-            <a href="#"><img src="images/img_2.jpg" alt="Image" class="img-fluid"></a>
+            <a href="#"><img src="images/youtubeImg.jpg" alt="Image" class="img-fluid"></a>
             <div class="p-4 bg-white">
               <span class="d-block text-secondary small text-uppercase">Jan 20th, 2019</span>
-              <h2 class="h5 text-black mb-3"><a href="#">Art Gossip by Mike Charles</a></h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias enim, ipsa exercitationem veniam quae sunt.</p>
+              <h2 class="h5 text-black mb-3"><a href="#">유튜브</a></h2>
+              <p>전세계 최대 동영상 플랫폼으로 다양한 강의들이 무료로 제공된다.</p>
             </div>
           </div>
           <div class="col-md-6 col-lg-4 mb-5" data-aos="fade-up" data-aos-delay="300">
-            <a href="#"><img src="images/img_3.jpg" alt="Image" class="img-fluid"></a>
+            <a href="#"><img src="images/main01.jpg" alt="Image" class="img-fluid"></a>
             <div class="p-4 bg-white">
               <span class="d-block text-secondary small text-uppercase">Jan 20th, 2019</span>
-              <h2 class="h5 text-black mb-3"><a href="#">Art Gossip by Mike Charles</a></h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias enim, ipsa exercitationem veniam quae sunt.</p>
+              <h2 class="h5 text-black mb-3"><a href="#">Lecture Search</a></h2>
+              <p>강의를 검색하는 플랫폼으로써...(생략)</p>
             </div>
           </div>
 
@@ -354,13 +354,12 @@
     </div>
 
     
-    < class="site-section">
     <div class="container">
       <div class="row mb-5 justify-content-center">
         <div class="col-md-7">
           <div class="site-section-title text-center">
-            <h2>Our Agents</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero magnam officiis ipsa eum pariatur labore fugit amet eaque iure vitae, repellendus laborum in modi reiciendis quis! Optio minima quibusdam, laboriosam.</p>
+            <h2>개발자</h2>
+            <p>Lecture Search 를 개발하기위해 참여한 개발자들로써 ....(생략)</p>
           </div>
         </div>
       </div>
@@ -372,9 +371,9 @@
 
               <div class="text">
 
-                <h2 class="mb-2 font-weight-light text-black h4">Megan Smith</h2>
-                <span class="d-block mb-3 text-white-opacity-05">Real Estate Agent</span>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi dolorem totam non quis facere blanditiis praesentium est. Totam atque corporis nisi, veniam non. Tempore cupiditate, vitae minus obcaecati provident beatae!</p>
+                <h2 class="mb-2 font-weight-light text-black h4">박기윤</h2>
+                <span class="d-block mb-3 text-white-opacity-05">Full-Stack Developer</span>
+                <p>Full-Stack 개발자로서 ...</p>
                 <p>
                   <a href="#" class="text-black p-2"><span class="icon-facebook"></span></a>
                   <a href="#" class="text-black p-2"><span class="icon-twitter"></span></a>
@@ -392,8 +391,8 @@
 
               <div class="text">
 
-                <h2 class="mb-2 font-weight-light text-black h4">Brooke Cagle</h2>
-                <span class="d-block mb-3 text-white-opacity-05">Real Estate Agent</span>
+                <h2 class="mb-2 font-weight-light text-black h4">모영진</h2>
+                <span class="d-block mb-3 text-white-opacity-05">Full-Stack Developer</span>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis, cumque vitae voluptates culpa earum similique corrupti itaque veniam doloribus amet perspiciatis recusandae sequi nihil tenetur ad, modi quos id magni!</p>
                 <p>
                   <a href="#" class="text-black p-2"><span class="icon-facebook"></span></a>
@@ -412,8 +411,8 @@
 
               <div class="text">
 
-                <h2 class="mb-2 font-weight-light text-black h4">Philip Martin</h2>
-                <span class="d-block mb-3 text-white-opacity-05">Real Estate Agent</span>
+                <h2 class="mb-2 font-weight-light text-black h4">이동렬</h2>
+                <span class="d-block mb-3 text-white-opacity-05">Full-Stack Developer</span>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores illo iusto, inventore, iure dolorum officiis modi repellat nobis, praesentium perspiciatis, explicabo. Atque cupiditate, voluptates pariatur odit officia libero veniam quo.</p>
                 <p>
                   <a href="#" class="text-black p-2"><span class="icon-facebook"></span></a>
@@ -430,7 +429,7 @@
         </div>
     </div>
 
-    <footer th:replace="/layout/footer"></footer>
+    <footer th:replace="layout/footer"></footer>
 
 
   </body>
