@@ -12,6 +12,7 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
 import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
 import java.util.List;
@@ -30,10 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
             .authorizeRequests()
-                .antMatchers("/","/oauth2/**","/login/**","/css/**","/images/**","/userImages/**","/js/**","/console" +
-                        "/**","/fonts/**","/main/**","/contents/detail","/create/**", "/adminCss/**","/adminImages" +
-                        "/**","/contactform/**","/lib/**","/admin/**","/static/**","/changeStatus","/emailChk","/loginPass").permitAll()
-
+                .antMatchers("/","/oauth2/**","/login/**","/css/**","/images/**","/userImages/**","/js/**", "/console" + "/**","/fonts/**","/main/**","/contents/detail","/create/**", "/adminCss/**", "/adminImages" + "/**","/contactform/**","/lib/**","/admin/**","/static/**","/changeStatus","/emailChk","/loginPass").permitAll()
                 .antMatchers("/facebook").hasAuthority(FACEBOOK.getRoleType())
                 .antMatchers("/google").hasAuthority(GOOGLE.getRoleType())
                 .anyRequest().authenticated()
@@ -48,17 +46,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login"))
                 .and()
             .formLogin()
-                .successForwardUrl("/loginSuccess")
+                .loginPage("/login")
+                .successForwardUrl("/loginPass")
+                .defaultSuccessUrl("/main")
                 .and()
             .logout()
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/main")
+                .logoutSuccessUrl("/login")
+                .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
                 .deleteCookies("JESSIONID")
                 .invalidateHttpSession(true)
                 .and()
             .addFilterBefore(filter, CsrfFilter.class)
                 .csrf().disable();
-
     }
 
     @Bean

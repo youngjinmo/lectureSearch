@@ -50,6 +50,9 @@ dependencies {
     // https://mvnrepository.com/artifact/org.springframework.security.oauth.boot/spring-security-oauth2-autoconfigure
     compile group: 'org.springframework.security.oauth.boot', name: 'spring-security-oauth2-autoconfigure', version: '2.1.7.RELEASE'
 
+    // https://mvnrepository.com/artifact/org.springframework.security/spring-security-taglibs
+    compile group: 'org.springframework.security', name: 'spring-security-taglibs', version: '5.2.1.RELEASE'
+
     // https://mvnrepository.com/artifact/org.springframework.security/spring-security-web
     compile group: 'org.springframework.security', name: 'spring-security-web', version: '5.2.1.RELEASE'
 

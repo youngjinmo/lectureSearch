@@ -10,10 +10,6 @@ public class PasswordEncoding implements PasswordEncoder {
         this.passwordEncoder = new BCryptPasswordEncoder();
     }
 
-    public PasswordEncoding(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
-
     @Override
     public String encode(CharSequence rawPassword) {
         return passwordEncoder.encode(rawPassword);
