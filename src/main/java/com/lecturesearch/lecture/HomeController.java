@@ -9,7 +9,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletResponse;
@@ -36,6 +35,6 @@ public class HomeController {
             model.addAttribute("user", user);
         }
         response.setContentType("multipart/form-data");
-        return "/layout/main";
+        return "layout/main";
     }
 }

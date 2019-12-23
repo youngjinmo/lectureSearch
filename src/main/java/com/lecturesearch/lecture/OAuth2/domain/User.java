@@ -62,6 +62,7 @@ public class User implements UserDetailsService {
     }
 
     public void setEncodePassword(String password){
+
         PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         this.password = passwordEncoder.encode(password);
     }

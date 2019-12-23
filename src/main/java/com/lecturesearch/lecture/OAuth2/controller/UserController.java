@@ -4,12 +4,9 @@ import com.lecturesearch.lecture.OAuth2.domain.User;
 import com.lecturesearch.lecture.OAuth2.annotation.SocialUser;
 import com.lecturesearch.lecture.OAuth2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpSession;
+import java.security.Principal;
 
 
 @Controller
@@ -21,35 +18,6 @@ public class UserController {
     @GetMapping("/login")
     public String login(){
         return "form";
-    }
-
-    @PostMapping("/loginPass")
-    public String loginPass(String email, String password, HttpSession httpSession){
-        User user = userService.findByEmail(email).get(); // email로 user 객체 가져오기
-        System.out.println("Welcome! "+user.getEmail());  // test
-
-        PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-
-        // 로그인 검증
-        if(user==null){
-            // user가 존재하지 않는다.
-            System.out.println("user가 존재하지않음."); //test
-            return "redirect:/login";
-        } else if(!passwordEncoder.matches(password, user.getPassword())){
-            // email이 존재하지만, 비밀번호가 일치하지 않는다면,
-            System.out.println("비밀번호 불일치"); //test
-            return "redirect:/login";
-        } else {
-            // email이 존재하고, 비밀번호가 일치할 때
-            System.out.println("비밀번호 일치"); //test
-            httpSession.setAttribute("user",user);
-
-            user.setLastVisitDate();
-            user.countVisitNum();
-            user.setStatusNormal();
-            userService.saveUser(user);
-            return "redirect:/main";
-        }
     }
 
     @ResponseBody
@@ -75,11 +43,19 @@ public class UserController {
         return "redirect:/main";
     }
 
+    @GetMapping(value = "/loginSuccessByFormLogin")
+    public String FormLoginComplete(Principal principal){
+        User loginUser = userService.findByEmail(principal.getName()).get();
+        loginUser.setLastVisitDate();
+        loginUser.countVisitNum();
+        loginUser.setStatusNormal();
+        userService.saveUser(loginUser);
+        return "redirect:/main";
+    }
+
     @PostMapping("/create")
     public String create(User user){
-        // 비밀번호 암호화
-        String rawPassword = user.getPassword();
-        user.setEncodePassword(rawPassword);
+        user.setEncodePassword(user.getPassword());  // 비밀번호 암호화
 
         user.setCreatedDate();
         user.setLastVisitDate();

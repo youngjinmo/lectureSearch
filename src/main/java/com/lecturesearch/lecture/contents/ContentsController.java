@@ -2,6 +2,7 @@ package com.lecturesearch.lecture.contents;
 
 import com.lecturesearch.lecture.OAuth2.domain.User;
 import com.lecturesearch.lecture.OAuth2.annotation.SocialUser;
+import com.lecturesearch.lecture.OAuth2.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +25,8 @@ public class ContentsController {
     @Autowired
     private ContentsService contentsService;
 
+    @Autowired
+    private UserRepository userRepository;
 //    @RequestMapping("/list")
 //    public String list(Model model, @ModelAttribute ContentsVO paramVO){
 //        Iterable<ContentsVO> rsList = contentsService.contentsList(paramVO);
@@ -31,8 +35,18 @@ public class ContentsController {
 //    }
 
     @RequestMapping("/detail")
-    public String detailView(String idx, Model model, @PageableDefault Pageable pageable,
-                             @SocialUser User user, HttpServletResponse response) {
+    public String detailView(String idx, Model model,
+             @PageableDefault Pageable pageable,
+             @SocialUser User socialUser,
+             Principal principal,HttpServletResponse response) {
+        User user=null;
+        if(!(socialUser==null&&principal==null)) {
+            if (socialUser == null) {
+                user = userRepository.findByEmail(principal.getName()).get();
+            } else {
+                user = socialUser;
+            }
+        }
         ContentsVO contents = contentsService.detailView(idx);
         Page page = contentsService.findReviewList(idx, pageable);
         model.addAttribute("contents", contents);
@@ -40,7 +54,7 @@ public class ContentsController {
         model.addAttribute("user", user);
 
         response.setContentType("multipart-form/data");
-        return "/contents/detailView";
+        return "contents/detailView";
     }
 
 //    @RequestMapping("/insert")
@@ -59,17 +73,29 @@ public class ContentsController {
 
 
     @RequestMapping("/boardform")
-    public String boardForm(@SocialUser User user, Model model) {
+    public String boardForm(@SocialUser User socialUser, Principal principal, Model model) {
+       User user;
+        if(socialUser==null) {
+            user = userRepository.findByEmail(principal.getName()).get();
+        }else{
+            user = socialUser;
+        }
         model.addAttribute("user", user);
-        return "/layout/boardForm";
+        return "layout/boardForm";
     }
 
     @RequestMapping("/updateContent")
-    public String updateContent(@SocialUser User user, Model model, String idx) {
+    public String updateContent(@SocialUser User socialUser,Principal principal, Model model, String idx) {
+        User user;
+        if(socialUser==null) {
+            user = userRepository.findByEmail(principal.getName()).get();
+        }else{
+            user = socialUser;
+        }
         ContentsVO i = contentsService.detailView(idx);
         model.addAttribute("user", user);
         model.addAttribute("content",i);
-        return "/layout/boardForm";
+        return "layout/boardForm";
     }
     @RequestMapping("deleteContent")
     public String deleteContent(String idx){
@@ -159,7 +185,13 @@ public class ContentsController {
     }
 
     @RequestMapping("/cartList")
-    public String cartList(@PageableDefault Pageable pageable, @SocialUser User user, Model model) {
+    public String cartList(@PageableDefault Pageable pageable, @SocialUser User socialUser,Principal principal, Model model) {
+        User user;
+        if(socialUser==null) {
+            user = userRepository.findByEmail(principal.getName()).get();
+        }else{
+            user = socialUser;
+        }
         String email = user.getEmail();
         Iterable<CartVO> i = contentsService.cartList(email);
 
@@ -172,7 +204,7 @@ public class ContentsController {
             cartList.add(contentsService.detailView(k));
         }
             model.addAttribute("list", cartList);
-        return "/contents/cartList";
+        return "contents/cartList";
     }
 
     @RequestMapping("/cartInsert")
