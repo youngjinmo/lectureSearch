@@ -2,9 +2,10 @@ package com.lecturesearch.lecture.OAuth2.controller;
 
 import com.lecturesearch.lecture.OAuth2.domain.User;
 import com.lecturesearch.lecture.OAuth2.annotation.SocialUser;
-import com.lecturesearch.lecture.OAuth2.password.PasswordEncoding;
 import com.lecturesearch.lecture.OAuth2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,14 +28,14 @@ public class UserController {
         User user = userService.findByEmail(email).get(); // email로 user 객체 가져오기
         System.out.println("Welcome! "+user.getEmail());  // test
 
-        PasswordEncoding passwordEncoding = new PasswordEncoding();
+        PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 
         // 로그인 검증
         if(user==null){
             // user가 존재하지 않는다.
             System.out.println("user가 존재하지않음."); //test
             return "redirect:/login";
-        } else if(!passwordEncoding.matches(password, user.getPassword())){
+        } else if(!passwordEncoder.matches(password, user.getPassword())){
             // email이 존재하지만, 비밀번호가 일치하지 않는다면,
             System.out.println("비밀번호 불일치"); //test
             return "redirect:/login";
