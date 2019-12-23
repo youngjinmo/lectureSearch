@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -49,8 +51,8 @@ public class User {
     }
 
     public void setEncodePassword(String password){
-        PasswordEncoding passwordEncoding = new PasswordEncoding();
-        this.password = passwordEncoding.encode(password);
+        PasswordEncoder passwordEncoder=  PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        this.password = passwordEncoder.encode(password);
     }
 
     public String getPassword() {

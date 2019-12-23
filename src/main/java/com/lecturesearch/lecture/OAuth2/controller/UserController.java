@@ -5,10 +5,12 @@ import com.lecturesearch.lecture.OAuth2.annotation.SocialUser;
 import com.lecturesearch.lecture.OAuth2.password.PasswordEncoding;
 import com.lecturesearch.lecture.OAuth2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.util.Optional;
 
 
@@ -51,6 +53,16 @@ public class UserController {
     @GetMapping(value = "/loginSuccess")
     public String loginComplete(@SocialUser User user) {
         User loginUser = userService.findByEmail(user.getEmail()).get();
+        loginUser.setLastVisitDate();
+        loginUser.countVisitNum();
+        loginUser.setStatusNormal();
+        userService.saveUser(loginUser);
+        return "redirect:/main";
+    }
+
+    @GetMapping(value = "/loginSuccessByFormLogin")
+    public String FormLoginComplete(Principal principal){
+        User loginUser = userService.findByEmail(principal.getName()).get();
         loginUser.setLastVisitDate();
         loginUser.countVisitNum();
         loginUser.setStatusNormal();
