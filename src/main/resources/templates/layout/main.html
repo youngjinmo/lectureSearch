@@ -138,25 +138,25 @@
                 <h2 class="property-title"><a th:text="${contents.title}" th:href="@{/contents/detail(idx=${contents.idx})}"></a></h2>
 
 <!--                <span class="property-location d-block mb-3"><span class="property-icon icon-room"></span> 625 S. Berendo St Unit 607 Los Angeles, CA 90005</span>-->
-                <strong class="property-price text-primary mb-3 d-block text-success" th:text="|￦${contents.price}|">$2,265,500</strong>
-<!--                <ul class="property-specs-wrap mb-3 mb-lg-0">-->
-<!--                  <li>-->
-<!--                    <span class="property-specs">Beds</span>-->
-<!--                    <span class="property-specs-number">2 <sup>+</sup></span>-->
+                <strong class="property-price text-primary mb-3 d-block text-success" style="text-align: end" th:text="|￦${contents.price}|"></strong>
+                <ul class="property-specs-wrap mb-3 mb-lg-0">
+                  <li>
+                    <span class="property-specs">평점</span>
+                    <span class="property-specs-number">A<sup>+</sup></span>
 
-<!--                  </li>-->
-<!--                  <li>-->
-<!--                    <span class="property-specs">Baths</span>-->
-<!--                    <span class="property-specs-number">2</span>-->
+                  </li>
+                  <li>
+                    <span class="property-specs">강사</span>
+                    <span class="property-specs-number" th:text="${contents.author}"></span>
 
-<!--                  </li>-->
+                  </li>
 
-<!--                  <li>-->
-<!--                    <span class="property-specs">SQ FT</span>-->
-<!--                    <span class="property-specs-number">7,000</span>-->
+                  <li>
+                    <span class="property-specs">제작 날짜</span>
+                    <span class="property-specs-number" th:text="${contents.createdDate}"></span>
 
-<!--                  </li>-->
-<!--                </ul>-->
+                  </li>
+                </ul>
               </div>
             </div>
           </div>

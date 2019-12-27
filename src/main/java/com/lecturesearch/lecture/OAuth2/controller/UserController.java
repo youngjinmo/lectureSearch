@@ -21,7 +21,7 @@ public class UserController {
     }
 
     @ResponseBody
-    @RequestMapping(value="/emailChk.do", method=RequestMethod.POST)
+    @RequestMapping(value="/emailChk", method=RequestMethod.POST)
     public int emailCheck(@RequestBody String email) {
         int result = 0;
         if(userService.findByEmail(email).isPresent()){
