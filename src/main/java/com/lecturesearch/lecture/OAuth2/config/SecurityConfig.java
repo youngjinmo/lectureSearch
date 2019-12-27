@@ -7,13 +7,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.oauth2.client.CommonOAuth2Provider;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
 import java.util.List;
@@ -29,40 +28,38 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception{
         CharacterEncodingFilter filter = new CharacterEncodingFilter();
-        http
-                .authorizeRequests()
-                .antMatchers("/","/oauth2/**","/login/**","/css/**","/images/**","/userImages/**","/js/**","/console" +
-                        "/**","/fonts/**","/main/**","/contents/detail","/create/**", "/adminCss/**","/adminImages" +
-                        "/**","/contactform/**","/lib/**","/admin/**","/static/**","/changeStatus","/emailChk/**","/loginPass").permitAll()
 
+        http
+            .authorizeRequests()
+                .antMatchers("/","/oauth2/**","/login/**","/css/**","/images/**","/userImages/**","/js/**", "/console" + "/**","/fonts/**","/main/**","/contents/detail","/create/**", "/adminCss/**", "/adminImages" + "/**","/contactform/**","/lib/**","/admin/**","/static/**","/changeStatus","/emailChk","/loginPass").permitAll()
                 .antMatchers("/facebook").hasAuthority(FACEBOOK.getRoleType())
                 .antMatchers("/google").hasAuthority(GOOGLE.getRoleType())
                 .anyRequest().authenticated()
                 .and()
-                .oauth2Login()
+            .oauth2Login()
                 .defaultSuccessUrl("/loginSuccess")
                 .failureUrl("/loginFailure")
                 .and()
-                .headers().frameOptions().disable()
+            .headers().frameOptions().disable()
                 .and()
-                .exceptionHandling()
+            .exceptionHandling()
                 .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login"))
                 .and()
-                .formLogin()
+            .formLogin()
                 .loginPage("/login")
                 .usernameParameter("userEmail")
                 .passwordParameter("password")
                 .defaultSuccessUrl("/loginSuccessByFormLogin",true)
                 .and()
-                .logout()
+            .logout()
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/main")
+                .logoutSuccessUrl("/login")
+                .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
                 .deleteCookies("JESSIONID")
                 .invalidateHttpSession(true)
                 .and()
-                .addFilterBefore(filter, CsrfFilter.class)
+            .addFilterBefore(filter, CsrfFilter.class)
                 .csrf().disable();
-
     }
 
     @Bean

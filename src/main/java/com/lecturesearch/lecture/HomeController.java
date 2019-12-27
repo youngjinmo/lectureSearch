@@ -9,7 +9,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletResponse;
@@ -21,12 +20,10 @@ public class HomeController {
     @Autowired
     private ContentsService contentsService;
 
-//    @RequestMapping("/")
-//    public String main(Model model, @ModelAttribute ContentsVO paramVO) {
-//        Iterable<ContentsVO> rsList = contentsService.contentsList();
-//        model.addAttribute("list", rsList);
-//        return "/layout/main";
-//    }
+    @RequestMapping(value = "/")
+    public String main() {
+        return "/layout/main";
+    }
 
     @RequestMapping(value = "/main")
     public String list(@PageableDefault Pageable pageable, Model model, HttpServletResponse response, @SocialUser User user) {

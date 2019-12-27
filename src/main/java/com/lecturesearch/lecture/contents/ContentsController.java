@@ -35,6 +35,7 @@ public class ContentsController {
 //    }
 
     @RequestMapping("/detail")
+
     public String detailView(String idx, Model model, @PageableDefault Pageable pageable,
                              @SocialUser User socialUser,Principal principal, HttpServletResponse response) {
         User user =null;

@@ -1,10 +1,11 @@
 package com.lecturesearch.lecture.OAuth2.domain;
 
 import com.lecturesearch.lecture.OAuth2.SocialType;
-import com.lecturesearch.lecture.OAuth2.password.PasswordEncoding;
+import com.lecturesearch.lecture.OAuth2.repository.UserRepository;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -34,6 +35,8 @@ public class User {
     private String status;
     private long numOfVisit;
 
+    @Autowired
+    UserRepository userRepository;
 
     @Builder
     public User(String name, String password,
@@ -51,7 +54,8 @@ public class User {
     }
 
     public void setEncodePassword(String password){
-        PasswordEncoder passwordEncoder=  PasswordEncoderFactories.createDelegatingPasswordEncoder();
+
+        PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         this.password = passwordEncoder.encode(password);
     }
 
