@@ -25,9 +25,10 @@ public class UserController {
     public int emailCheck(@RequestBody String email) {
         int result = 0;
         if(userService.findByEmail(email).isPresent()){
-            result = 0;
+            // return value != null
+            result = 0; // value!=null 이면 0 반환
         } else {
-            result = 1;
+            result = 1; // value==null 이면 1 반환
         }
         return result;
     }
