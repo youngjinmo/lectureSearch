@@ -123,7 +123,7 @@
           <div th:if="${pageList.getTotalElements()} > 0" th:each="contents : ${pageList}" class="col-md-13 col-lg-13 mb-4">
             <div class="property-entry h-100">
               <a th:href="@{/contents/detail(idx=${contents.idx})}" class="property-thumbnail">
-                <img th:src="@{'/userImages/'+${contents.images[0]}+'.jpg'}" onerror="this.src='/images/main01.jpg'" alt="Image" class="img-fluid">
+                <img th:src="@{'/userImages/'+${contents.images[0]}}" onerror="this.src='/images/main01.jpg'" alt="Image" class="img-fluid">
               </a>
               <div class="p-4 property-body">
 <!--                장바구니-->

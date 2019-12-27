@@ -27,7 +27,7 @@ public class EsConfig {
     @Bean
     Client client() throws UnknownHostException {
         Settings settings = Settings.builder()
-                .put("cluster.name", "docker:cluster")
+                .put("cluster.name", "docker-cluster")
                 .build();
         TransportClient client = new PreBuiltTransportClient(settings);
         client.addTransportAddress(new TransportAddress(InetAddress.getByName("127.0.0.1")

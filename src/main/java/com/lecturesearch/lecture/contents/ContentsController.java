@@ -37,11 +37,13 @@ public class ContentsController {
     @RequestMapping("/detail")
     public String detailView(String idx, Model model, @PageableDefault Pageable pageable,
                              @SocialUser User socialUser,Principal principal, HttpServletResponse response) {
-        User user;
-        if(socialUser==null) {
-            user = userRepository.findByEmail(principal.getName()).get();
-        }else{
-            user = socialUser;
+        User user =null;
+        if(!(socialUser==null&&principal==null)) {
+            if (socialUser == null) {
+                user = userRepository.findByEmail(principal.getName()).get();
+            } else {
+                user = socialUser;
+            }
         }
         ContentsVO contents = contentsService.detailView(idx);
         Page page = contentsService.findReviewList(idx, pageable);
