@@ -299,10 +299,13 @@
             if (email.search('@') != -1) {
                 // 이메일에 @가 포함되어 있을 때
                 // 이메일 형식 통과시 DB에서 중복 검사
+
                 $.ajax({
-                    type: 'post',
-                    url: '/emailChk',
-                    data: {'email': email},
+                    type: 'POST',
+                    url: '/emailChk.do',
+                    data: email,
+                    dataType: "json",
+                    contentType: "application/json; charset=UTF-8",
                     success: function (data) {
                         if (data===1) {
                             $('#signUpEmail').css("background-color", "#54d1b9");
@@ -312,6 +315,11 @@
                             $('#signUpEmail').css("color", "#ffffff");
                             alert("가입할 수 없는 이메일입니다.");
                         }
+                    },
+                    error : function(error) {
+                        $('#signUpEmail').css("background-color", "#a52a2a");
+                        $('#signUpEmail').css("color", "#ffffff");
+                        alert("이메일 중복함수 에러발생중\nerror : " + error);
                     }
                 });
             } else {
