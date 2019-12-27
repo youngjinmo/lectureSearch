@@ -291,7 +291,7 @@
     var availableSignUp = false;
 
     // 이메일 중복 검사 및 형식 검사
-    $('#signUpEmail').change(function() {
+    $('#signUpEmail').blur(function() {
         var id = $('#'+this.id);
         var email = id.val();
         if (email != "" || email != null) {
@@ -301,7 +301,7 @@
 
                 $.ajax({
                     type: 'POST',
-                    url: 'emailChk.do',
+                    url: '/emailChk',
                     data: email,
                     dataType: "json",
                     contentType: "application/json; charset=UTF-8",
@@ -309,6 +309,7 @@
                         if (data===1) {
                             id.css("background-color", "#54d1b9");
                             id.css("color", "#000000");
+                            alert("가입할 수 있는 이메일입니다.");
                         } else if(data===0) {
                             id.css("background-color", "#a52a2a");
                             id.css("color", "#ffffff");
@@ -316,8 +317,8 @@
                         }
                     },
                     error : function(error) {
-                        id.css("background-color", "#a52a2a");
-                        id.css("color", "#ffffff");
+                        $('#signUpEmail').css("background-color", "#a52a2a");
+                        $('#signUpEmail').css("color", "#ffffff");
                         alert("이메일 중복함수 에러발생중\nerror : " + error);
                     }
                 });
@@ -329,7 +330,7 @@
         }
     });
 
-    $('#signUpName').change(function(){
+    $('#signUpName').blur(function(){
        var id = $('#'+this.id);
        var name = id.val();
        if(name==null || name==""){
@@ -342,7 +343,7 @@
     });
 
     // 비밀번호 보안 검증
-    $('#signUpPassword').change(function(){
+    $('#signUpPassword').blur(function(){
         var id = $('#'+this.id);
         var pwd1 = id.val();
         if(pwd1!=="" || pwd1===null){
@@ -358,7 +359,7 @@
     });
 
     // 비밀번호 확인
-    $('#checkPW').change(function () {
+    $('#checkPW').blur(function () {
         var id = $('#'+this.id);
         var pwd1 = $('#signUpPassword').val();
         var pwd2 = id.val();
