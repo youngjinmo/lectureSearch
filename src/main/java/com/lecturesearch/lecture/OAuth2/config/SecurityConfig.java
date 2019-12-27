@@ -31,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
             .authorizeRequests()
-                .antMatchers("/","/oauth2/**","/login/**","/css/**","/images/**","/userImages/**","/js/**", "/console" + "/**","/fonts/**","/main/**","/contents/detail","/create/**", "/adminCss/**", "/adminImages" + "/**","/contactform/**","/lib/**","/admin/**","/static/**","/changeStatus","/emailChk","/loginPass").permitAll()
+                .antMatchers("/","/oauth2/**","/login/**","/css/**","/images/**","/userImages/**","/js/**", "/console" + "/**","/fonts/**","/main/**","/contents/detail","/create/**", "/adminCss/**", "/adminImages" + "/**","/contactform/**","/lib/**","/admin/**","/static/**","/changeStatus","/emailChk.do","/loginPass").permitAll()
                 .antMatchers("/facebook").hasAuthority(FACEBOOK.getRoleType())
                 .antMatchers("/google").hasAuthority(GOOGLE.getRoleType())
                 .anyRequest().authenticated()
@@ -53,7 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
             .logout()
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/login")
+                .logoutSuccessUrl("/main")
                 .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
                 .deleteCookies("JESSIONID")
                 .invalidateHttpSession(true)
