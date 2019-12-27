@@ -20,12 +20,7 @@ public class HomeController {
     @Autowired
     private ContentsService contentsService;
 
-    @RequestMapping(value = "/")
-    public String main() {
-        return "/layout/main";
-    }
-
-    @RequestMapping(value = "/main")
+    @RequestMapping(value = {"/main", "/"})
     public String list(@PageableDefault Pageable pageable, Model model, HttpServletResponse response, @SocialUser User user) {
         Page i = contentsService.findContentsList(pageable);
         model.addAttribute("pageList", i);
