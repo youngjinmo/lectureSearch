@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>LectureSearch - 로그인/회원가입</title>
     <meta charset="UTF-8">
@@ -115,9 +114,9 @@
         align-content: center;
         margin: auto auto 20px;
     }
-    /*.form-group table tr td input:hover{*/
-    /*    border: 2px solid #98FB98;*/
-    /*}*/
+    /* .form-group table tr td input:hover{  */
+    /*    border: 2px solid #98FB98;  */
+    /* }  */
 
     .container {
         width:100%;
@@ -263,7 +262,6 @@
 
 <footer th:replace="layout/footer"></footer>
 
-
 </body>
 
 <script th:src="@{js/jquery.min.js}"></script>
@@ -317,8 +315,8 @@
                         }
                     },
                     error : function(error) {
-                        $('#signUpEmail').css("background-color", "#a52a2a");
-                        $('#signUpEmail').css("color", "#ffffff");
+                        id.css("background-color", "#a52a2a");
+                        id.css("color", "#ffffff");
                         alert("이메일 중복함수 에러발생중\nerror : " + error);
                     }
                 });

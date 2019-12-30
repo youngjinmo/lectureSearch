@@ -14,9 +14,9 @@
         padding:13px 0 0 15px;
     }
 
-    /*tr td {*/
-    /*    border: solid 1px #98FB98;*/
-    /*}*/
+    tr td input:hover {
+        border: solid 1px #98FB98;
+    }
 </style>
 <body>
 
@@ -123,18 +123,26 @@
     $('#content_title').blur(function(){
         var id = $("#"+this.id);
         if(id.val()==null){
-            id.input.style("border", "solid 1px #a52a2a");
+            id.input.hover("border", "solid");
+            id.input.hover("border", "1px");
+            id.input.hover("border", "#a52a2a");
         } else {
-            id.input.style("border", "solid 1px #98FB98");
+            id.input.hover("border", "solid");
+            id.input.hover("border", "1px");
+            id.input.hover("border", "#98FB98");
         }
     });
 
     $('#content_author').blur(function(){
         var id = $("#"+this.id);
         if(id.val()==null){
-            id.input.style("border", "solid 1px #a52a2a");
+            id.input.hover("border", "solid");
+            id.input.hover("border", "1px");
+            id.input.hover("border", "#a52a2a");
         } else {
-            id.input.style("border", "solid 1px #98FB98");
+            id.input.css("border", "solid");
+            id.input.css("border", "1px");
+            id.input.css("border", "#98FB98");
         }
     });
 
@@ -150,9 +158,13 @@
         }
 
         if(result){
-            id.input.style("border", "solid 1px #98FB98");
+            id.input.hover("border", "solid");
+            id.input.hover("border", "1px");
+            id.input.hover("border", "#98FB98");
         } else {
-            id.input.style("border", "solid 1px #a52a2a");
+            id.input.hover("border", "solid");
+            id.input.hover("border", "1px");
+            id.input.hover("border", "#a52a2a");
             alert("숫자만 입력해주세요");
         }
     });
@@ -160,18 +172,18 @@
     $('#content_time').blur(function(){
         var id = $("#"+this.id);
         if(id.val()==null){
-            id.input.style("border", "solid 1px #a52a2a");
+            id.input.css("border", "solid 1px #a52a2a");
         } else {
-            id.input.style("border", "solid 1px #54d1b9");
+            id.input.css("border", "solid 1px #54d1b9");
         }
     });
 
     $('#content_description').blur(function(){
         var id = $("#"+this.id);
         if(id.val()==null){
-            id.input.style("border", "solid 1px #a52a2a");
+            id.input.css("border", "solid 1px #a52a2a");
         } else {
-            id.input.style("border", "solid 1px #54d1b9");
+            id.input.css("border", "solid 1px #54d1b9");
         }
     });
 
