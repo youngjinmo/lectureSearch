@@ -165,8 +165,6 @@ public class ContentsController {
                                 HttpServletResponse response){
         List<String> imagesList;
 
-        imagesList = contentsService.saveImages(files);
-
         ContentsVO contentsDTO= ContentsVO.builder()
                 .title(title)
                 .author(author)
@@ -175,9 +173,10 @@ public class ContentsController {
                 .createdDate(createdDate)
                 .description(description)
                 .build();
-        if(!(imagesList ==null))
+        if(!(files ==null)) {
+            imagesList = contentsService.saveImages(files);
             contentsDTO.setImages(imagesList);
-
+        }
         ContentsVO contentsVO= contentsService.findById(contentIdx).get();
         contentsVO.update(contentsDTO);
 
