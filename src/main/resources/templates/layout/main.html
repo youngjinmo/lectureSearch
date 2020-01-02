@@ -122,8 +122,8 @@
 <!--         등록된 강좌가 있는 경우 start-->
           <div th:if="${pageList.getTotalElements()} > 0" th:each="contents : ${pageList}" class="col-md-13 col-lg-13 mb-4">
             <div class="property-entry h-100">
-              <a th:href="@{/contents/detail(idx=${contents.idx})}" class="property-thumbnail">
-                <img th:src="@{'/userImages/'+${contents.images[0]}}" onerror="this.src='/images/main01.jpg'" alt="Image" class="img-fluid">
+              <a style="height: 180px;" th:href="@{/contents/detail(idx=${contents.idx})}" class="property-thumbnail">
+                <img th:src="@{contents/loadImage(image=${contents.images[0]})}" onerror="this.src='/images/main01.jpg'" alt="Image" class="img-fluid">
               </a>
               <div class="p-4 property-body">
 <!--                장바구니-->
@@ -324,7 +324,7 @@
         </div>
         <div class="row">
           <div class="col-md-6 col-lg-4 mb-5" data-aos="fade-up" data-aos-delay="100">
-            <a href="#"><img src="/images/inflearnImg.png" alt="Image" class="img-fluid"></a>
+            <a href="https://www.inflearn.com/"><img src="/images/inflearnImg.png" alt="Image" class="img-fluid"></a>
             <div class="p-4 bg-white">
               <span class="d-block text-secondary small text-uppercase">Jan 20th, 2019</span>
               <h2 class="h5 text-black mb-3"><a href="#">인프런</a></h2>
@@ -332,7 +332,7 @@
             </div>
           </div>
           <div class="col-md-6 col-lg-4 mb-5" data-aos="fade-up" data-aos-delay="200">
-            <a href="#"><img src="images/youtubeImg.jpg" alt="Image" class="img-fluid"></a>
+            <a href="https://www.youtube.com/"><img src="images/youtubeImg.jpg" alt="Image" class="img-fluid"></a>
             <div class="p-4 bg-white">
               <span class="d-block text-secondary small text-uppercase">Jan 20th, 2019</span>
               <h2 class="h5 text-black mb-3"><a href="#">유튜브</a></h2>
