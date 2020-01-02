@@ -78,9 +78,9 @@ $.fn.zabuto_calendar = function (options) {
         function drawLegend($calendarElement) {
             var $legendObj = $('<div class="legend" id="' + $calendarElement.attr('id') + '_legend"></div>');
             var legend = $calendarElement.data('legendList');
-            if (typeof(legend) == 'object' && legend.length > 0) {
+            if (typeof (legend) == 'object' && legend.length > 0) {
                 $(legend).each(function (index, item) {
-                    if (typeof(item) == 'object') {
+                    if (typeof (item) == 'object') {
                         if ('type' in item) {
                             var itemLabel = '';
                             if ('label' in item) {
@@ -92,7 +92,7 @@ $.fn.zabuto_calendar = function (options) {
                                     if (itemLabel !== '') {
                                         var itemBadge = '';
                                         if ('badge' in item) {
-                                            if (typeof(item.classname) === 'undefined') {
+                                            if (typeof (item.classname) === 'undefined') {
                                                 var badgeClassName = 'badge-event';
                                             } else {
                                                 var badgeClassName = item.classname;
@@ -106,7 +106,7 @@ $.fn.zabuto_calendar = function (options) {
                                     if (itemLabel !== '') {
                                         itemLabel = '<span>' + itemLabel + '</span>';
                                     }
-                                    if (typeof(item.classname) === 'undefined') {
+                                    if (typeof (item.classname) === 'undefined') {
                                         var listClassName = 'event';
                                     } else {
                                         var listClassName = 'event-styled ' + item.classname;
@@ -114,7 +114,7 @@ $.fn.zabuto_calendar = function (options) {
                                     $legendObj.append('<span class="legend-' + item.type + '"><ul class="legend"><li class="' + listClassName + '"></li></u>' + itemLabel + '</span>');
                                     break;
                                 case 'list':
-                                    if ('list' in item && typeof(item.list) == 'object' && item.list.length > 0) {
+                                    if ('list' in item && typeof (item.list) == 'object' && item.list.length > 0) {
                                         var $legendUl = $('<ul class="legend"></u>');
                                         $(item.list).each(function (listIndex, listClassName) {
                                             $legendUl.append('<li class="' + listClassName + '"></li>');
@@ -139,7 +139,7 @@ $.fn.zabuto_calendar = function (options) {
             var navIcons = $calendarElement.data('navIcons');
             var $prevMonthNavIcon = $('<span><span class="fa fa-chevron-left text-transparent"></span></span>');
             var $nextMonthNavIcon = $('<span><span class="fa fa-chevron-right text-transparent"></span></span>');
-            if (typeof(navIcons) === 'object') {
+            if (typeof (navIcons) === 'object') {
                 if ('prev' in navIcons) {
                     $prevMonthNavIcon.html(navIcons.prev);
                 }
@@ -149,7 +149,7 @@ $.fn.zabuto_calendar = function (options) {
             }
 
             var prevIsValid = $calendarElement.data('showPrevious');
-            if (typeof(prevIsValid) === 'number' || prevIsValid === false) {
+            if (typeof (prevIsValid) === 'number' || prevIsValid === false) {
                 prevIsValid = checkMonthLimit($calendarElement.data('showPrevious'), true);
             }
 
@@ -165,7 +165,7 @@ $.fn.zabuto_calendar = function (options) {
                 }
                 $prevMonthNav.data('to', {year: prevYear, month: (prevMonth + 1)});
                 $prevMonthNav.append($prevMonthNavIcon);
-                if (typeof($calendarElement.data('actionNavFunction')) === 'function') {
+                if (typeof ($calendarElement.data('actionNavFunction')) === 'function') {
                     $prevMonthNav.click($calendarElement.data('actionNavFunction'));
                 }
                 $prevMonthNav.click(function (e) {
@@ -174,7 +174,7 @@ $.fn.zabuto_calendar = function (options) {
             }
 
             var nextIsValid = $calendarElement.data('showNext');
-            if (typeof(nextIsValid) === 'number' || nextIsValid === false) {
+            if (typeof (nextIsValid) === 'number' || nextIsValid === false) {
                 nextIsValid = checkMonthLimit($calendarElement.data('showNext'), false);
             }
 
@@ -190,7 +190,7 @@ $.fn.zabuto_calendar = function (options) {
                 }
                 $nextMonthNav.data('to', {year: nextYear, month: (nextMonth + 1)});
                 $nextMonthNav.append($nextMonthNavIcon);
-                if (typeof($calendarElement.data('actionNavFunction')) === 'function') {
+                if (typeof ($calendarElement.data('actionNavFunction')) === 'function') {
                     $nextMonthNav.click($calendarElement.data('actionNavFunction'));
                 }
                 $nextMonthNav.click(function (e) {
@@ -284,7 +284,7 @@ $.fn.zabuto_calendar = function (options) {
                         $dowElement.data('date', dateAsString(year, month, currDayOfMonth));
                         $dowElement.data('hasEvent', false);
 
-                        if (typeof($calendarElement.data('actionFunction')) === 'function') {
+                        if (typeof ($calendarElement.data('actionFunction')) === 'function') {
                             $dowElement.addClass('dow-clickable');
                             $dowElement.click(function () {
                                 $calendarElement.data('selectedDate', $(this).data('date'));
@@ -319,7 +319,7 @@ $.fn.zabuto_calendar = function (options) {
             var $modalBody = $('<div class="modal-body" id="' + id + '_modal_body">' + body + '</div>');
 
             var $modalFooter = $('<div class="modal-footer" id="' + id + '_modal_footer"></div>');
-            if (typeof(footer) !== 'undefined') {
+            if (typeof (footer) !== 'undefined') {
                 var $modalFooterAddOn = $('<div>' + footer + '</div>');
                 $modalFooter.append($modalFooterAddOn);
             }
@@ -352,12 +352,12 @@ $.fn.zabuto_calendar = function (options) {
                 return true;
             }
 
-            if (typeof(ajaxSettings) != 'object' || typeof(ajaxSettings.url) == 'undefined') {
+            if (typeof (ajaxSettings) != 'object' || typeof (ajaxSettings.url) == 'undefined') {
                 alert('Invalid calendar event settings');
                 return false;
             }
 
-            var data = { year: year, month: (month + 1)};
+            var data = {year: year, month: (month + 1)};
 
             $.ajax({
                 type: 'GET',
@@ -365,13 +365,13 @@ $.fn.zabuto_calendar = function (options) {
                 data: data,
                 dataType: 'json'
             }).done(function (response) {
-                    var events = [];
-                    $.each(response, function (k, v) {
-                        events.push(response[k]);
-                    });
-                    $calendarElement.data('events', events);
-                    drawEvents($calendarElement);
+                var events = [];
+                $.each(response, function (k, v) {
+                    events.push(response[k]);
                 });
+                $calendarElement.data('events', events);
+                drawEvents($calendarElement);
+            });
         }
 
         function drawEvents($calendarElement) {
@@ -386,24 +386,24 @@ $.fn.zabuto_calendar = function (options) {
 
                     $dowElement.data('hasEvent', true);
 
-                    if (typeof(value.title) !== 'undefined') {
+                    if (typeof (value.title) !== 'undefined') {
                         $dowElement.attr('title', value.title);
                     }
 
-                    if (typeof(value.classname) === 'undefined') {
+                    if (typeof (value.classname) === 'undefined') {
                         $dowElement.addClass('event');
                     } else {
                         $dowElement.addClass('event-styled');
                         $dayElement.addClass(value.classname);
                     }
 
-                    if (typeof(value.badge) !== 'undefined' && value.badge !== false) {
+                    if (typeof (value.badge) !== 'undefined' && value.badge !== false) {
                         var badgeClass = (value.badge === true) ? '' : ' badge-' + value.badge;
                         var dayLabel = $dayElement.data('day');
                         $dayElement.html('<span class="badge badge-event' + badgeClass + '">' + dayLabel + '</span>');
                     }
 
-                    if (typeof(value.body) !== 'undefined') {
+                    if (typeof (value.body) !== 'undefined') {
                         if ('modal' in ajaxSettings && (ajaxSettings.modal === true)) {
                             $dowElement.addClass('event-clickable');
 
@@ -546,7 +546,7 @@ $.fn.zabuto_calendar_defaults = function () {
  * @returns {{month_labels: Array, dow_labels: Array}}
  */
 $.fn.zabuto_calendar_language = function (lang) {
-    if (typeof(lang) == 'undefined' || lang === false) {
+    if (typeof (lang) == 'undefined' || lang === false) {
         lang = 'en';
     }
 

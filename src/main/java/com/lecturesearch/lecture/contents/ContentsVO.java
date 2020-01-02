@@ -31,7 +31,7 @@ public class ContentsVO {
     private String registrationDate;
     private String writer;
 
-    public void update(ContentsVO contentsVO){
+    public void update(ContentsVO contentsVO) {
         this.title = contentsVO.getTitle();
         this.author = contentsVO.getAuthor();
         this.subject = contentsVO.getSubject();
@@ -41,8 +41,9 @@ public class ContentsVO {
         this.createdDate = contentsVO.getCreatedDate();
         this.runningTime = contentsVO.getRunningTime();
     }
-    public void setRegistrationDate(){
-       this.registrationDate=LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+
+    public void setRegistrationDate() {
+        this.registrationDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 
     @Builder

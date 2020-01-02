@@ -4,18 +4,18 @@ public enum SocialType {
     FACEBOOK("facebook"),
     GOOGLE("google");
 
-    private final String ROLE_PREFIX= "ROLE_";
+    private final String ROLE_PREFIX = "ROLE_";
     private String name;
 
-    SocialType(String name){
-        this.name=name;
+    SocialType(String name) {
+        this.name = name;
     }
 
-    public String getRoleType(){
-        return ROLE_PREFIX+name.toUpperCase();
+    public String getRoleType() {
+        return ROLE_PREFIX + name.toUpperCase();
     }
 
-    public String getValue(){
+    public String getValue() {
         return name;
     }
 

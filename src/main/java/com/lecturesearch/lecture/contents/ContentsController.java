@@ -10,10 +10,12 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,11 +37,10 @@ public class ContentsController {
 //    }
 
     @RequestMapping("/detail")
-    public String detailView(String idx, Model model,
-             @PageableDefault Pageable pageable,
-             @SocialUser User socialUser,
-             Principal principal,HttpServletResponse response) {
-        User user=null;
+
+    public String detailView(String idx, Model model, @PageableDefault Pageable pageable,
+                             @SocialUser User socialUser,Principal principal, HttpServletResponse response) {
+        User user =null;
         if(!(socialUser==null&&principal==null)) {
             if (socialUser == null) {
                 user = userRepository.findByEmail(principal.getName()).get();
@@ -74,7 +75,7 @@ public class ContentsController {
 
     @RequestMapping("/boardform")
     public String boardForm(@SocialUser User socialUser, Principal principal, Model model) {
-       User user;
+        User user;
         if(socialUser==null) {
             user = userRepository.findByEmail(principal.getName()).get();
         }else{
@@ -99,8 +100,8 @@ public class ContentsController {
     }
     @RequestMapping("deleteContent")
     public String deleteContent(String idx){
-         contentsService.deleteContent(idx);
-         return "redirect:/main";
+        contentsService.deleteContent(idx);
+        return "redirect:/main";
     }
 
     //후기작성
@@ -129,7 +130,7 @@ public class ContentsController {
 //    }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST,
-    consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public String saveContent(@RequestParam("title") String title, @RequestParam("author") String author,
                               @RequestParam("files") MultipartFile[] files, @RequestParam("price") String price,
                               @RequestParam("runningTime") String runningTime, @RequestParam("createdDate") String createdDate,
@@ -164,18 +165,18 @@ public class ContentsController {
                                 HttpServletResponse response){
         List<String> imagesList;
 
-        imagesList = contentsService.saveImages(files);
-
         ContentsVO contentsDTO= ContentsVO.builder()
                 .title(title)
                 .author(author)
-                .images(imagesList)
                 .price(price)
                 .runningTime(runningTime)
                 .createdDate(createdDate)
                 .description(description)
                 .build();
-
+        if(!(files ==null)) {
+            imagesList = contentsService.saveImages(files);
+            contentsDTO.setImages(imagesList);
+        }
         ContentsVO contentsVO= contentsService.findById(contentIdx).get();
         contentsVO.update(contentsDTO);
 
@@ -203,8 +204,24 @@ public class ContentsController {
         for (String k : arrList) {
             cartList.add(contentsService.detailView(k));
         }
-            model.addAttribute("list", cartList);
+        model.addAttribute("list", cartList);
         return "contents/cartList";
+    }
+
+    @RequestMapping(value = "/loadImage", method = RequestMethod.GET)
+    public void loadImage(String image, HttpServletResponse response) throws IOException {
+        File file = new File("/home/ec2-user/app/step1/lectureSearch/src/main/resources/static/userImages/",image+".jpg");
+        FileInputStream fileInputStream = new FileInputStream(file);
+        response.setContentLength((int)file.length());
+        response.setCharacterEncoding("utf-8");
+
+        OutputStream outputStream = response.getOutputStream();
+
+        FileCopyUtils.copy(fileInputStream, outputStream);
+
+        outputStream.flush();
+        fileInputStream.close();
+        outputStream.close();
     }
 
     @RequestMapping("/cartInsert")
@@ -234,7 +251,7 @@ public class ContentsController {
 
     @RequestMapping("/cartDelete")
     public String cartDelete(String contentsIdx){
-            contentsService.cartDelete(contentsIdx);
+        contentsService.cartDelete(contentsIdx);
         return "redirect:/contents/cartList";
     }
 }

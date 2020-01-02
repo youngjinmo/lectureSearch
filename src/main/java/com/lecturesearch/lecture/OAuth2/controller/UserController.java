@@ -6,6 +6,7 @@ import com.lecturesearch.lecture.OAuth2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
 import java.security.Principal;
 
 
@@ -16,15 +17,15 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/login")
-    public String login(){
-        return "form";
+    public String login() {
+        return "layout/form";
     }
 
     @ResponseBody
-    @RequestMapping(value="/emailChk.do", method=RequestMethod.POST)
+    @RequestMapping(value = "/emailChk", method = RequestMethod.POST)
     public int emailCheck(@RequestBody String email) {
         int result = 0;
-        if(userService.findByEmail(email).isPresent()){
+        if (userService.findByEmail(email).isPresent()) {
             // return value != null
             result = 0; // value!=null 이면 0 반환
         } else {
@@ -45,7 +46,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/loginSuccessByFormLogin")
-    public String FormLoginComplete(Principal principal){
+    public String FormLoginComplete(Principal principal) {
         User loginUser = userService.findByEmail(principal.getName()).get();
         loginUser.setLastVisitDate();
         loginUser.countVisitNum();
@@ -55,7 +56,7 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public String create(User user){
+    public String create(User user) {
         user.setEncodePassword(user.getPassword());  // 비밀번호 암호화
 
         user.setCreatedDate();
@@ -68,11 +69,11 @@ public class UserController {
     }
 
     @RequestMapping("/changeStatus")
-    public String changeStatus(@RequestBody @RequestParam("email") String email){
+    public String changeStatus(@RequestBody @RequestParam("email") String email) {
         User selectedUser = userService.findByEmail(email).get();
-        if(selectedUser.getStatus().equals("normal")){
+        if (selectedUser.getStatus().equals("normal")) {
             selectedUser.setStatusBlocked();
-        }else {
+        } else {
             selectedUser.setStatusNormal();
         }
         userService.saveUser(selectedUser);

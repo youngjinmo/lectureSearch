@@ -19,77 +19,77 @@
                 <form id="content_form" enctype="multipart/form-data" th:action="!${content?.idx} ? @{/contents/save} : @{/contents/update}"
                       th:method="!${content?.idx} ? post : put">
                     <!--                <tr>-->
-<!--                    <th style="padding:13px 0 0 15px">게시판 선택</th>-->
-<!--                    <td>-->
-<!--                        <div class="pull-left">-->
-<!--                            <select class="form-control input-sm" id="board_type">-->
-<!--                                <option>&#45;&#45;분류&#45;&#45;</option>-->
-<!--                                <option th:value="notice" th:selected="${content?.boardType?.name() == 'notice'}">공지사항</option>-->
-<!--                                <option th:value="free" th:selected="${content?.boardType?.name() == 'free'}">자유게시판</option>-->
-<!--                            </select>-->
-<!--                        </div>-->
-<!--                    </td>-->
-<!--                </tr>-->
-                <tr>
-                    <td><input name="contentIdx" type="hidden" th:value="${content?.idx}"> </td>
-                </tr>
-                <tr>
-                    <th style="padding:13px 0 0 15px;">게시날짜</th>
-                    <td><input type="text" class="col-md-1 form-control input-sm" readonly="readonly" th:value="${content?.registrationDate}"/></td>
-                </tr>
-                <tr>
-                    <th style="padding:13px 0 0 15px;">*제목</th>
-                    <td><input name="title" id="content_title" type="text" class="col-md-1 form-control input-sm" th:value="${content?.title}" required/></td>
-                </tr>
-                <tr>
-                    <th style="padding:13px 0 0 15px;">*강사</th>
-                    <td><input name="author" id="content_author" type="text" class="col-md-1 form-control input-sm" th:value="${content?.author}" required/></td>
-                </tr>
-<!--                <tr>-->
-<!--                    <th style="padding:13px 0 0 15px;">주제</th>-->
-<!--                    <td><input id="board_sub_title" type="text" class="col-md-1 form-control input-sm" th:value="${board?.subTitle}"/></td>-->
-<!--                </tr>-->
-                <tr>
-                    <th style="padding:13px 0 0 15px;">이미지 파일</th>
-                    <td>
+                    <!--                    <th style="padding:13px 0 0 15px">게시판 선택</th>-->
+                    <!--                    <td>-->
+                    <!--                        <div class="pull-left">-->
+                    <!--                            <select class="form-control input-sm" id="board_type">-->
+                    <!--                                <option>&#45;&#45;분류&#45;&#45;</option>-->
+                    <!--                                <option th:value="notice" th:selected="${content?.boardType?.name() == 'notice'}">공지사항</option>-->
+                    <!--                                <option th:value="free" th:selected="${content?.boardType?.name() == 'free'}">자유게시판</option>-->
+                    <!--                            </select>-->
+                    <!--                        </div>-->
+                    <!--                    </td>-->
+                    <!--                </tr>-->
+                    <tr>
+                        <td><input name="contentIdx" type="hidden" th:value="${content?.idx}"> </td>
+                    </tr>
+                    <tr>
+                        <th style="padding:13px 0 0 15px;">게시날짜</th>
+                        <td><input type="text" class="col-md-1 form-control input-sm" readonly="readonly" th:value="${content?.registrationDate}"/></td>
+                    </tr>
+                    <tr>
+                        <th style="padding:13px 0 0 15px;">*제목</th>
+                        <td><input name="title" id="content_title" type="text" class="col-md-1 form-control input-sm" th:value="${content?.title}" required/></td>
+                    </tr>
+                    <tr>
+                        <th style="padding:13px 0 0 15px;">*강사</th>
+                        <td><input name="author" id="content_author" type="text" class="col-md-1 form-control input-sm" th:value="${content?.author}" required/></td>
+                    </tr>
+                    <!--                <tr>-->
+                    <!--                    <th style="padding:13px 0 0 15px;">주제</th>-->
+                    <!--                    <td><input id="board_sub_title" type="text" class="col-md-1 form-control input-sm" th:value="${board?.subTitle}"/></td>-->
+                    <!--                </tr>-->
+                    <tr>
+                        <th style="padding:13px 0 0 15px;">이미지 파일</th>
+                        <td>
                             <input name="files" id="content_images" multiple="multiple" type="file" th:value="${content?.images}"/>
-                    </td>
-                </tr>
-<!--                <tr>-->
-<!--                    <th style="padding:13px 0 0 15px;">서브이미지</th>-->
-<!--                    <td><input id="board_sub_title" type="text" class="col-md-1 form-control input-sm" th:value="${board?.subTitle}"/></td>-->
-<!--                </tr>-->
-                <tr>
-                    <th style="padding:13px 0 0 15px;">*가격</th>
-                    <td><input name="price" id="content_price" type="text" class="col-md-1 form-control input-sm" th:value="${content?.price}" required/></td>
-                </tr>
-                <tr>
-                    <th style="padding:13px 0 0 15px;">*강의시간</th>
-                    <td><input name="runningTime" id="content_running_time" type="text" class="col-md-1 form-control input-sm" th:value="${content?.runningTime}" required/></td>
-                </tr>
-                <tr>
-                    <th style="padding:13px 0 0 15px;">*강의제작날짜</th>
-                    <td><input name="createdDate" id="content_createdDate" type="text" class="col-md-1 form-control input-sm"  th:value="${content?.createdDate}" required/></td>
-                </tr>
-                <tr>
-                    <th style="padding:13px 0 0 15px;">*내용</th>
-                    <td><textarea name="description" id="content_description" class="col-md-1 form-control input-sm" maxlength="140" rows="7" style="height: 200px;"
-                                  th:text="${content?.description}" required></textarea><span class="help-block"></span>
-                    </td>
-                </tr>
-                 <tr>
-                     <th style="padding:13px 0 0 15px;">
-                         <div th:if="!${content?.idx}" class="pull-left">
-                             <a href="/main" class="btn btn-default">목록으로</a>
-                         </div>
-                     </th>
-                     <td>
-                    <div class="pull-right">
-                        <input th:if="!${content?.idx}" type="submit" class="btn btn-primary" th:value="저장"/>
-                        <button th:if="${content?.idx}" type="submit" class="btn btn-info" id="update">수정</button>
-                    </div>
-                     </td>
-                  </tr>
+                        </td>
+                    </tr>
+                    <!--                <tr>-->
+                    <!--                    <th style="padding:13px 0 0 15px;">서브이미지</th>-->
+                    <!--                    <td><input id="board_sub_title" type="text" class="col-md-1 form-control input-sm" th:value="${board?.subTitle}"/></td>-->
+                    <!--                </tr>-->
+                    <tr>
+                        <th style="padding:13px 0 0 15px;">*가격</th>
+                        <td><input name="price" id="content_price" type="text" class="col-md-1 form-control input-sm" th:value="${content?.price}" required/></td>
+                    </tr>
+                    <tr>
+                        <th style="padding:13px 0 0 15px;">*강의시간</th>
+                        <td><input name="runningTime" id="content_running_time" type="text" class="col-md-1 form-control input-sm" th:value="${content?.runningTime}" required/></td>
+                    </tr>
+                    <tr>
+                        <th style="padding:13px 0 0 15px;">*강의제작날짜</th>
+                        <td><input name="createdDate" id="content_createdDate" type="text" class="col-md-1 form-control input-sm"  th:value="${content?.createdDate}" required/></td>
+                    </tr>
+                    <tr>
+                        <th style="padding:13px 0 0 15px;">*내용</th>
+                        <td><textarea name="description" id="content_description" class="col-md-1 form-control input-sm" maxlength="140" rows="7" style="height: 200px;"
+                                      th:text="${content?.description}" required></textarea><span class="help-block"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="padding:13px 0 0 15px;">
+                            <div th:if="!${content?.idx}" class="pull-left">
+                                <a href="/main" class="btn btn-default">목록으로</a>
+                            </div>
+                        </th>
+                        <td>
+                            <div class="pull-right">
+                                <input th:if="!${content?.idx}" type="submit" class="btn btn-primary" th:value="저장"/>
+                                <button th:if="${content?.idx}" type="submit" class="btn btn-info" id="update">수정</button>
+                            </div>
+                        </td>
+                    </tr>
                     <input type="hidden" name="writer" th:value="${user.email}"/>
                 </form>
             </table>
@@ -99,72 +99,72 @@
         </div>
 
         <script th:src="@{/js/jquery.min.js}"></script>
-<!--        <script th:if="!${content?.idx}">-->
-<!--            function filesToString(){-->
-<!--                var nullCheck = $('#content_images').val();-->
-<!--                if(!nullCheck) return;-->
-<!--                    var fileInput = document.getElementById("content_images");-->
-<!--                    var files = fileInput.files;-->
-<!--                    var fileNames = files[0].name;-->
-<!--                    for (var i = 1; i < files.length; i++) {-->
-<!--                        fileNames += "," + files[i].name;-->
-<!--                    }-->
-<!--                    return fileNames;-->
+        <!--        <script th:if="!${content?.idx}">-->
+        <!--            function filesToString(){-->
+        <!--                var nullCheck = $('#content_images').val();-->
+        <!--                if(!nullCheck) return;-->
+        <!--                    var fileInput = document.getElementById("content_images");-->
+        <!--                    var files = fileInput.files;-->
+        <!--                    var fileNames = files[0].name;-->
+        <!--                    for (var i = 1; i < files.length; i++) {-->
+        <!--                        fileNames += "," + files[i].name;-->
+        <!--                    }-->
+        <!--                    return fileNames;-->
 
-<!--            }-->
-<!--            $('#insert').click(function () {-->
-<!--                document.getElementById('image_form').submit();-->
-<!--                var jsonData = JSON.stringify({-->
-<!--                    title: $('#content_title').val(),-->
-<!--                    author: $('#content_author').val(),-->
-<!--                    images: filesToString(),-->
-<!--                    description: $('#content_description').val(),-->
-<!--                    createdDate: $('#content_createdDate').val(),-->
-<!--                    runningTime: $('#content_running_time').val(),-->
-<!--                });-->
-<!--                $.ajax({-->
-<!--                    url: "http://localhost:8080/contents/save",-->
-<!--                    type: "POST",-->
-<!--                    data: jsonData,-->
-<!--                    contentType: "application/json",-->
-<!--                    headers: {-->
-<!--                        "Authorization": "Basic " + btoa("giyun" + ":" + "test")-->
-<!--                    },-->
-<!--                    dataType: "json",-->
-<!--                    success: function () {-->
-<!--                        alert('저장 성공!');-->
-<!--                        location.href = '/main';-->
-<!--                    },-->
-<!--                    error: function () {-->
-<!--                        alert('저장 실패!');-->
-<!--                    }-->
-<!--                });-->
-<!--            });-->
-<!--        </script>-->
-<!--        <script th:if="${content?.idx}">-->
-<!--            $('#update').click(function () {-->
-<!--                var jsonData = JSON.stringify({-->
-<!--                    title: $('#board_title').val(),-->
-<!--                    subTitle: $('#board_sub_title').val(),-->
-<!--                    content: $('#board_content').val(),-->
-<!--                    boardType: $('#board_type option:selected').val(),-->
-<!--                    createdDate: $('#board_create_date').val()-->
-<!--                });-->
-<!--                $.ajax({-->
-<!--                    url: "http://localhost:8081/api/boards/" + $('#board_idx').val(),-->
-<!--                    type: "PUT",-->
-<!--                    data: jsonData,-->
-<!--                    contentType: "application/json",-->
-<!--                    dataType: "json",-->
-<!--                    success: function () {-->
-<!--                        alert('수정 성공!');-->
-<!--                        location.href = '/board/list';-->
-<!--                    },-->
-<!--                    error: function () {-->
-<!--                        alert('수정 실패!');-->
-<!--                    }-->
-<!--                });-->
-<!--            });-->
-<!--        </script>-->
+        <!--            }-->
+        <!--            $('#insert').click(function () {-->
+        <!--                document.getElementById('image_form').submit();-->
+        <!--                var jsonData = JSON.stringify({-->
+        <!--                    title: $('#content_title').val(),-->
+        <!--                    author: $('#content_author').val(),-->
+        <!--                    images: filesToString(),-->
+        <!--                    description: $('#content_description').val(),-->
+        <!--                    createdDate: $('#content_createdDate').val(),-->
+        <!--                    runningTime: $('#content_running_time').val(),-->
+        <!--                });-->
+        <!--                $.ajax({-->
+        <!--                    url: "http://localhost:8080/contents/save",-->
+        <!--                    type: "POST",-->
+        <!--                    data: jsonData,-->
+        <!--                    contentType: "application/json",-->
+        <!--                    headers: {-->
+        <!--                        "Authorization": "Basic " + btoa("giyun" + ":" + "test")-->
+        <!--                    },-->
+        <!--                    dataType: "json",-->
+        <!--                    success: function () {-->
+        <!--                        alert('저장 성공!');-->
+        <!--                        location.href = '/main';-->
+        <!--                    },-->
+        <!--                    error: function () {-->
+        <!--                        alert('저장 실패!');-->
+        <!--                    }-->
+        <!--                });-->
+        <!--            });-->
+        <!--        </script>-->
+        <!--        <script th:if="${content?.idx}">-->
+        <!--            $('#update').click(function () {-->
+        <!--                var jsonData = JSON.stringify({-->
+        <!--                    title: $('#board_title').val(),-->
+        <!--                    subTitle: $('#board_sub_title').val(),-->
+        <!--                    content: $('#board_content').val(),-->
+        <!--                    boardType: $('#board_type option:selected').val(),-->
+        <!--                    createdDate: $('#board_create_date').val()-->
+        <!--                });-->
+        <!--                $.ajax({-->
+        <!--                    url: "http://localhost:8081/api/boards/" + $('#board_idx').val(),-->
+        <!--                    type: "PUT",-->
+        <!--                    data: jsonData,-->
+        <!--                    contentType: "application/json",-->
+        <!--                    dataType: "json",-->
+        <!--                    success: function () {-->
+        <!--                        alert('수정 성공!');-->
+        <!--                        location.href = '/board/list';-->
+        <!--                    },-->
+        <!--                    error: function () {-->
+        <!--                        alert('수정 실패!');-->
+        <!--                    }-->
+        <!--                });-->
+        <!--            });-->
+        <!--        </script>-->
     </body>
 </html>
