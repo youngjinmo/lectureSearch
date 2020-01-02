@@ -49,17 +49,11 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8">
-                <div>
+                <div> @{contents/loadImage(image=${contents.images[0]})}
                     <div class="slide-one-item home-slider owl-carousel">
-                        <div><img th:if="${contents.images.size() > 0}"
-                                  th:src="@{'/userImages/'+${contents.images.get(0)}+'.jpg'}" alt="Image"
-                                  class="img-fluid"></div>
-                        <div><img th:if="${contents.images.size() > 1}"
-                                  th:src="@{'/userImages/'+${contents.images.get(1)}+'.jpg'}" alt="Image"
-                                  class="img-fluid"></div>
-                        <div><img th:if="${contents.images.size() > 2}"
-                                  th:src="@{'/userImages/'+${contents.images.get(2)}+'.jpg'}" alt="Image"
-                                  class="img-fluid"></div>
+                        <div><img th:if="${contents.images.size() > 0}" th:src="@{contents/loadImage(image=${contents.images.get(0)})}" alt="Image" class="img-fluid"></div>
+                        <div><img th:if="${contents.images.size() > 1}" th:src="@{contents/loadImage(image=${contents.images.get(1)})}" alt="Image" class="img-fluid"></div>
+                        <div><img th:if="${contents.images.size() > 2}" th:src="@{contents/loadImage(image=${contents.images.get(2)})}" alt="Image" class="img-fluid"></div>
                     </div>
                 </div>
                 <div class="bg-white property-body border-bottom border-left border-right">

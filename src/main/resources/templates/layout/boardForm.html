@@ -1,178 +1,104 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>LectureSearch - 강의 올리기</title>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-        <link rel="stylesheet" th:href="@{/css/base.css}"/>
-        <link rel="stylesheet" th:href="@{/css/boardForm.min.css}"/>
-
-        <link rel="stylesheet"
-              th:href="@{https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500}">
-        <link rel="stylesheet" th:href="@{/fonts/icomoon/style.css}">
-
-        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-        <link rel="stylesheet" th:href="@{/css/magnific-popup.css}">
-        <link rel="stylesheet" th:href="@{/css/jquery-ui.css}">
-        <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
-        <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
-        <link rel="stylesheet" th:href="@{/css/bootstrap-datepicker.css}">
-        <link rel="stylesheet" th:href="@{/css/mediaelementplayer.css}">
-        <link rel="stylesheet" th:href="@{/css/animate.css}">
-        <link rel="stylesheet" th:href="@{/fonts/flaticon/font/flaticon.css}">
-        <link rel="stylesheet" th:href="@{/css/fl-bigmug-line.css}">
-
-        <link rel="stylesheet" th:href="@{/css/aos.css}">
-
-        <link rel="stylesheet" th:href="@{/css/style.css}">
-
+        <title>Board Form</title>
+        <link rel="stylesheet" th:href="@{/css/base.css}" />
+        <link rel="stylesheet" th:href="@{/css/boardForm.min.css}" />
     </head>
-    <style>
-        .registerTH {
-            padding: 13px 0 0 15px;
-        }
-
-        .inputChk {
-            width: 100%;
-        }
-    </style>
     <body>
 
-        <div class="site-loader"></div>
-
-<!--        <header th:replace="layout/header"></header>-->
-
-        <div class="site-blocks-cover overlay" style="background-image: url(images/main01.jpg);" data-aos="fade"
-             data-stellar-background-ratio="0.5">
-            <div class="container-out">
-                <div class="row align-items-center justify-content-center text-center">
-                    <div class="col-md-10">
-
-                        <div class="container">
-                            <div class="page-header">
-                                <h1>게시글 등록</h1>
-                            </div>
-                            <br/>
-                            <input id="board_idx" type="hidden" th:value="${content?.idx}"/>
-                            <input id="board_create_date" type="hidden" th:value="${content?.createdDate}"/>
-                            <table class="table">
-                                <form id="content_form" enctype="multipart/form-data"
-                                      th:action="!${content?.idx} ? @{/contents/save} : @{/contents/update}"
-                                      th:method="!${content?.idx} ? post : put">
-                                    <!--                <tr>-->
-                                    <!--                    <th style="padding:13px 0 0 15px">게시판 선택</th>-->
-                                    <!--                    <td>-->
-                                    <!--                        <div class="pull-left">-->
-                                    <!--                            <select class="form-control input-sm" id="board_type">-->
-                                    <!--                                <option>&#45;&#45;분류&#45;&#45;</option>-->
-                                    <!--                                <option th:value="notice" th:selected="${content?.boardType?.name() == 'notice'}">공지사항</option>-->
-                                    <!--                                <option th:value="free" th:selected="${content?.boardType?.name() == 'free'}">자유게시판</option>-->
-                                    <!--                            </select>-->
-                                    <!--                        </div>-->
-                                    <!--                    </td>-->
-                                    <!--                </tr>-->
-
-                                    <input name="contentIdx" type="hidden" th:value="${content?.idx}">
-                                    <input type="hidden" class="col-md-1 form-control input-sm" readonly="readonly"
-                                           th:value="${content?.registrationDate}"/>
-
-                                    <tr>
-                                        <th class="registerTH">*제목</th>
-                                        <td>
-                                            <input name="title" id="content_title" placeholder="예 : 생활코딩 리눅스 강좌"
-                                                   type="text"
-                                                   class="inputChk"
-                                                   th:value="${content?.title}" required/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th class="registerTH">*강사</th>
-                                        <td>
-                                            <input name="author" id="content_author" placeholder="예 : egoing"
-                                                   type="text"
-                                                   class="inputChk"
-                                                   th:value="${content?.author}" required/>
-                                        </td>
-                                    </tr>
-                                    <!--                <tr>-->
-                                    <!--                    <th style="padding:13px 0 0 15px;">주제</th>-->
-                                    <!--                    <td><input id="board_sub_title" type="text" class="col-md-1 form-control input-sm" th:value="${board?.subTitle}"/></td>-->
-                                    <!--                </tr>-->
-                                    <tr>
-                                        <th class="registerTH">이미지 파일</th>
-                                        <td>
-                                            <input name="files" id="content_images" multiple="multiple" type="file"
-                                                   th:value="${content?.images}"/>
-                                        </td>
-                                    </tr>
-                                    <!--                <tr>-->
-                                    <!--                    <th style="padding:13px 0 0 15px;">서브이미지</th>-->
-                                    <!--                    <td><input id="board_sub_title" type="text" class="col-md-1 form-control input-sm" th:value="${board?.subTitle}"/></td>-->
-                                    <!--                </tr>-->
-                                    <tr>
-                                        <th class="registerTH">*가격</th>
-                                        <td>
-                                            <input name="price" id="content_price" placeholder="예 : 89000" type="text"
-                                                   class="inputChk"
-                                                   th:value="${content?.price}" required/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th class="registerTH">*강의시간</th>
-                                        <td>
-                                            <input name="runningTime" id="content_running_time"
-                                                   placeholder="예 : 14.5 시간" type="text"
-                                                   class="inputChk" th:value="${content?.runningTime}" required/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th class="registerTH">강의제작날짜</th>
-                                        <td>
-                                            <input name="createdDate" id="content_createdDate" placeholder="예 : 2019-12"
-                                                   type="date"
-                                                   class="inputChk" value="2019-12" th:value="${content?.createdDate}"/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th class="registerTH">*내용</th>
-                                        <td>
-                                            <textarea name="description" id="content_description"
-                                                      placeholder="어떤 강의인지를 간략하게 설명해주시면 좋습니다"
-                                                      class="inputChk" maxlength="140" rows="7" style="height: 200px;"
-                                                      th:text="${content?.description}" required></textarea>
-                                            <span class="help-block"></span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th class="registerTH">
-                                            <div th:if="!${content?.idx}" class="pull-left">
-                                                <a href="/main" class="btn btn-default">목록으로</a>
-                                            </div>
-                                        </th>
-                                        <td>
-                                            <div class="pull-right">
-                                                <input th:if="!${content?.idx}" type="submit" class="btn btn-primary"
-                                                       th:value="저장"/>
-                                                <button th:if="${content?.idx}" type="submit" class="btn btn-info"
-                                                        id="update">수정
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <input type="hidden" name="writer" th:value="${user.email}"/>
-                                </form>
-                            </table>
-                            <div class="pull-left" th:if="${content?.idx}">
+        <div class="container">
+            <div class="page-header">
+                <h1>게시글 등록</h1>
+            </div>
+            <br/>
+            <input id="board_idx" type="hidden" th:value="${content?.idx}"/>
+            <input id="board_create_date" type="hidden" th:value="${content?.createdDate}"/>
+            <table class="table">
+                <form id="content_form" enctype="multipart/form-data" th:action="!${content?.idx} ? @{/contents/save} : @{/contents/update}"
+                      th:method="!${content?.idx} ? post : put">
+                    <!--                <tr>-->
+                    <!--                    <th style="padding:13px 0 0 15px">게시판 선택</th>-->
+                    <!--                    <td>-->
+                    <!--                        <div class="pull-left">-->
+                    <!--                            <select class="form-control input-sm" id="board_type">-->
+                    <!--                                <option>&#45;&#45;분류&#45;&#45;</option>-->
+                    <!--                                <option th:value="notice" th:selected="${content?.boardType?.name() == 'notice'}">공지사항</option>-->
+                    <!--                                <option th:value="free" th:selected="${content?.boardType?.name() == 'free'}">자유게시판</option>-->
+                    <!--                            </select>-->
+                    <!--                        </div>-->
+                    <!--                    </td>-->
+                    <!--                </tr>-->
+                    <tr>
+                        <td><input name="contentIdx" type="hidden" th:value="${content?.idx}"> </td>
+                    </tr>
+                    <tr>
+                        <th style="padding:13px 0 0 15px;">게시날짜</th>
+                        <td><input type="text" class="col-md-1 form-control input-sm" readonly="readonly" th:value="${content?.registrationDate}"/></td>
+                    </tr>
+                    <tr>
+                        <th style="padding:13px 0 0 15px;">*제목</th>
+                        <td><input name="title" id="content_title" type="text" class="col-md-1 form-control input-sm" th:value="${content?.title}" required/></td>
+                    </tr>
+                    <tr>
+                        <th style="padding:13px 0 0 15px;">*강사</th>
+                        <td><input name="author" id="content_author" type="text" class="col-md-1 form-control input-sm" th:value="${content?.author}" required/></td>
+                    </tr>
+                    <!--                <tr>-->
+                    <!--                    <th style="padding:13px 0 0 15px;">주제</th>-->
+                    <!--                    <td><input id="board_sub_title" type="text" class="col-md-1 form-control input-sm" th:value="${board?.subTitle}"/></td>-->
+                    <!--                </tr>-->
+                    <tr>
+                        <th style="padding:13px 0 0 15px;">이미지 파일</th>
+                        <td>
+                            <input name="files" id="content_images" multiple="multiple" type="file" th:value="${content?.images}"/>
+                        </td>
+                    </tr>
+                    <!--                <tr>-->
+                    <!--                    <th style="padding:13px 0 0 15px;">서브이미지</th>-->
+                    <!--                    <td><input id="board_sub_title" type="text" class="col-md-1 form-control input-sm" th:value="${board?.subTitle}"/></td>-->
+                    <!--                </tr>-->
+                    <tr>
+                        <th style="padding:13px 0 0 15px;">*가격</th>
+                        <td><input name="price" id="content_price" type="text" class="col-md-1 form-control input-sm" th:value="${content?.price}" required/></td>
+                    </tr>
+                    <tr>
+                        <th style="padding:13px 0 0 15px;">*강의시간</th>
+                        <td><input name="runningTime" id="content_running_time" type="text" class="col-md-1 form-control input-sm" th:value="${content?.runningTime}" required/></td>
+                    </tr>
+                    <tr>
+                        <th style="padding:13px 0 0 15px;">*강의제작날짜</th>
+                        <td><input name="createdDate" id="content_createdDate" type="text" class="col-md-1 form-control input-sm"  th:value="${content?.createdDate}" required/></td>
+                    </tr>
+                    <tr>
+                        <th style="padding:13px 0 0 15px;">*내용</th>
+                        <td><textarea name="description" id="content_description" class="col-md-1 form-control input-sm" maxlength="140" rows="7" style="height: 200px;"
+                                      th:text="${content?.description}" required></textarea><span class="help-block"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="padding:13px 0 0 15px;">
+                            <div th:if="!${content?.idx}" class="pull-left">
                                 <a href="/main" class="btn btn-default">목록으로</a>
                             </div>
-                        </div>
-
-                    </div>
-                </div>
+                        </th>
+                        <td>
+                            <div class="pull-right">
+                                <input th:if="!${content?.idx}" type="submit" class="btn btn-primary" th:value="저장"/>
+                                <button th:if="${content?.idx}" type="submit" class="btn btn-info" id="update">수정</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <input type="hidden" name="writer" th:value="${user.email}"/>
+                </form>
+            </table>
+            <div class="pull-left" th:if="${content?.idx}">
+                <a href="/main" class="btn btn-default">목록으로</a>
             </div>
         </div>
 
+        <script th:src="@{/js/jquery.min.js}"></script>
         <!--        <script th:if="!${content?.idx}">-->
         <!--            function filesToString(){-->
         <!--                var nullCheck = $('#content_images').val();-->
@@ -240,70 +166,5 @@
         <!--                });-->
         <!--            });-->
         <!--        </script>-->
-<!--        <footer th:replace="layout/footer"></footer>-->
     </body>
-
-
-    <script src="js/jquery.min.js"></script>
-    <script type="text/javascript">
-
-        function checkTrue() {
-            if ($(this).val()==null || $(this).val()=="") {
-                $(this).css("border", "solid");
-                $(this).css("border", "2px");
-                $(this).css("border", "#a52a2a");
-
-                // $(this).children(":last-child").removeAttr("hidden", false);
-            } else {
-                // $(this).children(":first-child").removeAttr("hidden", false);
-            }
-        };
-
-        $('#content_title').blur(function () {
-            checkTrue();
-            $(this).change(function () {
-                checkTrue();
-            })
-        });
-
-        $('#content_author').blur(function () {
-            checkTrue();
-            $(this).change(function () {
-                checkTrue();
-            })
-        });
-
-        $('#content_price').blur(function () {
-            var nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
-            var result = true;
-            var arr = $(this).val().split("");
-            for (var i = 0; i < arr.length; i++) {
-                if (!arr[i].contains(nums)) {
-                    result = false;
-                }
-            }
-
-            if (!result) {
-                $(this).css("border", "solid 2px #a52a2a");
-                alert("숫자만 입력해주세요");
-            }
-        });
-
-        $('#content_time').change(function () {
-            checkTrue();
-            $(this).change(function () {
-                checkTrue();
-            })
-        });
-
-        $('#content_description').change(function () {
-            checkTrue();
-            $(this).change(function () {
-                checkTrue();
-            })
-        });
-
-    </script>
-
-
 </html>
