@@ -47,11 +47,11 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8">
-                <div> @{contents/loadImage(image=${contents.images[0]})}
+                <div>
                     <div class="slide-one-item home-slider owl-carousel">
-                        <div><img th:if="${contents.images.size() > 0}" th:src="@{contents/loadImage(image=${contents.images.get(0)})}" alt="Image" class="img-fluid"></div>
-                        <div><img th:if="${contents.images.size() > 1}" th:src="@{contents/loadImage(image=${contents.images.get(1)})}" alt="Image" class="img-fluid"></div>
-                        <div><img th:if="${contents.images.size() > 2}" th:src="@{contents/loadImage(image=${contents.images.get(2)})}" alt="Image" class="img-fluid"></div>
+                        <div><img th:if="${contents.images.size() > 0}" th:src="@{/contents/loadImage(image=${contents.images.get(0)})}" alt="Image" class="img-fluid"></div>
+                        <div><img th:if="${contents.images.size() > 1}" th:src="@{/contents/loadImage(image=${contents.images.get(1)})}" alt="Image" class="img-fluid"></div>
+                        <div><img th:if="${contents.images.size() > 2}" th:src="@{/contents/loadImage(image=${contents.images.get(2)})}" alt="Image" class="img-fluid"></div>
                     </div>
                 </div>
                 <div class="bg-white property-body border-bottom border-left border-right">
@@ -232,7 +232,7 @@
             <div class="col-md-6 col-lg-4 mb-4">
                 <div class="property-entry h-100">
                     <a href="property-details.html" class="property-thumbnail">
-                        <img src="/images/javaimg.jpg" alt="Image" class="img-fluid">
+                        <img src="/images/javaImg.jpg" alt="Image" class="img-fluid">
                     </a>
                     <div class="p-4 property-body">
                         <a href="#" class="property-favorite"><span class="icon-heart-o"></span></a>
