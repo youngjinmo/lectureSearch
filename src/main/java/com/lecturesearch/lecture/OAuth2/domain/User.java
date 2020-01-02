@@ -1,6 +1,6 @@
 package com.lecturesearch.lecture.OAuth2.domain;
 
-import com.lecturesearch.lecture.OAuth2.SocialType;
+import com.lecturesearch.lecture.OAuth2.oauth.SocialType;
 import com.lecturesearch.lecture.OAuth2.repository.UserRepository;
 import lombok.Builder;
 import lombok.Data;

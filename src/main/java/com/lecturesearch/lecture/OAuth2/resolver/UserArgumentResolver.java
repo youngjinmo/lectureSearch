@@ -23,8 +23,8 @@ import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.util.Map;
 
-import static com.lecturesearch.lecture.OAuth2.SocialType.FACEBOOK;
-import static com.lecturesearch.lecture.OAuth2.SocialType.GOOGLE;
+import static com.lecturesearch.lecture.OAuth2.oauth.SocialType.FACEBOOK;
+import static com.lecturesearch.lecture.OAuth2.oauth.SocialType.GOOGLE;
 
 
 @Component
