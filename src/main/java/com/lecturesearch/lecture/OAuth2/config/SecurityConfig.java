@@ -35,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/userImages/**", "/js/**", "/console" + "/**", "/fonts/**", "/main/**",
                         "/contents/detail", "/create/**", "/adminCss/**", "/adminImages" +
                                 "/**", "/contactform/**", "/lib/**", "/admin/**", "/static/**",
-                        "/changeStatus", "/emailChk", "/loginPass").permitAll()
+                        "/changeStatus", "/emailChk", "/loginPass", "/error", "error/**").permitAll()
                 .antMatchers("/facebook").hasAuthority(FACEBOOK.getRoleType())
                 .antMatchers("/google").hasAuthority(GOOGLE.getRoleType())
                 .anyRequest().authenticated()

@@ -41,7 +41,7 @@
 
         <div class="site-loader"></div>
 
-        <header th:replace="layout/header"></header>
+<!--        <header th:replace="layout/header"></header>-->
 
         <div class="site-blocks-cover overlay" style="background-image: url(images/main01.jpg);" data-aos="fade"
              data-stellar-background-ratio="0.5">
@@ -240,30 +240,36 @@
         <!--                });-->
         <!--            });-->
         <!--        </script>-->
-        <footer th:replace="layout/footer"></footer>
+<!--        <footer th:replace="layout/footer"></footer>-->
     </body>
-    <script th:src="@{/js/jquery.min.js}"></script>
+
+
+    <script src="js/jquery.min.js"></script>
     <script type="text/javascript">
 
-        function wrong() {
+        function checkTrue() {
             if ($(this).val()==null || $(this).val()=="") {
                 $(this).css("border", "solid");
                 $(this).css("border", "2px");
                 $(this).css("border", "#a52a2a");
+
+                // $(this).children(":last-child").removeAttr("hidden", false);
+            } else {
+                // $(this).children(":first-child").removeAttr("hidden", false);
             }
         };
 
         $('#content_title').blur(function () {
-            wrong();
+            checkTrue();
             $(this).change(function () {
-                wrong();
+                checkTrue();
             })
         });
 
         $('#content_author').blur(function () {
-            wrong();
+            checkTrue();
             $(this).change(function () {
-                wrong();
+                checkTrue();
             })
         });
 
@@ -284,34 +290,20 @@
         });
 
         $('#content_time').change(function () {
-            wrong();
+            checkTrue();
             $(this).change(function () {
-                wrong();
+                checkTrue();
             })
         });
 
         $('#content_description').change(function () {
-            wrong();
+            checkTrue();
             $(this).change(function () {
-                wrong();
+                checkTrue();
             })
         });
 
     </script>
 
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/jquery-migrate-3.0.1.min.js"></script>
-    <script src="js/jquery-ui.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/mediaelement-and-player.min.js"></script>
-    <script src="js/jquery.stellar.min.js"></script>
-    <script src="js/jquery.countdown.min.js"></script>
-    <script src="js/jquery.magnific-popup.min.js"></script>
-    <script src="js/bootstrap-datepicker.min.js"></script>
-    <script src="js/aos.js"></script>
-
-    <script src="js/main.js"></script>
 
 </html>
