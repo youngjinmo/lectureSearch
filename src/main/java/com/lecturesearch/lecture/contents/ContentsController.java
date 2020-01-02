@@ -165,8 +165,6 @@ public class ContentsController {
                                 HttpServletResponse response){
         List<String> imagesList;
 
-        imagesList = contentsService.saveImages(files);
-
         ContentsVO contentsDTO= ContentsVO.builder()
                 .title(title)
                 .author(author)
@@ -175,9 +173,10 @@ public class ContentsController {
                 .createdDate(createdDate)
                 .description(description)
                 .build();
-        if(!(imagesList ==null))
+        if(!(files ==null)) {
+            imagesList = contentsService.saveImages(files);
             contentsDTO.setImages(imagesList);
-
+        }
         ContentsVO contentsVO= contentsService.findById(contentIdx).get();
         contentsVO.update(contentsDTO);
 
@@ -211,7 +210,7 @@ public class ContentsController {
 
     @RequestMapping(value = "/loadImage", method = RequestMethod.GET)
     public void loadImage(String image, HttpServletResponse response) throws IOException {
-        File file = new File("/userImages/",image+".jpg");
+        File file = new File("/home/ec2-user/app/step1/lectureSearch/src/main/resources/static/userImages/",image+".jpg");
         FileInputStream fileInputStream = new FileInputStream(file);
         response.setContentLength((int)file.length());
         response.setCharacterEncoding("utf-8");
