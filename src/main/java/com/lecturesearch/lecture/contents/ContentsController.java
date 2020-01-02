@@ -37,9 +37,9 @@ public class ContentsController {
     @RequestMapping("/detail")
 
     public String detailView(String idx, Model model, @PageableDefault Pageable pageable,
-                             @SocialUser User socialUser,Principal principal, HttpServletResponse response) {
-        User user =null;
-        if(!(socialUser==null&&principal==null)) {
+                             @SocialUser User socialUser, Principal principal, HttpServletResponse response) {
+        User user = null;
+        if (!(socialUser == null && principal == null)) {
             if (socialUser == null) {
                 user = userRepository.findByEmail(principal.getName()).get();
             } else {
@@ -73,10 +73,10 @@ public class ContentsController {
 
     @RequestMapping("/boardform")
     public String boardForm(@SocialUser User socialUser, Principal principal, Model model) {
-       User user;
-        if(socialUser==null) {
+        User user;
+        if (socialUser == null) {
             user = userRepository.findByEmail(principal.getName()).get();
-        }else{
+        } else {
             user = socialUser;
         }
         model.addAttribute("user", user);
@@ -84,36 +84,37 @@ public class ContentsController {
     }
 
     @RequestMapping("/updateContent")
-    public String updateContent(@SocialUser User socialUser,Principal principal, Model model, String idx) {
+    public String updateContent(@SocialUser User socialUser, Principal principal, Model model, String idx) {
         User user;
-        if(socialUser==null) {
+        if (socialUser == null) {
             user = userRepository.findByEmail(principal.getName()).get();
-        }else{
+        } else {
             user = socialUser;
         }
         ContentsVO i = contentsService.detailView(idx);
         model.addAttribute("user", user);
-        model.addAttribute("content",i);
+        model.addAttribute("content", i);
         return "layout/boardForm";
     }
+
     @RequestMapping("deleteContent")
-    public String deleteContent(String idx){
-         contentsService.deleteContent(idx);
-         return "redirect:/main";
+    public String deleteContent(String idx) {
+        contentsService.deleteContent(idx);
+        return "redirect:/main";
     }
 
     //후기작성
     @RequestMapping("/review")
     public String reviewWrite(@ModelAttribute ReviewVO paramVO, String contentsIdx) {
         contentsService.reviewWrite(paramVO);
-        return "redirect:/contents/detail?idx="+contentsIdx;
+        return "redirect:/contents/detail?idx=" + contentsIdx;
     }
 
     //후기삭제
     @RequestMapping("/reviewDelete")
-    public String reviewDelete(String idx, String contentsIdx){
+    public String reviewDelete(String idx, String contentsIdx) {
         contentsService.reviewDelete(idx);
-        return "redirect:/contents/detail?idx=" +contentsIdx;
+        return "redirect:/contents/detail?idx=" + contentsIdx;
     }
 
 //    @PostMapping("/save")
@@ -128,17 +129,17 @@ public class ContentsController {
 //    }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST,
-    consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public String saveContent(@RequestParam("title") String title, @RequestParam("author") String author,
                               @RequestParam("files") MultipartFile[] files, @RequestParam("price") String price,
                               @RequestParam("runningTime") String runningTime, @RequestParam("createdDate") String createdDate,
                               @RequestParam("description") String description, @RequestParam("writer") String writer,
-                              HttpServletResponse response){
+                              HttpServletResponse response) {
         List<String> imagesList;
 
         imagesList = contentsService.saveImages(files);
 
-        ContentsVO contentsVO= ContentsVO.builder()
+        ContentsVO contentsVO = ContentsVO.builder()
                 .title(title)
                 .author(author)
                 .images(imagesList)
@@ -160,12 +161,12 @@ public class ContentsController {
                                 @RequestParam("files") MultipartFile[] files, @RequestParam("price") String price,
                                 @RequestParam("runningTime") String runningTime, @RequestParam("createdDate") String createdDate,
                                 @RequestParam("description") String description, @RequestParam("contentIdx") String contentIdx,
-                                HttpServletResponse response){
+                                HttpServletResponse response) {
         List<String> imagesList;
 
         imagesList = contentsService.saveImages(files);
 
-        ContentsVO contentsDTO= ContentsVO.builder()
+        ContentsVO contentsDTO = ContentsVO.builder()
                 .title(title)
                 .author(author)
                 .images(imagesList)
@@ -175,7 +176,7 @@ public class ContentsController {
                 .description(description)
                 .build();
 
-        ContentsVO contentsVO= contentsService.findById(contentIdx).get();
+        ContentsVO contentsVO = contentsService.findById(contentIdx).get();
         contentsVO.update(contentsDTO);
 
         contentsService.contentSave(contentsVO);
@@ -184,34 +185,34 @@ public class ContentsController {
     }
 
     @RequestMapping("/cartList")
-    public String cartList(@PageableDefault Pageable pageable, @SocialUser User socialUser,Principal principal, Model model) {
+    public String cartList(@PageableDefault Pageable pageable, @SocialUser User socialUser, Principal principal, Model model) {
         User user;
-        if(socialUser==null) {
+        if (socialUser == null) {
             user = userRepository.findByEmail(principal.getName()).get();
-        }else{
+        } else {
             user = socialUser;
         }
         String email = user.getEmail();
         Iterable<CartVO> i = contentsService.cartList(email);
 
         ArrayList<String> arrList = new ArrayList<String>();
-        for(CartVO cart : i){
+        for (CartVO cart : i) {
             arrList.add(cart.getContentsIdx());
         }
         List<ContentsVO> cartList = new ArrayList<>();
         for (String k : arrList) {
             cartList.add(contentsService.detailView(k));
         }
-            model.addAttribute("list", cartList);
+        model.addAttribute("list", cartList);
         return "contents/cartList";
     }
 
     @RequestMapping("/cartInsert")
-    public String cartInsert(@ModelAttribute CartVO paramVO, @SocialUser User user, @RequestParam String contentsIdx){
+    public String cartInsert(@ModelAttribute CartVO paramVO, @SocialUser User user, @RequestParam String contentsIdx) {
         String email = user.getEmail();
         Iterable<CartVO> i = contentsService.cartList(email);
         ArrayList<String> arrList = new ArrayList<String>();
-        for(CartVO cart : i){
+        for (CartVO cart : i) {
             arrList.add(cart.getContentsIdx());
         }
 
@@ -223,7 +224,7 @@ public class ContentsController {
             }
         }
 
-        if(verify){
+        if (verify) {
             contentsService.cartInsert(paramVO);
         } else {
             contentsService.cartDelete(contentsIdx);
@@ -232,8 +233,8 @@ public class ContentsController {
     }
 
     @RequestMapping("/cartDelete")
-    public String cartDelete(String contentsIdx){
-            contentsService.cartDelete(contentsIdx);
+    public String cartDelete(String contentsIdx) {
+        contentsService.cartDelete(contentsIdx);
         return "redirect:/contents/cartList";
     }
 }

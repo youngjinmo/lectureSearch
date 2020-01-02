@@ -1,7 +1,7 @@
 package com.lecturesearch.lecture.OAuth2.resolver;
 
 
-import com.lecturesearch.lecture.OAuth2.SocialType;
+import com.lecturesearch.lecture.OAuth2.oauth.SocialType;
 import com.lecturesearch.lecture.OAuth2.domain.User;
 import com.lecturesearch.lecture.OAuth2.repository.UserRepository;
 import com.lecturesearch.lecture.OAuth2.annotation.SocialUser;
@@ -53,16 +53,18 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
     }
 
     private User getUser(User user, HttpSession session) {
-        if(user == null) {
+        if (user == null) {
             try {
                 OAuth2AuthenticationToken authentication = (OAuth2AuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
                 Map<String, Object> map = authentication.getPrincipal().getAttributes();
                 User convertUser = convertUser(authentication.getAuthorizedClientRegistrationId(), map);
 
-                if(userRepository.findByEmail(convertUser.getEmail()).isPresent())
-                user = userRepository.findByEmail(convertUser.getEmail()).get();
+                if (userRepository.findByEmail(convertUser.getEmail()).isPresent())
+                    user = userRepository.findByEmail(convertUser.getEmail()).get();
 
-                if (user == null) { user = userRepository.save(convertUser); }
+                if (user == null) {
+                    user = userRepository.save(convertUser);
+                }
 
                 setRoleIfNotSame(user, authentication, map);
                 session.setAttribute("user", user);
@@ -74,8 +76,8 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
     }
 
     private User convertUser(String authority, Map<String, Object> map) {
-        if(FACEBOOK.isEquals(authority)) return getModernUser(FACEBOOK, map);
-        else if(GOOGLE.isEquals(authority)) return getModernUser(GOOGLE, map);
+        if (FACEBOOK.isEquals(authority)) return getModernUser(FACEBOOK, map);
+        else if (GOOGLE.isEquals(authority)) return getModernUser(GOOGLE, map);
         return null;
     }
 
@@ -90,7 +92,7 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
     }
 
     private void setRoleIfNotSame(User user, OAuth2AuthenticationToken authentication, Map<String, Object> map) {
-        if(!authentication.getAuthorities().contains(new SimpleGrantedAuthority(user.getSocialType().getRoleType()))) {
+        if (!authentication.getAuthorities().contains(new SimpleGrantedAuthority(user.getSocialType().getRoleType()))) {
             SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(map, "N/A", AuthorityUtils.createAuthorityList(user.getSocialType().getRoleType())));
         }
     }

@@ -19,50 +19,50 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static com.lecturesearch.lecture.OAuth2.SocialType.*;
+import static com.lecturesearch.lecture.OAuth2.oauth.SocialType.*;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception{
+    protected void configure(HttpSecurity http) throws Exception {
         CharacterEncodingFilter filter = new CharacterEncodingFilter();
 
         http
-            .authorizeRequests()
-                .antMatchers("/","/oauth2/**","/login/**","/css/**","/images/**",
-                        "/userImages/**","/js/**", "/console" + "/**","/fonts/**","/main/**",
-                        "/contents/detail","/create/**", "/adminCss/**", "/adminImages" +
-                        "/**","/contactform/**","/lib/**","/admin/**","/static/**",
-                        "/changeStatus","/emailChk","/loginPass").permitAll()
+                .authorizeRequests()
+                .antMatchers("/", "/oauth2/**", "/login/**", "/css/**", "/images/**",
+                        "/userImages/**", "/js/**", "/console" + "/**", "/fonts/**", "/main/**",
+                        "/contents/detail", "/create/**", "/adminCss/**", "/adminImages" +
+                                "/**", "/contactform/**", "/lib/**", "/admin/**", "/static/**",
+                        "/changeStatus", "/emailChk", "/loginPass").permitAll()
                 .antMatchers("/facebook").hasAuthority(FACEBOOK.getRoleType())
                 .antMatchers("/google").hasAuthority(GOOGLE.getRoleType())
                 .anyRequest().authenticated()
                 .and()
-            .oauth2Login()
+                .oauth2Login()
                 .defaultSuccessUrl("/loginSuccess")
                 .failureUrl("/loginFailure")
                 .and()
-            .headers().frameOptions().disable()
+                .headers().frameOptions().disable()
                 .and()
-            .exceptionHandling()
+                .exceptionHandling()
                 .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login"))
                 .and()
-            .formLogin()
+                .formLogin()
                 .loginPage("/login")
                 .usernameParameter("userEmail")
                 .passwordParameter("password")
-                .defaultSuccessUrl("/loginSuccessByFormLogin",true)
+                .defaultSuccessUrl("/loginSuccessByFormLogin", true)
                 .and()
-            .logout()
+                .logout()
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/main")
-                .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
+                .logoutSuccessUrl("/login")
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .deleteCookies("JESSIONID")
                 .invalidateHttpSession(true)
                 .and()
-            .addFilterBefore(filter, CsrfFilter.class)
+                .addFilterBefore(filter, CsrfFilter.class)
                 .csrf().disable();
     }
 

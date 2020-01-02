@@ -111,7 +111,7 @@ public class ContentsServiceImpl implements ContentsService {
 //    }
 
     @Override
-    public List<ContentsVO> findAll(){
+    public List<ContentsVO> findAll() {
         return contentsRepository.findAll();
     }
 

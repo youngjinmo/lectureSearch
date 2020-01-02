@@ -23,11 +23,11 @@ public class UserDetailServiceImpl implements UserDetailsService {
     private UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException{
+    public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
         com.lecturesearch.lecture.OAuth2.domain.User user = userRepository.findByEmail(userEmail).get();
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         grantedAuthorities.add(new SimpleGrantedAuthority(Role.MEMBER.getValue()));
-        return new User(user.getEmail(),user.getPassword(),grantedAuthorities);
+        return new User(user.getEmail(), user.getPassword(), grantedAuthorities);
     }
 }

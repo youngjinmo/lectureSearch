@@ -31,7 +31,7 @@ public class HomeController {
         model.addAttribute("pageList", i);
 
         // 로그인시 사용자이름 화면에서 출력
-        if(user != null){
+        if (user != null) {
             model.addAttribute("user", user);
         }
         response.setContentType("multipart/form-data");
