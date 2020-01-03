@@ -165,20 +165,18 @@ public class ContentsController {
                                 HttpServletResponse response){
         List<String> imagesList;
 
-        ContentsVO contentsDTO= ContentsVO.builder()
-                .title(title)
-                .author(author)
-                .price(price)
-                .runningTime(runningTime)
-                .createdDate(createdDate)
-                .description(description)
-                .build();
-        if(!(files ==null)) {
-            imagesList = contentsService.saveImages(files);
-            contentsDTO.setImages(imagesList);
-        }
         ContentsVO contentsVO= contentsService.findById(contentIdx).get();
-        contentsVO.update(contentsDTO);
+        contentsVO.setTitle(title);
+        contentsVO.setAuthor(author);
+        contentsVO.setPrice(price);
+        contentsVO.setRunningTime(runningTime);
+        contentsVO.setCreatedDate(createdDate);
+        contentsVO.setDescription(description);
+
+        if(!files[0].isEmpty()){
+            imagesList=contentsService.saveImages(files);
+            contentsVO.setImages(imagesList);
+        }
 
         contentsService.contentSave(contentsVO);
         response.setContentType("multipart/form-data");
