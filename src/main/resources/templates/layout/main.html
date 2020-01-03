@@ -29,6 +29,7 @@
             .word4wrap {
                 display: inline-block;
                 word-break: keep-all;
+                word-wrap: break-word;
             }
         </style>
     </head>
@@ -183,6 +184,7 @@
           <!--         등록된 강좌가 있는 경우 end-->
           </div>
         </div>
+
         <div class="row" th:if="${pageList.getTotalElements()} > 0">
           <div class="col-md-12 text-center">
             <!-- Pagination -->
@@ -206,10 +208,7 @@
             <!-- /Pagination -->
           </div>  
         </div>
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
+
       </div>
     </div>
 
