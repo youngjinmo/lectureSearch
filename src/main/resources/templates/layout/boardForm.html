@@ -25,6 +25,20 @@
 
         <link rel="stylesheet" th:href="@{/css/style.css}">
     </head>
+    <style>
+        th {
+            width: 130px;
+            color: #000000;
+        }
+        td {
+            width: 100%;
+        }
+        .container {
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
     <body>
 
         <header th:replace="layout/header"></header>
@@ -39,18 +53,18 @@
             <table class="table">
                 <form id="content_form" enctype="multipart/form-data" th:action="!${content?.idx} ? @{/contents/save} : @{/contents/update}"
                       th:method="!${content?.idx} ? post : put">
-                    <!--                <tr>-->
-                    <!--                    <th style="padding:13px 0 0 15px">게시판 선택</th>-->
-                    <!--                    <td>-->
-                    <!--                        <div class="pull-left">-->
-                    <!--                            <select class="form-control input-sm" id="board_type">-->
-                    <!--                                <option>&#45;&#45;분류&#45;&#45;</option>-->
-                    <!--                                <option th:value="notice" th:selected="${content?.boardType?.name() == 'notice'}">공지사항</option>-->
-                    <!--                                <option th:value="free" th:selected="${content?.boardType?.name() == 'free'}">자유게시판</option>-->
-                    <!--                            </select>-->
-                    <!--                        </div>-->
-                    <!--                    </td>-->
-                    <!--                </tr>-->
+                        <!--                <tr>-->
+                        <!--                    <th style="padding:13px 0 0 15px">게시판 선택</th>-->
+                        <!--                    <td>-->
+                        <!--                        <div class="pull-left">-->
+                        <!--                            <select class="form-control input-sm" id="board_type">-->
+                        <!--                                <option>&#45;&#45;분류&#45;&#45;</option>-->
+                        <!--                                <option th:value="notice" th:selected="${content?.boardType?.name() == 'notice'}">공지사항</option>-->
+                        <!--                                <option th:value="free" th:selected="${content?.boardType?.name() == 'free'}">자유게시판</option>-->
+                        <!--                            </select>-->
+                        <!--                        </div>-->
+                        <!--                    </td>-->
+                        <!--                </tr>-->
                     <tr>
                         <td><input name="contentIdx" type="hidden" th:value="${content?.idx}"> </td>
                     </tr>
