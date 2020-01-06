@@ -75,27 +75,23 @@
                 <!--                        </div>-->
                 <!--                    </td>-->
                 <!--                </tr>-->
+                <input type="hidden" id="content_postedDate" class="col-md-1 form-control input-sm"
+                       readonly="readonly" th:value="${content?.registrationDate}"/>
                 <tr>
                     <td><input name="contentIdx" type="hidden" th:value="${content?.idx}"> </td>
                 </tr>
                 <tr>
-                    <th><label for="content_postedDate">게시날짜</label></th>
-                    <td><input type="text" id="content_postedDate" class="col-md-1 form-control input-sm"
-                               readonly="readonly"
-                               th:value="${content?.registrationDate}"/></td>
-                </tr>
-                <tr>
                     <th><label for="content_title">*제목</label></th>
-                    <td><input name="title" id="content_title" type="text" class="col-md-1 form-control input-sm" th:value="${content?.title}" required/></td>
+                    <td><input name="title" id="content_title" type="text" maxlength="20"
+                               class="col-md-1 form-control input-sm" placeholder="강의의 제목을 입력해주세요"
+                               th:value="${content?.title}" required/></td>
                 </tr>
                 <tr>
                     <th><label for="content_author">*강사</label></th>
-                    <td><input name="author" id="content_author" type="text" class="col-md-1 form-control input-sm" th:value="${content?.author}" required/></td>
+                    <td><input name="author" id="content_author" type="text" placeholder="강의의 제작자 이름을 작성해주세요"
+                               maxlength="10" class="col-md-1 form-control input-sm" th:value="${content?.author}"
+                               required/></td>
                 </tr>
-                <!--                <tr>-->
-                <!--                    <th style="padding:13px 0 0 15px;">주제</th>-->
-                <!--                    <td><input id="board_sub_title" type="text" class="col-md-1 form-control input-sm" th:value="${board?.subTitle}"/></td>-->
-                <!--                </tr>-->
                 <tr>
                     <th><label for="content_images">이미지 파일</label></th>
                     <td>
@@ -108,15 +104,20 @@
                 <!--                </tr>-->
                 <tr>
                     <th><label for="content_price">*가격</label></th>
-                    <td><input name="price" id="content_price" type="text" class="col-md-1 form-control input-sm" th:value="${content?.price}" required/></td>
+                    <td><input name="price" id="content_price" type="number" maxlength="8"
+                               class="col-md-1 form-control input-sm" placeholder="예) 16500"
+                               th:value="${content?.price}" required/></td>
                 </tr>
                 <tr>
-                    <th><label for="content_running_time">*강의시간</label></th>
-                    <td><input name="runningTime" id="content_running_time" type="text" class="col-md-1 form-control input-sm" th:value="${content?.runningTime}" required/></td>
+                    <th><label for="content_running_time">*강의시간(시간)</label></th>
+                    <td><input name="runningTime" id="content_running_time" type="text"
+                               placeholder="예 22  21.5시간이면 '22' 로 입력해주세요."
+                               maxlength="5" class="col-md-1 form-control input-sm" th:value="${content?.runningTime}"
+                               required/></td>
                 </tr>
                 <tr>
                     <th><label for="content_createdDate">*강의제작날짜</label></th>
-                    <td><input name="createdDate" id="content_createdDate" type="text"
+                    <td><input name="createdDate" id="content_createdDate" type="date"
                                class="col-md-1 form-control input-sm"  th:value="${content?.createdDate}" required/></td>
                 </tr>
                 <tr>
