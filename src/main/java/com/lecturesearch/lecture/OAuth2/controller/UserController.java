@@ -20,6 +20,13 @@ public class UserController {
     public String login() {
         return "layout/form";
     }
+//    public String login(@SocialUser User socialUser, Principal principal) {
+//        if(socialUser!=null || principal!=null){
+//            return "layout/main";
+//        } else {
+//            return "layout/form";
+//        }
+//    }
 
     @ResponseBody
     @RequestMapping(value = "/emailChk", method = RequestMethod.POST)
