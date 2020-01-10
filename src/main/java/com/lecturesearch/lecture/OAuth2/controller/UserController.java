@@ -18,7 +18,7 @@ public class UserController {
 
     @GetMapping("/login")
     public String login() {
-        return "layout/form";
+        return "layout/loginForm";
     }
 //    public String login(@SocialUser User socialUser, Principal principal) {
 //        if(socialUser!=null || principal!=null){
