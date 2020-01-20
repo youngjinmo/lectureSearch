@@ -169,21 +169,18 @@ public class ContentsController {
                                 HttpServletResponse response){
         List<String> imagesList;
 
-        imagesList = contentsService.saveImages(files);
-
-        ContentsVO contentsDTO= ContentsVO.builder()
-                .title(title)
-                .author(author)
-                .price(price)
-                .runningTime(runningTime)
-                .createdDate(createdDate)
-                .description(description)
-                .build();
-        if(!(imagesList ==null))
-            contentsDTO.setImages(imagesList);
-
         ContentsVO contentsVO= contentsService.findById(contentIdx).get();
-        contentsVO.update(contentsDTO);
+        contentsVO.setTitle(title);
+        contentsVO.setAuthor(author);
+        contentsVO.setPrice(price);
+        contentsVO.setRunningTime(runningTime);
+        contentsVO.setCreatedDate(createdDate);
+        contentsVO.setDescription(description);
+
+        if(!files[0].isEmpty()){
+            imagesList=contentsService.saveImages(files);
+            contentsVO.setImages(imagesList);
+        }
 
         contentsService.contentSave(contentsVO);
         response.setContentType("multipart/form-data");
@@ -215,7 +212,7 @@ public class ContentsController {
 
     @RequestMapping(value = "/loadImage", method = RequestMethod.GET)
     public void loadImage(String image, HttpServletResponse response) throws IOException {
-        File file = new File("/userImages/",image+".jpg");
+        File file = new File("/home/ec2-user/app/step1/lectureSearch/src/main/resources/static/userImages/",image+".jpg");
         FileInputStream fileInputStream = new FileInputStream(file);
         response.setContentLength((int)file.length());
         response.setCharacterEncoding("utf-8");
