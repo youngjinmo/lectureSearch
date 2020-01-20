@@ -23,8 +23,7 @@ import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.util.Map;
 
-import static com.lecturesearch.lecture.OAuth2.oauth.SocialType.FACEBOOK;
-import static com.lecturesearch.lecture.OAuth2.oauth.SocialType.GOOGLE;
+import static com.lecturesearch.lecture.OAuth2.oauth.SocialType.*;
 
 
 @Component
@@ -76,9 +75,15 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
     }
 
     private User convertUser(String authority, Map<String, Object> map) {
-        if (FACEBOOK.isEquals(authority)) return getModernUser(FACEBOOK, map);
-        else if (GOOGLE.isEquals(authority)) return getModernUser(GOOGLE, map);
-        return null;
+        if (FACEBOOK.isEquals(authority)){
+            return getModernUser(FACEBOOK, map);
+        } else if (GOOGLE.isEquals(authority)) {
+            return getModernUser(GOOGLE, map);
+        } else if (GITHUB.isEquals(authority)) {
+            return getModernUser(GITHUB, map);
+        } else {
+            return null;
+        }
     }
 
     private User getModernUser(SocialType socialType, Map<String, Object> map) {

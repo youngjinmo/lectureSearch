@@ -54,7 +54,6 @@ public class User {
     }
 
     public void setEncodePassword(String password) {
-
         PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         this.password = passwordEncoder.encode(password);
     }
@@ -63,7 +62,8 @@ public class User {
         return this.password;
     }
 
-    public void setCreatedDate() {//facebook, google 에서 제공하는 시간대와 맞춤
+    public void setCreatedDate() {
+        //facebook, google 에서 제공하는 시간대와 맞춤
         this.createdDate = LocalDateTime.ofInstant(new Date().toInstant(), ZoneId.systemDefault()).toString();
     }
 

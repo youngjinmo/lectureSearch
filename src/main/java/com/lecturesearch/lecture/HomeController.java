@@ -27,12 +27,7 @@ public class HomeController {
     @Autowired
     private UserRepository userRepository;
 
-    @RequestMapping(value = "/")
-    public String main() {
-        return "layout/main";
-    }
-
-    @RequestMapping(value = "/main")
+    @RequestMapping(value = {"/main", "/"})
     public String list(@PageableDefault Pageable pageable, Model model, HttpServletResponse response,
                        @SocialUser User socialUser, Principal principal) {
         Page i = contentsService.findContentsList(pageable);
@@ -42,8 +37,8 @@ public class HomeController {
 //        UserDetails userDetails = (UserDetails)principal;
 
         // 로그인시 사용자이름 화면에서 출력
-        User user =null;
-        if(!(socialUser==null&&principal==null)) {
+        User user = null;
+        if(socialUser!=null&&principal!=null) {
             if (socialUser == null) {
                 user = userRepository.findByEmail(principal.getName()).get();
             } else {

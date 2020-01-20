@@ -3,7 +3,7 @@
     <head>
         <title>LectureSearch - 로그인/회원가입</title>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="viewport" content="width=device-width, initial-scale=s1, shrink-to-fit=no">
 
         <link rel="stylesheet"
               th:href="@{https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500}">
@@ -37,15 +37,11 @@
         }
 
         .toggle-button {
-            margin-top: 10px;
+            margin-top: 16px;
         }
 
-        .toggle-button span {
-            font-size: 15px;
-        }
-
-        .toggle-button a {
-            font-size: 15px;
+        .toggle-button span, a {
+            font-size: 18px;
         }
 
         .user-title {
@@ -98,6 +94,18 @@
             height: 100%;
         }
 
+        .form-group table tr th {
+            font-size: 20px;
+        }
+
+        /* <form th:action="@{'/login'}" method="post">
+                                    <!--일반 로그인-->
+                                    <div class="form-group">
+                                        <table>
+                                            <tr>
+                                                <th>
+                                                    <label for="loginEmail">이메일</label>*/
+
         #socialLogin {
             display: flex;
             justify-content: center;
@@ -118,13 +126,22 @@
             transform: translateY(-4px);
         }
 
+        .oauth2-social-btn {
+            margin-bottom: 8px;
+        }
+
         #btn-fb {
             background-color: #3b5998;
             color: #FFFFFF;
         }
 
-        #btn-g {
+        #btn-goog {
             background-color: #ea4335;
+            color: #fff;
+        }
+
+        #btn-github {
+            background-color: #263135;
             color: #fff;
         }
 
@@ -155,7 +172,6 @@
                                             <td>
                                                 <div class="oauth2-social-btn">
                                                     <button class="oauth2-btn-img" id="btn-fb"
-                                                            style="margin-bottom: 8px;"
                                                             href="javascript:;"
                                                             data-social="facebook">
                                                         Facebook으로 로그인
@@ -166,10 +182,21 @@
                                         <tr> <!-- google -->
                                             <td>
                                                 <div class="oauth2-social-btn">
-                                                    <button class="oauth2-btn-img" id="btn-g"
+                                                    <button class="oauth2-btn-img" id="btn-goog"
                                                             href="javascript:;"
                                                             data-social="google">
                                                         Google로 로그인
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr> <!-- github -->
+                                            <td>
+                                                <div class="oauth2-social-btn">
+                                                    <button class="oauth2-btn-img" id="btn-github"
+                                                            href="javascript:;"
+                                                            data-social="github">
+                                                        Github으로 로그인
                                                     </button>
                                                 </div>
                                             </td>
@@ -188,7 +215,7 @@
                                                 <td>
                                                     <input type="text" class="form-control" id="loginEmail"
                                                            name="userEmail"
-                                                           placeholder="아이디를 입력하세요.">
+                                                           placeholder="이메일 주소를 입력해주세요.">
                                                 </td>
                                             </tr>
                                             <tr>
@@ -198,7 +225,7 @@
                                                 <td>
                                                     <input type="password" class="form-control" id="loginPassword"
                                                            name="password"
-                                                           placeholder="비밀번호를 입력하세요." style="margin-top: 5px;">
+                                                           placeholder="비밀번호를 입력해주세요." style="margin-top: 5px;">
                                                 </td>
                                             </tr>
                                         </table>
@@ -207,10 +234,12 @@
                                     <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
                                     <br/>
                                     <!--회원가입/로그인 토글-->
-                                    <p class="toggle-button">
-                                        <span>계정이 없으신가요?&nbsp;</span>
-                                        <a href="javascript:void(0)" id="showSignUp">회원가입</a>
-                                    </p>
+                                    <div class="toggle-button">
+                                        <p>
+                                            <span>계정이 없으신가요?&nbsp;</span>
+                                            <a href="javascript:void(0)" id="showSignUp">회원가입</a>
+                                        </p>
+                                    </div>
                                 </form>
                                 <br>
                             </div>
@@ -292,7 +321,11 @@
             var socialType = $(this).data('social');
             location.href = "/oauth2/authorization/" + socialType;
         });
-        $('#btn-g').click(function () {
+        $('#btn-goog').click(function () {
+            var socialType = $(this).data('social');
+            location.href = "/oauth2/authorization/" + socialType;
+        });
+        $('#btn-github').click(function () {
             var socialType = $(this).data('social');
             location.href = "/oauth2/authorization/" + socialType;
         });

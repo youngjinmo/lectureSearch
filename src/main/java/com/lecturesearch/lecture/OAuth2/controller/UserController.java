@@ -3,13 +3,15 @@ package com.lecturesearch.lecture.OAuth2.controller;
 import com.lecturesearch.lecture.OAuth2.domain.User;
 import com.lecturesearch.lecture.OAuth2.annotation.SocialUser;
 import com.lecturesearch.lecture.OAuth2.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
-
+@Slf4j
 @Controller
 public class UserController {
 
@@ -20,13 +22,6 @@ public class UserController {
     public String login() {
         return "layout/loginForm";
     }
-//    public String login(@SocialUser User socialUser, Principal principal) {
-//        if(socialUser!=null || principal!=null){
-//            return "layout/main";
-//        } else {
-//            return "layout/form";
-//        }
-//    }
 
     @ResponseBody
     @RequestMapping(value = "/emailChk", method = RequestMethod.POST)
@@ -63,9 +58,8 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public String create(User user) {
+    public String create(User user, Model model) {
         user.setEncodePassword(user.getPassword());  // 비밀번호 암호화
-
         user.setCreatedDate();
         user.setLastVisitDate();
         user.setStatusNormal();
