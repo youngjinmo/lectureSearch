@@ -29,6 +29,7 @@ public class ContentsController {
 
     @Autowired
     private UserRepository userRepository;
+
 //    @RequestMapping("/list")
 //    public String list(Model model, @ModelAttribute ContentsVO paramVO){
 //        Iterable<ContentsVO> rsList = contentsService.contentsList(paramVO);
@@ -108,13 +109,16 @@ public class ContentsController {
     @RequestMapping("/review")
     public String reviewWrite(@ModelAttribute ReviewVO paramVO, String contentsIdx) {
         contentsService.reviewWrite(paramVO);
+        contentsService.averageStar(Integer.parseInt(paramVO.getStar()), contentsIdx);
         return "redirect:/contents/detail?idx="+contentsIdx;
     }
 
     //후기삭제
     @RequestMapping("/reviewDelete")
-    public String reviewDelete(String idx, String contentsIdx){
+    public String reviewDelete(String idx, String contentsIdx, Pageable pageable){
+        ReviewVO reviewVO = contentsService.reviewVO(idx);
         contentsService.reviewDelete(idx);
+        contentsService.averageStarDelete(Integer.parseInt(reviewVO.getStar()), contentsIdx);
         return "redirect:/contents/detail?idx=" +contentsIdx;
     }
 
@@ -223,8 +227,16 @@ public class ContentsController {
     }
 
     @RequestMapping("/cartInsert")
-    public String cartInsert(@ModelAttribute CartVO paramVO, @SocialUser User user, @RequestParam String contentsIdx){
-        String email = user.getEmail();
+    public String cartInsert(@ModelAttribute CartVO paramVO, @SocialUser User socialUser, @RequestParam String contentsIdx, Principal principal){
+        String email;
+        User user = null;
+        if(socialUser != null){
+            email = socialUser.getEmail();
+        } else {
+            user = userRepository.findByEmail(principal.getName()).get();
+            email = user.getEmail();
+        }
+
         Iterable<CartVO> i = contentsService.cartList(email);
         ArrayList<String> arrList = new ArrayList<String>();
         for(CartVO cart : i){

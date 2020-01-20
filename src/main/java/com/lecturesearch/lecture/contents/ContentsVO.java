@@ -30,6 +30,9 @@ public class ContentsVO {
     private String runningTime;
     private String registrationDate;
     private String writer;
+    private int totalStar;
+    private double averageStar;
+    private int countStar;
 
     public void update(ContentsVO contentsVO){
         this.title = contentsVO.getTitle();
@@ -41,6 +44,13 @@ public class ContentsVO {
         this.createdDate = contentsVO.getCreatedDate();
         this.runningTime = contentsVO.getRunningTime();
     }
+
+    public void updateAverageStar(ContentsVO contentsVO){
+        this.totalStar = contentsVO.getTotalStar();
+        this.countStar = contentsVO.getCountStar();
+        this.averageStar = contentsVO.getAverageStar();
+    }
+
     public void setRegistrationDate(){
        this.registrationDate=LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
@@ -48,7 +58,7 @@ public class ContentsVO {
     @Builder
     public ContentsVO(String title, String author, String subject, List<String> images,
                       String price, String description, String createdDate, String runningTime,
-                      String registrationDate, String writer) {
+                      String registrationDate, String writer, int totalStar, double averageStar, int countStar) {
         this.title = title;
         this.author = author;
         this.subject = subject;
@@ -59,5 +69,8 @@ public class ContentsVO {
         this.runningTime = runningTime;
         this.registrationDate = registrationDate;
         this.writer = writer;
+        this.totalStar = totalStar;
+        this.averageStar = averageStar;
+        this.countStar = countStar;
     }
 }
