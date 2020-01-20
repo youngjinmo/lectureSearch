@@ -10,10 +10,12 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -172,12 +174,13 @@ public class ContentsController {
         ContentsVO contentsDTO= ContentsVO.builder()
                 .title(title)
                 .author(author)
-                .images(imagesList)
                 .price(price)
                 .runningTime(runningTime)
                 .createdDate(createdDate)
                 .description(description)
                 .build();
+        if(!(imagesList ==null))
+            contentsDTO.setImages(imagesList);
 
         ContentsVO contentsVO= contentsService.findById(contentIdx).get();
         contentsVO.update(contentsDTO);
@@ -208,6 +211,22 @@ public class ContentsController {
         }
             model.addAttribute("list", cartList);
         return "contents/cartList";
+    }
+
+    @RequestMapping(value = "/loadImage", method = RequestMethod.GET)
+    public void loadImage(String image, HttpServletResponse response) throws IOException {
+        File file = new File("/userImages/",image+".jpg");
+        FileInputStream fileInputStream = new FileInputStream(file);
+        response.setContentLength((int)file.length());
+        response.setCharacterEncoding("utf-8");
+
+        OutputStream outputStream = response.getOutputStream();
+
+        FileCopyUtils.copy(fileInputStream, outputStream);
+
+        outputStream.flush();
+        fileInputStream.close();
+        outputStream.close();
     }
 
     @RequestMapping("/cartInsert")
