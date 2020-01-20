@@ -212,7 +212,9 @@ public class ContentsController {
 
     @RequestMapping(value = "/loadImage", method = RequestMethod.GET)
     public void loadImage(String image, HttpServletResponse response) throws IOException {
-        File file = new File("/home/ec2-user/app/step1/lectureSearch/src/main/resources/static/userImages/",image+".jpg");
+//        File file = new File("/home/ec2-user/app/step1/lectureSearch/src/main/resources/static/userImages/",image+".jpg");
+        //로컬 테스트
+        File file = new File("/Users/home/Java/git_clone/lectureSearch/src/main/resources/static/userImages/",image+".jpg");
         FileInputStream fileInputStream = new FileInputStream(file);
         response.setContentLength((int)file.length());
         response.setCharacterEncoding("utf-8");
