@@ -109,7 +109,7 @@
       </div>
     </div>
 
-<!-- pageList 일경우 -->
+<!-- pageList 일경우 start -->
     <div th:if="${pageList}!= null">
     <div class="site-section site-section-sm bg-light">
       <div class="container">
@@ -123,40 +123,66 @@
           <div th:if="${pageList.getTotalElements()} > 0" th:each="contents : ${pageList}" class="col-md-13 col-lg-13 mb-4">
             <div class="property-entry h-100">
               <a th:href="@{/contents/detail(idx=${contents.idx})}" class="property-thumbnail">
-                <img th:src="@{'/userImages/'+${contents.images[0]}}" onerror="this.src='/images/main01.jpg'" alt="Image" class="img-fluid">
+                <img th:src="@{'/userImages/'+${contents.images[0]}}+'.jpg'" onerror="this.src='/images/main01.jpg'" alt="Image" class="img-fluid">
               </a>
-              <div class="p-4 property-body">
-<!--                장바구니-->
-                <form action="/contents/cartInsert" id="cart" method="post" th:if="${user} != null">
-                  <input type="hidden" name="email" th:value="${user.email}"></input>
-                  <input type="hidden" name="contentsIdx" th:value="${contents.idx}"/>
+
+                <div class="p-4-custom property-body">
+<!--                장바구니 start -->
+                  <form action="/contents/cartInsert" id="cart" method="post" th:if="${user} != null">
+                    <input type="hidden" name="email" th:value="${user.email}"></input>
+                    <input type="hidden" name="contentsIdx" th:value="${contents.idx}"/>
 <!--                    <a href="javascript:document.getElementById('cart').submit();" class="property-favorite"><span class="icon-heart-o"></span></a>-->
 <!--                  <a href="#" class="property-favorite"><span class="icon-heart-o"></span></a>-->
-                  <button type="submit" class="property-favorite"><span class="icon-heart-o"></span></button>
-                </form>
-<!--                장바구니-->
-                <h2 class="property-title"><a th:text="${contents.title}" th:href="@{/contents/detail(idx=${contents.idx})}"></a></h2>
+                    <button type="submit" class="property-favorite"><span class="icon-heart-o"></span></button>
+                  </form>
+<!--                장바구니 end -->
+                  <div class="container-custom">
+                    <div class="contents-custom">
+                     <h2 class="property-title"><a th:text="${contents.title}" th:href="@{/contents/detail(idx=${contents.idx})}"></a></h2>
 
 <!--                <span class="property-location d-block mb-3"><span class="property-icon icon-room"></span> 625 S. Berendo St Unit 607 Los Angeles, CA 90005</span>-->
-                <strong class="property-price text-primary mb-3 d-block text-success" style="text-align: end" th:text="|￦${contents.price}|"></strong>
-                <ul class="property-specs-wrap mb-3 mb-lg-0">
-                  <li>
-                    <span class="property-specs">평점</span>
-                    <span class="property-specs-number">A<sup>+</sup></span>
-
-                  </li>
-                  <li>
-                    <span class="property-specs">강사</span>
-                    <span class="property-specs-number" th:text="${contents.author}"></span>
-
-                  </li>
-
-                  <li>
-                    <span class="property-specs">제작 날짜</span>
-                    <span class="property-specs-number" th:text="${contents.createdDate}"></span>
-
-                  </li>
-                </ul>
+                      <span class="property-price text-primary mb-3 d-block text-success" style="text-align: end" th:text="|￦${contents.price}|"></span>
+                      <ul class="property-specs-wrap mb-3 mb-lg-0">
+                        <li>
+                          <span class="property-specs">평점</span>
+                          <div th:if="${contents.averageStar} == 0">
+                            <span class="property-specs-number-custom">없음</span>
+                          </div>
+                          <div th:if="${contents.averageStar} == 1">
+                            <img src="/images/star.png" th:each="num: ${#numbers.sequence(1,1)}">
+                          </div>
+                          <div th:if="${contents.averageStar} == 2">
+                            <img src="/images/star.png" th:each="num: ${#numbers.sequence(1,2)}">
+                          </div>
+                          <div th:if="${contents.averageStar} == 3">
+                            <img src="/images/star.png" th:each="num: ${#numbers.sequence(1,3)}">
+                          </div>
+                          <div th:if="${contents.averageStar} == 4">
+                            <img src="/images/star.png" th:each="num: ${#numbers.sequence(1,4)}">
+                          </div>
+                          <div th:if="${contents.averageStar} == 5">
+                            <img src="/images/star.png" th:each="num: ${#numbers.sequence(1,5)}">
+                          </div>
+                        </li>
+                        <li>
+                          <span class="property-specs">강사</span>
+                          <span class="property-specs-number-custom" th:text="${contents.author}"></span>
+                        </li>
+                        <li>
+                          <span class="property-specs">제작 날짜</span>
+                          <span class="property-specs-number-custom" th:text="${contents.createdDate}"></span>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="middle-custom">
+                      <div class="contentsTitle">
+                        <a th:href="@{/contents/detail(idx=${contents.idx})}"><p th:text="${contents.title}"></p></a>
+                      </div>
+                      <div class="text-custom" th:text="${contents.description}">콘텐츠 내용</div>
+                      <div><img src="images/subject.png" align="left"/><p class="text-custom2">JAVA, 웹 개발</p></div>
+                      <div><img src="images/runningTime.png" align="left"/><p class="text-custom2" th:text="${contents.runningTime}">강의시간</p></div>
+                    </div>
+                </div>
               </div>
             </div>
           </div>
@@ -189,7 +215,7 @@
 
       </div>
     </div>
-<!-- pageList 일경우 -->
+<!-- pageList 일경우 end-->
 
   <!-- resultList 일경우 -->
   <div th:if="${resultList}!= null">
@@ -210,7 +236,7 @@
                   <span class="offer-type bg-success">Rent</span>
                 </div>
                 <!--                <img src="images/img_1.jpg" alt="Image" class="img-fluid">-->
-                <img th:src="@{'/images/'+${contents.images}}" alt="Image" class="img-fluid">
+                <img th:src="@{'/userImages/'+${contents.images[0]}}+'.jpg'" alt="Image" class="img-fluid">
               </a>
               <div class="p-4 property-body">
                 <a href="#" class="property-favorite"><span class="icon-heart-o"></span></a>
@@ -221,17 +247,14 @@
                   <li>
                     <span class="property-specs">Beds</span>
                     <span class="property-specs-number">2 <sup>+</sup></span>
-
                   </li>
                   <li>
                     <span class="property-specs">Baths</span>
                     <span class="property-specs-number">2</span>
-
                   </li>
                   <li>
                     <span class="property-specs">SQ FT</span>
                     <span class="property-specs-number">7,000</span>
-
                   </li>
                 </ul>
               </div>
@@ -324,18 +347,18 @@
         </div>
         <div class="row">
           <div class="col-md-6 col-lg-4 mb-5" data-aos="fade-up" data-aos-delay="100">
-            <a href="#"><img src="/images/inflearnImg.png" alt="Image" class="img-fluid"></a>
+            <a target="_blank" rel="noopener" href="https://www.inflearn.com"><img src="/images/inflearnImg.png" alt="Image" class="img-fluid"></a>
             <div class="p-4 bg-white">
               <span class="d-block text-secondary small text-uppercase">Jan 20th, 2019</span>
-              <h2 class="h5 text-black mb-3"><a href="#">인프런</a></h2>
+              <h2 class="h5 text-black mb-3"><a target="_blank" rel="noopener" href="https://www.inflearn.com">인프런</a></h2>
               <p>실력있는 한국의 많은 개발자들이 자체 제작한 강의를 접할 수 있다.</p>
             </div>
           </div>
           <div class="col-md-6 col-lg-4 mb-5" data-aos="fade-up" data-aos-delay="200">
-            <a href="#"><img src="images/youtubeImg.jpg" alt="Image" class="img-fluid"></a>
+            <a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=web+developer"><img src="images/youtubeImg.jpg" alt="Image" class="img-fluid"></a>
             <div class="p-4 bg-white">
               <span class="d-block text-secondary small text-uppercase">Jan 20th, 2019</span>
-              <h2 class="h5 text-black mb-3"><a href="#">유튜브</a></h2>
+              <h2 class="h5 text-black mb-3"><a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=web+developer">유튜브</a></h2>
               <p>전세계 최대 동영상 플랫폼으로 다양한 강의들이 무료로 제공된다.</p>
             </div>
           </div>

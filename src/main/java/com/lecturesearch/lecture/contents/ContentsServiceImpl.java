@@ -13,6 +13,7 @@ import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -105,14 +106,50 @@ public class ContentsServiceImpl implements ContentsService {
         return contentsRepository.findById(idx);
     }
 
-//    public Page<CartVO> cartList(String email, Pageable pageable) {
-//        pageable = PageRequest.of(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1, pageable.getPageSize());
-//        return cartRepository.findAllByEmail(email, pageable);
-//    }
-
     @Override
     public List<ContentsVO> findAll(){
         return contentsRepository.findAll();
+    }
+
+    @Override
+    public ContentsVO averageStar(int star, String contentsIdx) {
+        ContentsVO contents = contentsRepository.findById(contentsIdx).get();
+        //review 작성시 별점평균계산
+        int total = star + contents.getTotalStar();
+        int count = contents.getCountStar();
+        double average = total / (double)++count;
+
+        ContentsVO contentsDTO = ContentsVO.builder()
+                .totalStar(total)
+                .countStar(count)
+                .averageStar(Math.round(average))
+                .build();
+
+        contents.updateAverageStar(contentsDTO);
+        return contentsRepository.save(contents);
+    }
+
+    @Override
+    public ReviewVO reviewVO(String idx) {
+        return reviewRepository.findById(idx).orElse(new ReviewVO());
+    }
+
+    @Override
+    public ContentsVO averageStarDelete(int star, String contentsIdx) {
+        ContentsVO contents = contentsRepository.findById(contentsIdx).get();
+        //review 삭제시 별점평균계산
+        int total = contents.getTotalStar() - star;
+        int count = contents.getCountStar();
+        double average = total / (double)--count;
+
+        ContentsVO contentsDTO = ContentsVO.builder()
+                .totalStar(total)
+                .countStar(count)
+                .averageStar(Math.round(average))
+                .build();
+
+        contents.updateAverageStar(contentsDTO);
+        return contentsRepository.save(contents);
     }
 
     @Override
@@ -126,8 +163,8 @@ public class ContentsServiceImpl implements ContentsService {
             } catch (NoSuchAlgorithmException e) {
                 e.printStackTrace();
             }
-//            File targetFile = new File("/Users/home/Java/git_clone/lectureSearch/src/main/resources/static/userImages/"+ imageName+".jpg");
-            File targetFile = new File("/home/ec2-user/app/step1/lectureSearch/src/main/resources/static/userImages" + imageName + ".jpg");
+            File targetFile = new File("/Users/home/Java/git_clone/lectureSearch/src/main/resources/static/userImages/"+ imageName+".jpg");
+//            File targetFile = new File("/home/ec2-user/app/step1/lectureSearch/src/main/resources/static/userImages" + imageName + ".jpg");
             try {
                 files[i].transferTo(targetFile);
             } catch (IOException e) {

@@ -48,5 +48,8 @@ public class adminController {
         userService.deleteUser(idx);
         return "redirect:usersData";
     }
-
+    @RequestMapping("/dataChart")
+    public String userDataChart(Model model){
+        return "admin/chartjs";
+    }
 }

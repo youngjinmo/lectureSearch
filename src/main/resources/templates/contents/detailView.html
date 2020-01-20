@@ -49,48 +49,48 @@
             <div class="col-lg-8">
                 <div>
                     <div class="slide-one-item home-slider owl-carousel">
-                        <div><img th:if="${contents.images.size() > 0}" th:src="@{'/userImages/'+${contents.images.get(0)}+'.jpg'}" alt="Image" class="img-fluid"></div>
-                        <div><img th:if="${contents.images.size() > 1}" th:src="@{'/userImages/'+${contents.images.get(1)}+'.jpg'}" alt="Image" class="img-fluid"></div>
-                        <div><img th:if="${contents.images.size() > 2}" th:src="@{'/userImages/'+${contents.images.get(2)}+'.jpg'}" alt="Image" class="img-fluid"></div>
+                        <div th:if="${contents.images.size() > 0}"><img th:src="@{'/userImages/'+${contents.images.get(0)}+'.jpg'}" alt="Image" class="img-fluid"></div>
+                        <div th:if="${contents.images.size() > 1}"><img th:src="@{'/userImages/'+${contents.images.get(1)}+'.jpg'}" alt="Image" class="img-fluid"></div>
+                        <div th:if="${contents.images.size() > 2}"><img  th:src="@{'/userImages/'+${contents.images.get(2)}+'.jpg'}" alt="Image" class="img-fluid"></div>
                     </div>
                 </div>
                 <div class="bg-white property-body border-bottom border-left border-right">
                     <div class="row mb-5">
                         <div class="col-md-12">
-                            <strong class="text-success h1 mb-3" th:text="${contents.title}">$1,000,500</strong>
+                            <strong class="text-success h1 mb-3" th:text="${contents.title}">JAVA 고급</strong>
                         </div>
                     </div>
                     <div class="row mb-5">
                         <div class="col-md-6 col-lg-4 text-center border-bottom border-top py-3">
                             <span class="d-inline-block text-black mb-0 caption-text">작성자</span>
-                            <strong class="d-block"th:text="${contents.writer}"></strong>
+                            <strong class="d-block"th:text="${contents.writer}">홍길동</strong>
                         </div>
                         <div class="col-md-6 col-lg-4 text-center border-bottom border-top py-3">
                             <span class="d-inline-block text-black mb-0 caption-text">강좌 등록일</span>
-                            <strong class="d-block" th:text="${contents.createdDate}"></strong>
+                            <strong class="d-block" th:text="${contents.createdDate}">2020.01.01</strong>
                         </div>
                         <div class="col-md-6 col-lg-4 text-center border-bottom border-top py-3">
                             <span class="d-inline-block text-black mb-0 caption-text">Price</span>
-                            <strong class="d-block" th:text="'￦' + ${contents.price}"></strong>
+                            <strong class="d-block" th:text="'￦' + ${contents.price}">￦30,000</strong>
                         </div>
                     </div>
-                    <h2 class="h4 text-black">More Info</h2>
-                    <p th:text="${contents.description}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda aperiam perferendis deleniti vitae asperiores accusamus tempora facilis sapiente, quas! Quos asperiores alias fugiat sunt tempora molestias quo deserunt similique sequi.</p>
-
-                    <div th:if="${contents?.writer == user?.email}" class="border-bottom" style="float:right; padding:10px;">
-                        <a th:href="@{/contents/updateContent(idx=${contents.idx})}" class="property-thumbnail">
-                            <button  type="button" class="btn btn-primary" id="update">수정</button>
-                        </a>
-                        <a th:href="@{/contents/deleteContent(idx=${contents.idx})}">
-                        <button  type="button" class="btn btn-danger" id="delete">삭제</button>
-                        </a>
+                    <div class="row mb-5">
+                        <h2 class="h4 text-black col-12">More Info</h2>
+                        <p class="col-12" th:text="${contents.description}">JAVA기초 완벽강의</p>
+                        <div th:if="${contents?.writer == user?.email}" class="border-bottom" style="padding:10px;">
+                            <a th:href="@{/contents/updateContent(idx=${contents.idx})}" class="property-thumbnail">
+                                <button  type="button" class="btn btn-primary" id="update">수정</button>
+                            </a>
+                            <a th:href="@{/contents/deleteContent(idx=${contents.idx})}">
+                                <button  type="button" class="btn btn-danger" id="delete">삭제</button>
+                            </a>
+                        </div>
                     </div>
-
                     <div class="row no-gutters mt-5">
                         <div class="col-12">
                             <h2 class="h4 text-black mb-3">후기 작성</h2>
                         </div>
-<!--                        review 작성-->
+<!--                        review 작성 start-->
                         <div>
                             <form action="/contents/review" onsubmit="return check()" name="reviewForm" class="mb-5 border-bottom py-3" method="post">
                                 <div class="row form-group">
@@ -120,27 +120,52 @@
                                 </div>
                             </form>
                         </div>
-<!--                        review 작성-->
-<!--                        작성된 리뷰리스트-->
-                        <h2 class="h4 text-black mb-3">수강 후기</h2>
+<!--                        review 작성 end-->
+
+<!--                        작성된 리뷰리스트 start-->
+                        <div class="col-12">
+                            <h2 class="h4 text-black mb-3">수강 후기</h2>
+                            <p th:if="${contents.averageStar} != 0" th:text="'평점 ' + ${contents.averageStar}" style="float: left;padding-right: 5px;margin-bottom: 0rem;">5.0</p>
+                            <div th:if="${contents.averageStar} == 1">
+                                <img src="/images/star.png" th:each="num: ${#numbers.sequence(1,1)}">
+                            </div>
+                            <div th:if="${contents.averageStar} == 2">
+                                <img src="/images/star.png" th:each="num: ${#numbers.sequence(1,2)}">
+                            </div>
+                            <div th:if="${contents.averageStar} == 3">
+                                <img src="/images/star.png" th:each="num: ${#numbers.sequence(1,3)}">
+                            </div>
+                            <div th:if="${contents.averageStar} == 4">
+                                <img src="/images/star.png" th:each="num: ${#numbers.sequence(1,4)}">
+                            </div>
+                            <div th:if="${contents.averageStar} == 5">
+                                <img src="/images/star.png" th:each="num: ${#numbers.sequence(1,5)}">
+                            </div>
+                            <p th:if="${contents.averageStar} != 0" th:text="${review.getTotalElements()} + '개의 평가'">10만개의 평가</p>
+                        </div>
+<!--                        작성된 리뷰가 없을 때 start-->
+                        <div th:if="${review.getTotalElements()} == 0">
+                            <p>등록된 후기가 없습니다.</p>
+                        </div>
+<!--                        작성된 리뷰가 없을 때 end-->
                         <div th:each="reviews : ${review}">
                             <div style="margin-top: 10px;margin-bottom: 10px;">
                                 <img src="/images/profile.jpg" style="width:10%;height:10%;border-radius: 50%;margin-right: 10px;margin-left: 10px;float: left">
                                 <div>
                                     <div th:if="${reviews.star == '1'}">
-                                        <img src="/images/star.png">
+                                        <img src="/images/star.png" th:each="num: ${#numbers.sequence(1,1)}">
                                     </div>
                                     <div th:if="${reviews.star == '2'}">
-                                        <img src="/images/star.png"><img src="/images/star.png">
+                                        <img src="/images/star.png" th:each="num: ${#numbers.sequence(1,2)}">
                                     </div>
                                     <div th:if="${reviews.star == '3'}">
-                                        <img src="/images/star.png"><img src="/images/star.png"><img src="/images/star.png">
+                                        <img src="/images/star.png" th:each="num: ${#numbers.sequence(1,3)}">
                                     </div>
                                     <div th:if="${reviews.star == '4'}">
-                                        <img src="/images/star.png"><img src="/images/star.png"><img src="/images/star.png"><img src="/images/star.png">
+                                        <img src="/images/star.png" th:each="num: ${#numbers.sequence(1,4)}">
                                     </div>
                                     <div th:if="${reviews.star == '5'}">
-                                        <img src="/images/star.png"><img src="/images/star.png"><img src="/images/star.png"><img src="/images/star.png"><img src="/images/star.png">
+                                        <img src="/images/star.png" th:each="num: ${#numbers.sequence(1,5)}">
                                     </div>
                                     <span class="text-black mb-0 caption-text" th:text="${reviews.date}"></span>
                                     <span class="text-black mb-0 caption-text" th:text="${reviews.name} + '님'"></span>
