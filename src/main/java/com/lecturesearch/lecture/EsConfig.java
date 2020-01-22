@@ -35,7 +35,7 @@ public class EsConfig {
         return client;
     }
 
-//    //AWS ElasticSearch sever 이용시
+//    AWS ElasticSearch sever 이용시
 //    @Bean
 //    public RestHighLevelClient client() {
 //        return new RestHighLevelClient(RestClient.builder(HttpHost.create("https://search-lecture-bhdskc4zi274juz5ltfaxsjexy.ap-northeast-2.es.amazonaws.com")));

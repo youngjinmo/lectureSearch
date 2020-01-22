@@ -33,9 +33,8 @@ public interface ContentsService {
 
     List<String> saveImages(MultipartFile[] files);
 
-    Optional<ContentsVO> findById(String idx);
-
-    //리뷰리스트
+   Optional<ContentsVO> findById(String idx);
+   //리뷰리스트
     Page<ReviewVO> findReviewList(String contentsIdx, Pageable pageable);
 
     //리뷰삭제
@@ -51,4 +50,13 @@ public interface ContentsService {
     void cartDelete(String contentsIdx);
 
     List<ContentsVO> findAll();
+
+    //리뷰 평균별점 계산
+    ContentsVO averageStar(int star, String contentsIdx);
+
+    ReviewVO reviewVO(String idx);
+
+    ContentsVO averageStarDelete(int star, String contentsIdx);
+
+//    ContentsVO averageStar(String contentsIdx, Pageable pageable);
 }

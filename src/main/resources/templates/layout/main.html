@@ -124,7 +124,7 @@
         </div>
     </div>
 
-    <!-- pageList 일경우 -->
+<!-- pageList 일경우 start -->
     <div th:if="${pageList}!= null">
         <div class="site-section site-section-sm bg-light">
             <div class="container">
@@ -158,25 +158,97 @@
                                     <li>
                                         <span class="property-specs">평점</span>
                                         <span class="property-specs-number">A<sup>+</sup></span>
-
                                     </li>
                                     <li>
                                         <span class="property-specs">강사</span>
                                         <span class="property-specs-number" th:text="${contents.author}"></span>
-
                                     </li>
 
                                     <li>
                                         <span class="property-specs">제작 날짜</span>
                                         <span class="property-specs-number" th:text="${contents.createdDate}"></span>
-
                                     </li>
                                 </ul>
                             </div>
                         </div>
-                    </div>
-                    <!--         등록된 강좌가 있는 경우 end-->
+                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="site-section site-section-sm bg-light">
+      <div class="container">
+<!--        강좌가 없을 경우 start-->
+        <div style="text-align: center">
+          <h2 th:if="${pageList.getTotalElements()} == 0">현재 등록된 강좌가 없습니다.</h2>
+        </div>
+<!--        강좌가 없을 경우 end-->
+        <div class="row mb-5">
+<!--         등록된 강좌가 있는 경우 start-->
+          <div th:if="${pageList.getTotalElements()} > 0" th:each="contents : ${pageList}" class="col-md-13 col-lg-13 mb-4">
+            <div class="property-entry h-100">
+              <a style="height: 180px;" th:href="@{/contents/detail(idx=${contents.idx})}" class="property-thumbnail">
+                <img th:src="@{contents/loadImage(image=${contents.images[0]})}+'.jpg'" onerror="this.src='/images/main01.jpg'" alt="Image" class="img-fluid">
+              </a>
+
+                <div class="p-4-custom property-body">
+<!--                장바구니 start -->
+                  <form action="/contents/cartInsert" id="cart" method="post" th:if="${user} != null">
+                    <input type="hidden" name="email" th:value="${user.email}"></input>
+                    <input type="hidden" name="contentsIdx" th:value="${contents.idx}"/>
+<!--                    <a href="javascript:document.getElementById('cart').submit();" class="property-favorite"><span class="icon-heart-o"></span></a>-->
+<!--                  <a href="#" class="property-favorite"><span class="icon-heart-o"></span></a>-->
+                    <button type="submit" class="property-favorite"><span class="icon-heart-o"></span></button>
+                  </form>
+<!--                장바구니 end -->
+                  <div class="container-custom">
+                    <div class="contents-custom">
+                     <h2 class="property-title"><a th:text="${contents.title}" th:href="@{/contents/detail(idx=${contents.idx})}"></a></h2>
+
+<!--                <span class="property-location d-block mb-3"><span class="property-icon icon-room"></span> 625 S. Berendo St Unit 607 Los Angeles, CA 90005</span>-->
+                      <span class="property-price text-primary mb-3 d-block text-success" style="text-align: end" th:text="|￦${contents.price}|"></span>
+                      <ul class="property-specs-wrap mb-3 mb-lg-0">
+                        <li>
+                          <span class="property-specs">평점</span>
+                          <div th:if="${contents.averageStar} == 0">
+                            <span class="property-specs-number-custom">없음</span>
+                          </div>
+                          <div th:if="${contents.averageStar} == 1">
+                            <img src="/images/star.png" th:each="num: ${#numbers.sequence(1,1)}">
+                          </div>
+                          <div th:if="${contents.averageStar} == 2">
+                            <img src="/images/star.png" th:each="num: ${#numbers.sequence(1,2)}">
+                          </div>
+                          <div th:if="${contents.averageStar} == 3">
+                            <img src="/images/star.png" th:each="num: ${#numbers.sequence(1,3)}">
+                          </div>
+                          <div th:if="${contents.averageStar} == 4">
+                            <img src="/images/star.png" th:each="num: ${#numbers.sequence(1,4)}">
+                          </div>
+                          <div th:if="${contents.averageStar} == 5">
+                            <img src="/images/star.png" th:each="num: ${#numbers.sequence(1,5)}">
+                          </div>
+                        </li>
+                        <li>
+                          <span class="property-specs">강사</span>
+                          <span class="property-specs-number-custom" th:text="${contents.author}"></span>
+                        </li>
+                        <li>
+                          <span class="property-specs">제작 날짜</span>
+                          <span class="property-specs-number-custom" th:text="${contents.createdDate}"></span>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="middle-custom">
+                      <div class="contentsTitle">
+                        <a th:href="@{/contents/detail(idx=${contents.idx})}"><p th:text="${contents.title}"></p></a>
+                      </div>
+                      <div class="text-custom" th:text="${contents.description}">콘텐츠 내용</div>
+                      <div><img src="images/subject.png" align="left"/><p class="text-custom2">JAVA, 웹 개발</p></div>
+                      <div><img src="images/runningTime.png" align="left"/><p class="text-custom2" th:text="${contents.runningTime}">강의시간</p></div>
+                    </div>
+                </div>
+              </div>
             </div>
 
             <div class="row" th:if="${pageList.getTotalElements()} > 0">
@@ -200,10 +272,11 @@
                         </ul>
                     </div>
                     <!-- /Pagination -->
-                </div>
-            </div>
-
+                 </div>
+             </div>
+           </div>
         </div>
+      </div>
     </div>
     <!-- pageList 일경우 -->
 
@@ -278,6 +351,30 @@
                     </div>
                     <!-- /Pagination -->
                 </div>
+
+                <!--                <img src="images/img_1.jpg" alt="Image" class="img-fluid">-->
+                <img th:src="@{'/userImages/'+${contents.images[0]}}+'.jpg'" alt="Image" class="img-fluid">
+              </a>
+              <div class="p-4 property-body">
+                <a href="#" class="property-favorite"><span class="icon-heart-o"></span></a>
+                <h2 class="property-title"><a th:text="${contents.title}" th:href="@{/contents/detail(idx=${contents.idx})}"></a></h2>
+                <span class="property-location d-block mb-3"><span class="property-icon icon-room"></span> 625 S. Berendo St Unit 607 Los Angeles, CA 90005</span>
+                <strong class="property-price text-primary mb-3 d-block text-success" th:text="|￦${contents.price}|">$2,265,500</strong>
+                <ul class="property-specs-wrap mb-3 mb-lg-0">
+                  <li>
+                    <span class="property-specs">Beds</span>
+                    <span class="property-specs-number">2 <sup>+</sup></span>
+                  </li>
+                  <li>
+                    <span class="property-specs">Baths</span>
+                    <span class="property-specs-number">2</span>
+                  </li>
+                  <li>
+                    <span class="property-specs">SQ FT</span>
+                    <span class="property-specs-number">7,000</span>
+                  </li>
+                </ul>
+              </div>
             </div>
 
         </div>
@@ -326,14 +423,30 @@
     </div>
 
     <div class="site-section bg-light">
-        <div class="container">
-            <div class="row justify-content-center mb-5">
-                <div class="col-md-7 text-center">
-                    <div class="site-section-title">
-                        <h2>강의 관련 플랫폼</h2>
-                    </div>
-                    <p class="word-wrap">양질의 강의들을 제공하는 플랫폼 들로써.....(생략)</p>
-                </div>
+      <div class="container">
+        <div class="row justify-content-center mb-5">
+          <div class="col-md-7 text-center">
+            <div class="site-section-title">
+              <h2>강의 관련 플랫폼</h2>
+            </div>
+            <p>양질의 강의들을 제공하는 플랫폼 들로써.....(생략)</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-lg-4 mb-5" data-aos="fade-up" data-aos-delay="100">
+            <a target="_blank" rel="noopener" href="https://www.inflearn.com"><img src="/images/inflearnImg.png" alt="Image" class="img-fluid"></a>
+            <div class="p-4 bg-white">
+              <span class="d-block text-secondary small text-uppercase">Jan 20th, 2019</span>
+              <h2 class="h5 text-black mb-3"><a target="_blank" rel="noopener" href="https://www.inflearn.com">인프런</a></h2>
+              <p>실력있는 한국의 많은 개발자들이 자체 제작한 강의를 접할 수 있다.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4 mb-5" data-aos="fade-up" data-aos-delay="200">
+            <a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=web+developer"><img src="images/youtubeImg.jpg" alt="Image" class="img-fluid"></a>
+            <div class="p-4 bg-white">
+              <span class="d-block text-secondary small text-uppercase">Jan 20th, 2019</span>
+              <h2 class="h5 text-black mb-3"><a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=web+developer">유튜브</a></h2>
+              <p>전세계 최대 동영상 플랫폼으로 다양한 강의들이 무료로 제공된다.</p>
             </div>
             <div class="row">
                 <div class="col-md-6 col-lg-4 mb-5" data-aos="fade-up" data-aos-delay="100">
@@ -360,10 +473,10 @@
                         <p class="word-wrap">전세계 최대 동영상 플랫폼으로 전세계 개발자들의 컨텐츠를 무료로 볼 수 있다.</p>
                     </div>
                 </div>
-
             </div>
-
+          </div>
         </div>
+      </div>
     </div>
 
 
@@ -392,7 +505,6 @@
                             <a href="#" class="text-black p-2"><span class="icon-linkedin"></span></a>
                         </p>
                     </div>
-
                 </div>
             </div>
 
@@ -402,9 +514,7 @@
                     <img src="https://avatars0.githubusercontent.com/u/33862991?s=460&v=4" width="400px"
                          alt="Youngjin Mo"
                          class="img-fluid rounded mb-4">
-
                     <div class="word-wrap">
-
                         <h2 class="mb-2 font-weight-light text-black h4">모영진</h2>
                         <span class="d-block mb-3 text-white-opacity-05">Junior Backend Developer</span>
                         <p>SpringBoot를 공부중인 주니어 개발자입니다. 이 프로젝트의 회원가입/로그인 기능을 담당하였습니다.</p>
@@ -417,7 +527,6 @@
                                     class="icon-medium"></span></a>
                         </p>
                     </div>
-
                 </div>
             </div>
 
@@ -436,7 +545,6 @@
                             <a href="#" class="text-black p-2"><span class="icon-linkedin"></span></a>
                         </p>
                     </div>
-
                 </div>
             </div>
         </div>
