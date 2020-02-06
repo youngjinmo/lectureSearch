@@ -22,20 +22,20 @@ public interface ContentsService {
     ContentsVO detailView(String idx);
 
     //서치후페이징 리스트보기
-   Page<ContentsVO> searchTitle(String title,Pageable pageable);
+    Page<ContentsVO> searchTitle(String title, Pageable pageable);
 
-   //리뷰작성
-   ReviewVO reviewWrite(ReviewVO paramVO);
+    //리뷰작성
+    ReviewVO reviewWrite(ReviewVO paramVO);
 
-   ContentsVO contentSave(ContentsVO contentsVO);
+    ContentsVO contentSave(ContentsVO contentsVO);
 
-   void deleteContent(String idx);
+    void deleteContent(String idx);
 
-   List<String> saveImages(MultipartFile[] files);
+    List<String> saveImages(MultipartFile[] files);
 
    Optional<ContentsVO> findById(String idx);
    //리뷰리스트
-   Page<ReviewVO> findReviewList(String contentsIdx, Pageable pageable);
+    Page<ReviewVO> findReviewList(String contentsIdx, Pageable pageable);
 
     //리뷰삭제
     void reviewDelete(String idx);

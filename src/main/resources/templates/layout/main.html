@@ -1,474 +1,469 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <title>LectureSearch &mdash; Website</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <head>
+        <title>LectureSearch &mdash; Website</title>
+        <meta charset="UTF-8">
+        <meta name="author" content="LectureSearch Maker">
+        <meta name="description" content="흩어져 있는 강의를 한번에 모아서 찾을 수 있는 LectureSearch입니다.">
+        <meta name="keyword" content="developer, lecture, learning, programmer">
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500">
-    <link rel="stylesheet" th:href="@{/fonts/icomoon/style.css}">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500">
+        <link rel="stylesheet" th:href="@{/fonts/icomoon/style.css}">
 
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/css/magnific-popup.css}">
-    <link rel="stylesheet" th:href="@{/css/jquery-ui.css}">
-    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
-    <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
-    <link rel="stylesheet" th:href="@{/css/bootstrap-datepicker.css}">
-    <link rel="stylesheet" th:href="@{/css/mediaelementplayer.css}">
-    <link rel="stylesheet" th:href="@{/css/animate.css}">
-    <link rel="stylesheet" th:href="@{/fonts/flaticon-2/font/flaticon.css}">
-    <link rel="stylesheet" th:href="@{/css/fl-bigmug-line.css}">
-    
-  
-    <link rel="stylesheet" th:href="@{/css/aos.css}">
+        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+        <link rel="stylesheet" th:href="@{/css/magnific-popup.css}">
+        <link rel="stylesheet" th:href="@{/css/jquery-ui.css}">
+        <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
+        <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
+        <link rel="stylesheet" th:href="@{/css/bootstrap-datepicker.css}">
+        <link rel="stylesheet" th:href="@{/css/mediaelementplayer.css}">
+        <link rel="stylesheet" th:href="@{/css/animate.css}">
+        <link rel="stylesheet" th:href="@{/fonts/flaticon-2/font/flaticon.css}">
+        <link rel="stylesheet" th:href="@{/css/fl-bigmug-line.css}">
 
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-    
-  </head>
-  <body>
-  <div class="site-loader"></div>
-  
-  <header th:replace="layout/header"></header>
+        <link rel="stylesheet" th:href="@{/css/aos.css}">
 
-    <div class="slide-one-item home-slider owl-carousel">
+        <link rel="stylesheet" th:href="@{/css/style.css}">
 
-      <div class="site-blocks-cover overlay" style="background-image: url(images/main01.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
-        <div class="container">
-          <div class="row align-items-center justify-content-center text-center">
-            <div class="col-md-10">
-              <span class="d-inline-block bg-success text-white px-3 mb-3 property-offer-type rounded">강의 검색 플랫폼</span>
-              <h1 class="mb-2">배우고 나누고 성장하세요</h1>
-              <p class="mb-5"><strong class="h2 text-success font-weight-bold">배우고 싶은 기술이 있다면, 무엇이든 어디에서든</strong></p>
+        <style type="text/css">
+            .word-wrap{
+                display: inline-block;
+                word-break: keep-all;
+                word-wrap: break-word;
+            }
+            html, body {
+                min-width: 650px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="site-loader"></div>
+
+        <header th:replace="layout/header"></header>
+
+        <div class="slide-one-item home-slider owl-carousel">
+
+            <div class="site-blocks-cover overlay" style="background-image: url(images/main01.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
+                <div class="container">
+                    <div class="row align-items-center justify-content-center text-center">
+                        <div class="col-md-10">
+                            <span class="d-inline-block bg-success text-white px-3 mb-3 property-offer-type rounded">강의
+                                검색 플랫폼</span><br>
+                            <div class="word-wrap">
+                                <h1 class="mb-2">배우고 나누고 성장하세요</h1>
+                                <p class="mb-5 word-wrap"><strong class="h2 text-success font-weight-bold">배우고 싶은 기술이 있다면, 무엇이든
+                                    어디에서든</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>  
 
-      <div class="site-blocks-cover overlay" style="background-image: url(images/main02.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
-        <div class="container">
-          <div class="row align-items-center justify-content-center text-center">
-            <div class="col-md-10">
-              <span class="d-inline-block bg-danger text-white px-3 mb-3 property-offer-type rounded">강의 검색 플랫폼</span>
-              <h1 class="mb-2">배우고 나누고 성장하세요</h1>
-              <p class="mb-5"><strong class="h2 text-success font-weight-bold">배우고 싶은 기술이 있다면, 무엇이든 어디에서든</strong></p>
+            <div class="site-blocks-cover overlay" style="background-image: url(images/main02.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
+                <div class="container">
+                    <div class="row align-items-center justify-content-center text-center">
+                        <div class="col-md-10">
+                            <span class="d-inline-block bg-danger text-white px-3 mb-3 property-offer-type rounded">강의 검색
+                                플랫폼</span><br>
+                            <div class="word-wrap">
+                                <h1 class="mb-2">배우고 나누고 성장하세요</h1>
+                                <p class="mb-5"><strong class="h2 text-success font-weight-bold">배우고 싶은 기술이 있다면, 무엇이든 어디에서든</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>  
 
-    </div>
-
-    <!-- 전체 검색창으로 변경 (박기윤) -->
-    <div class="site-section site-section-sm pb-0">
-      <div class="container">
-        <div class="row">
-          <form class="form-search col-md-12" th:action="@{/search}" method="get" style="margin-top: -100px;">
-            <div class="row  align-items-end">
-              <div class="col-md-9">
-                <label>전체 검색</label>
-                <input id="title" name="title" type="text" class="form-control" placeholder="Search">
-              </div>
-              <div class="col-md-3">
-                <input type="submit" class="btn btn-success text-white btn-block rounded-0" value="Search">
-              </div>
-            </div>
-          </form>
         </div>
+
         <!-- 전체 검색창으로 변경 (박기윤) -->
-
-        <div class="row">
-          <div class="col-md-12">
-            <div class="view-options bg-white py-3 px-3 d-md-flex align-items-center">
-              <form th:action="@{/contents/boardform}"><input type="submit" value="게시글 작성하기" class="btn btn-primary"></form>
-<!--              <div class="mr-auto">-->
-<!--                <a href="index.html" class="icon-view view-module active"><span class="icon-view_module"></span></a>-->
-<!--                <a href="view-list.html" class="icon-view view-list"><span class="icon-view_list"></span></a>-->
-<!--                -->
-<!--              </div>-->
-              <div class="ml-auto d-flex align-items-center">
-                <div>
-                  <a href="#" class="view-list px-3 border-right active">All</a>
-                  <a href="#" class="view-list px-3 border-right">Rent</a>
-                  <a href="#" class="view-list px-3">Sale</a>
+        <div class="site-section site-section-sm pb-0">
+            <div class="container">
+                <div class="row">
+                    <form class="form-search col-md-12" th:action="@{/search}" method="get" style="margin-top: -100px;">
+                        <div class="row  align-items-end">
+                            <div class="col-md-9">
+                                <label>전체 검색</label>
+                                <input id="title" name="title" type="text" class="form-control" placeholder="강의 검색하기">
+                            </div>
+                            <div class="col-md-3">
+                                <input type="submit" class="btn btn-success text-white btn-block rounded-0" value="Search">
+                            </div>
+                        </div>
+                    </form>
                 </div>
+                <!-- 전체 검색창으로 변경 (박기윤) -->
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="view-options bg-white py-3 px-3 d-md-flex align-items-center">
+                            <form th:action="@{/contents/boardform}"><input type="submit" value="게시글 작성하기" class="btn btn-primary"></form>
+                            <!--              <div class="mr-auto">-->
+                            <!--                <a href="index.html" class="icon-view view-module active"><span class="icon-view_module"></span></a>-->
+                            <!--                <a href="view-list.html" class="icon-view view-list"><span class="icon-view_list"></span></a>-->
+                            <!--                -->
+                            <!--              </div>-->
+                            <!--                        <div class="ml-auto d-flex align-items-center">-->
+                            <!--                            <div>-->
+                            <!--                                <a href="#" class="view-list px-3 border-right active">All</a>-->
+                            <!--                                <a href="#" class="view-list px-3 border-right">Rent</a>-->
+                            <!--                                <a href="#" class="view-list px-3">Sale</a>-->
+                            <!--                            </div>-->
 
 
-                <div class="select-wrap">
-                  <span class="icon icon-arrow_drop_down"></span>
-                  <select class="form-control form-control-sm d-block rounded-0">
-                    <option value="">Sort by</option>
-                    <option value="">Price Ascending</option>
-                    <option value="">Price Descending</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-       
-      </div>
-    </div>
-
-<!-- pageList 일경우 start -->
-    <div th:if="${pageList}!= null">
-    <div class="site-section site-section-sm bg-light">
-      <div class="container">
-<!--        강좌가 없을 경우 start-->
-        <div style="text-align: center">
-          <h2 th:if="${pageList.getTotalElements()} == 0">현재 등록된 강좌가 없습니다.</h2>
-        </div>
-<!--        강좌가 없을 경우 end-->
-        <div class="row mb-5">
-<!--         등록된 강좌가 있는 경우 start-->
-          <div th:if="${pageList.getTotalElements()} > 0" th:each="contents : ${pageList}" class="col-md-13 col-lg-13 mb-4">
-            <div class="property-entry h-100">
-              <a style="height: 180px;" th:href="@{/contents/detail(idx=${contents.idx})}" class="property-thumbnail">
-                <img th:src="@{contents/loadImage(image=${contents.images[0]})}+'.jpg'" onerror="this.src='/images/main01.jpg'" alt="Image" class="img-fluid">
-              </a>
-
-                <div class="p-4-custom property-body">
-<!--                장바구니 start -->
-                  <form action="/contents/cartInsert" id="cart" method="post" th:if="${user} != null">
-                    <input type="hidden" name="email" th:value="${user.email}"></input>
-                    <input type="hidden" name="contentsIdx" th:value="${contents.idx}"/>
-<!--                    <a href="javascript:document.getElementById('cart').submit();" class="property-favorite"><span class="icon-heart-o"></span></a>-->
-<!--                  <a href="#" class="property-favorite"><span class="icon-heart-o"></span></a>-->
-                    <button type="submit" class="property-favorite"><span class="icon-heart-o"></span></button>
-                  </form>
-<!--                장바구니 end -->
-                  <div class="container-custom">
-                    <div class="contents-custom">
-                     <h2 class="property-title"><a th:text="${contents.title}" th:href="@{/contents/detail(idx=${contents.idx})}"></a></h2>
-
-<!--                <span class="property-location d-block mb-3"><span class="property-icon icon-room"></span> 625 S. Berendo St Unit 607 Los Angeles, CA 90005</span>-->
-                      <span class="property-price text-primary mb-3 d-block text-success" style="text-align: end" th:text="|￦${contents.price}|"></span>
-                      <ul class="property-specs-wrap mb-3 mb-lg-0">
-                        <li>
-                          <span class="property-specs">평점</span>
-                          <div th:if="${contents.averageStar} == 0">
-                            <span class="property-specs-number-custom">없음</span>
-                          </div>
-                          <div th:if="${contents.averageStar} == 1">
-                            <img src="/images/star.png" th:each="num: ${#numbers.sequence(1,1)}">
-                          </div>
-                          <div th:if="${contents.averageStar} == 2">
-                            <img src="/images/star.png" th:each="num: ${#numbers.sequence(1,2)}">
-                          </div>
-                          <div th:if="${contents.averageStar} == 3">
-                            <img src="/images/star.png" th:each="num: ${#numbers.sequence(1,3)}">
-                          </div>
-                          <div th:if="${contents.averageStar} == 4">
-                            <img src="/images/star.png" th:each="num: ${#numbers.sequence(1,4)}">
-                          </div>
-                          <div th:if="${contents.averageStar} == 5">
-                            <img src="/images/star.png" th:each="num: ${#numbers.sequence(1,5)}">
-                          </div>
-                        </li>
-                        <li>
-                          <span class="property-specs">강사</span>
-                          <span class="property-specs-number-custom" th:text="${contents.author}"></span>
-                        </li>
-                        <li>
-                          <span class="property-specs">제작 날짜</span>
-                          <span class="property-specs-number-custom" th:text="${contents.createdDate}"></span>
-                        </li>
-                      </ul>
-                    </div>
-                    <div class="middle-custom">
-                      <div class="contentsTitle">
-                        <a th:href="@{/contents/detail(idx=${contents.idx})}"><p th:text="${contents.title}"></p></a>
-                      </div>
-                      <div class="text-custom" th:text="${contents.description}">콘텐츠 내용</div>
-                      <div><img src="images/subject.png" align="left"/><p class="text-custom2">JAVA, 웹 개발</p></div>
-                      <div><img src="images/runningTime.png" align="left"/><p class="text-custom2" th:text="${contents.runningTime}">강의시간</p></div>
+                            <!--                            <div class="select-wrap">-->
+                            <!--                                <span class="icon icon-arrow_drop_down"></span>-->
+                            <!--                                <select class="form-control form-control-sm d-block rounded-0">-->
+                            <!--                                    <option value="">Sort by</option>-->
+                            <!--                                    <option value="">Price Ascending</option>-->
+                            <!--                                    <option value="">Price Descending</option>-->
+                            <!--                                </select>-->
+                            <!--                            </div>-->
+                            <!--                        </div>-->
+                        </div>
                     </div>
                 </div>
-              </div>
+
             </div>
-          </div>
-          <!--         등록된 강좌가 있는 경우 end-->
-          </div>
-        </div>
-        <div class="row" th:if="${pageList.getTotalElements()} > 0">
-          <div class="col-md-12 text-center">
-            <!-- Pagination -->
-            <div class="site-pagination" style="text-align: center;display: inline-block;">
-              <ul class="pagination" th:with="startNumber=${T(Math).floor(pageList.number/10)}*10+1, endNumber=(${pageList.totalPages} > ${startNumber}+9) ? ${startNumber}+9 : ${pageList.totalPages}">
-                <li><a aria-label="Previous" href="/main?page=1">&laquo;</a></li>
-                <li th:style="${pageList.first} ? 'display:none'">
-                  <a th:href="@{/main(page=${pageList.number})}">&lsaquo;</a>
-                </li>
-
-                <li th:each="page :${#numbers.sequence(startNumber, endNumber)}">
-                  <a th:href="@{/main(page=${page})}" th:text="${page}" th:class="(${page} == ${pageList.number}+1) ? 'active'"><span class="sr-only"></span></a>
-                </li>
-
-                <li th:style="${pageList.last} ? 'display:none'">
-                  <a th:href="@{/main(page=${pageList.number}+2)}">&rsaquo;</a>
-                </li>
-                <li><a aria-label="Next" th:href="@{/main(page=${pageList.totalPages})}">&raquo;</a></li>
-              </ul>
-            </div>
-            <!-- /Pagination -->
-          </div>  
         </div>
 
-      </div>
-    </div>
-<!-- pageList 일경우 end-->
+        <!-- pageList 일경우 -->
+        <div th:if="${pageList}!= null">
+            <div class="site-section site-section-sm bg-light">
+                <div class="container">
+                    <!--        강좌가 없을 경우 start-->
+                    <div style="text-align: center">
+                        <h2 th:if="${pageList.getTotalElements()} == 0">현재 등록된 강좌가 없습니다.</h2>
+                    </div>
+                    <!--        강좌가 없을 경우 end-->
+                    <div class="row mb-5">
+                        <!--         등록된 강좌가 있는 경우 start-->
+                        <div th:if="${pageList.getTotalElements()} > 0" th:each="contents : ${pageList}" class="col-md-13 col-lg-13 mb-4">
+                            <div class="property-entry h-100">
+                                <a style="height: 180px;" th:href="@{/contents/detail(idx=${contents.idx})}" class="property-thumbnail">
+                                    <img th:src="@{contents/loadImage(image=${contents.images[0]})}" onerror="this.src='/images/main01.jpg'" alt="Image" class="img-fluid">
+                                </a>
+                                <div class="p-4 property-body">
+                                    <!-- 장바구니 -->
+                                    <form action="/contents/cartInsert" id="cart" method="post" th:if="${user} != null">
+                                        <input type="hidden" name="email" th:value="${user.email}"></input>
+                                        <input type="hidden" name="contentsIdx" th:value="${contents.idx}"/>
+                                        <!--                    <a href="javascript:document.getElementById('cart').submit();" class="property-favorite"><span class="icon-heart-o"></span></a>-->
+                                        <!--                  <a href="#" class="property-favorite"><span class="icon-heart-o"></span></a>-->
+                                        <button type="submit" class="property-favorite"><span class="icon-heart-o"></span></button>
+                                    </form>
+                                    <!-- 장바구니 -->
+                                    <h2 class="property-title"><a th:text="${contents.title}" th:href="@{/contents/detail(idx=${contents.idx})}"></a></h2>
 
-  <!-- resultList 일경우 -->
-  <div th:if="${resultList}!= null">
-    <div class="site-section site-section-sm bg-light">
-      <div class="container">
-        <!--        강좌가 없을 경우 start-->
-        <div style="text-align: center">
-          <h2 th:if="${resultList.getTotalElements()} == 0">현재 등록된 강좌가 없습니다.</h2>
-        </div>
-        <!--        강좌가 없을 경우 end-->
-        <div class="row mb-5">
-          <!--         등록된 강좌가 있는 경우 start-->
-          <div th:if="${resultList.getTotalElements()} > 0" th:each="contents : ${resultList}" class="col-md-13 col-lg-13 mb-4">
-            <div class="property-entry h-100">
-              <a th:href="@{/contents/detail(idx=${contents.idx})}" class="property-thumbnail">
-                <div class="offer-type-wrap">
-                  <span class="offer-type bg-danger">Sale</span>
-                  <span class="offer-type bg-success">Rent</span>
+                                    <!--                <span class="property-location d-block mb-3"><span class="property-icon icon-room"></span> 625 S. Berendo St Unit 607 Los Angeles, CA 90005</span>-->
+                                    <strong class="property-price text-primary mb-3 d-block text-success" style="text-align: end" th:text="|￦${contents.price}|"></strong>
+                                    <ul class="property-specs-wrap mb-3 mb-lg-0">
+                                        <li>
+                                            <span class="property-specs">평점</span>
+                                            <span class="property-specs-number">A<sup>+</sup></span>
+
+                                        </li>
+                                        <li>
+                                            <span class="property-specs">강사</span>
+                                            <span class="property-specs-number" th:text="${contents.author}"></span>
+
+                                        </li>
+
+                                        <li>
+                                            <span class="property-specs">제작 날짜</span>
+                                            <span class="property-specs-number" th:text="${contents.createdDate}"></span>
+
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!--         등록된 강좌가 있는 경우 end-->
+                    </div>
                 </div>
-                <!--                <img src="images/img_1.jpg" alt="Image" class="img-fluid">-->
-                <img th:src="@{'/userImages/'+${contents.images[0]}}+'.jpg'" alt="Image" class="img-fluid">
-              </a>
-              <div class="p-4 property-body">
-                <a href="#" class="property-favorite"><span class="icon-heart-o"></span></a>
-                <h2 class="property-title"><a th:text="${contents.title}" th:href="@{/contents/detail(idx=${contents.idx})}"></a></h2>
-                <span class="property-location d-block mb-3"><span class="property-icon icon-room"></span> 625 S. Berendo St Unit 607 Los Angeles, CA 90005</span>
-                <strong class="property-price text-primary mb-3 d-block text-success" th:text="|￦${contents.price}|">$2,265,500</strong>
-                <ul class="property-specs-wrap mb-3 mb-lg-0">
-                  <li>
-                    <span class="property-specs">Beds</span>
-                    <span class="property-specs-number">2 <sup>+</sup></span>
-                  </li>
-                  <li>
-                    <span class="property-specs">Baths</span>
-                    <span class="property-specs-number">2</span>
-                  </li>
-                  <li>
-                    <span class="property-specs">SQ FT</span>
-                    <span class="property-specs-number">7,000</span>
-                  </li>
-                </ul>
-              </div>
+
+                <div class="row" th:if="${pageList.getTotalElements()} > 0">
+                    <div class="col-md-12 text-center">
+                        <!-- Pagination -->
+                        <div class="site-pagination" style="text-align: center;display: inline-block;">
+                            <ul class="pagination" th:with="startNumber=${T(Math).floor(pageList.number/10)}*10+1, endNumber=(${pageList.totalPages} > ${startNumber}+9) ? ${startNumber}+9 : ${pageList.totalPages}">
+                                <li><a aria-label="Previous" href="/main?page=1">&laquo;</a></li>
+                                <li th:style="${pageList.first} ? 'display:none'">
+                                    <a th:href="@{/main(page=${pageList.number})}">&lsaquo;</a>
+                                </li>
+
+                                <li th:each="page :${#numbers.sequence(startNumber, endNumber)}">
+                                    <a th:href="@{/main(page=${page})}" th:text="${page}" th:class="(${page} == ${pageList.number}+1) ? 'active'"><span class="sr-only"></span></a>
+                                </li>
+
+                                <li th:style="${pageList.last} ? 'display:none'">
+                                    <a th:href="@{/main(page=${pageList.number}+2)}">&rsaquo;</a>
+                                </li>
+                                <li><a aria-label="Next" th:href="@{/main(page=${pageList.totalPages})}">&raquo;</a></li>
+                            </ul>
+                        </div>
+                        <!-- /Pagination -->
+                    </div>
+                </div>
+
             </div>
-          </div>
-          <!--         등록된 강좌가 있는 경우 end-->
         </div>
-      </div>
-      <div class="row" th:if="${resultList.getTotalElements()} > 0">
-        <div class="col-md-12 text-center">
-          <!-- Pagination -->
-          <div class="site-pagination" style="text-align: center;display: inline-block;">
-            <ul class="pagination" th:with="startNumber=${T(Math).floor(resultList.number/10)}*10+1, endNumber=(${resultList.totalPages} > ${startNumber}+9) ? ${startNumber}+9 : ${resultList.totalPages}">
-              <li><a aria-label="Previous" href="/searchResult?page=1">&laquo;</a></li>
-              <li th:style="${resultList.first} ? 'display:none'">
-                <a th:href="@{/searchResult(page=${resultList.number})}">&lsaquo;</a>
-              </li>
+        <!-- pageList 일경우 -->
 
-              <li th:each="page :${#numbers.sequence(startNumber, endNumber)}">
-                <a th:href="@{/searchResult(page=${page})}" th:text="${page}" th:class="(${page} == ${resultList.number}+1) ? 'active'"><span class="sr-only"></span></a>
-              </li>
+        <!-- resultList 일경우 -->
+        <div th:if="${resultList}!= null">
+            <div class="site-section site-section-sm bg-light">
+                <div class="container">
+                    <!--        강좌가 없을 경우 start-->
+                    <div style="text-align: center">
+                        <h2 th:if="${resultList.getTotalElements()} == 0">현재 등록된 강좌가 없습니다.</h2>
+                    </div>
+                    <!--        강좌가 없을 경우 end-->
+                    <div class="row mb-5">
+                        <!--         등록된 강좌가 있는 경우 start-->
+                        <div th:if="${resultList.getTotalElements()} > 0" th:each="contents : ${resultList}" class="col-md-13 col-lg-13 mb-4">
+                            <div class="property-entry h-100">
+                                <a th:href="@{/contents/detail(idx=${contents.idx})}" class="property-thumbnail">
+                                    <div class="offer-type-wrap">
+                                        <span class="offer-type bg-danger">Sale</span>
+                                        <span class="offer-type bg-success">Rent</span>
+                                    </div>
+                                    <!--                <img src="images/img_1.jpg" alt="Image" class="img-fluid">-->
+                                    <img th:src="@{'/images/'+${contents.images}}" alt="Image" class="img-fluid">
+                                </a>
+                                <div class="p-4 property-body">
+                                    <a href="#" class="property-favorite"><span class="icon-heart-o"></span></a>
+                                    <h2 class="property-title"><a th:text="${contents.title}" th:href="@{/contents/detail(idx=${contents.idx})}"></a></h2>
+                                    <span class="property-location d-block mb-3"><span class="property-icon icon-room"></span> 625 S. Berendo St Unit 607 Los Angeles, CA 90005</span>
+                                    <strong class="property-price text-primary mb-3 d-block text-success" th:text="|￦${contents.price}|">$2,265,500</strong>
+                                    <ul class="property-specs-wrap mb-3 mb-lg-0">
+                                        <li>
+                                            <span class="property-specs">Beds</span>
+                                            <span class="property-specs-number">2 <sup>+</sup></span>
 
-              <li th:style="${resultList.last} ? 'display:none'">
-                <a th:href="@{/searchResult(page=${resultList.number}+2)}">&rsaquo;</a>
-              </li>
-              <li><a aria-label="Next" th:href="@{/searchResult(page=${resultList.totalPages})}">&raquo;</a></li>
-            </ul>
-          </div>
-          <!-- /Pagination -->
+                                        </li>
+                                        <li>
+                                            <span class="property-specs">Baths</span>
+                                            <span class="property-specs-number">2</span>
+
+                                        </li>
+                                        <li>
+                                            <span class="property-specs">SQ FT</span>
+                                            <span class="property-specs-number">7,000</span>
+
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!--         등록된 강좌가 있는 경우 end-->
+                    </div>
+                </div>
+                <div class="row" th:if="${resultList.getTotalElements()} > 0">
+                    <div class="col-md-12 text-center">
+                        <!-- Pagination -->
+                        <div class="site-pagination" style="text-align: center;display: inline-block;">
+                            <ul class="pagination" th:with="startNumber=${T(Math).floor(resultList.number/10)}*10+1, endNumber=(${resultList.totalPages} > ${startNumber}+9) ? ${startNumber}+9 : ${resultList.totalPages}">
+                                <li><a aria-label="Previous" href="/searchResult?page=1">&laquo;</a></li>
+                                <li th:style="${resultList.first} ? 'display:none'">
+                                    <a th:href="@{/searchResult(page=${resultList.number})}">&lsaquo;</a>
+                                </li>
+
+                                <li th:each="page :${#numbers.sequence(startNumber, endNumber)}">
+                                    <a th:href="@{/searchResult(page=${page})}" th:text="${page}" th:class="(${page} == ${resultList.number}+1) ? 'active'"><span class="sr-only"></span></a>
+                                </li>
+
+                                <li th:style="${resultList.last} ? 'display:none'">
+                                    <a th:href="@{/searchResult(page=${resultList.number}+2)}">&rsaquo;</a>
+                                </li>
+                                <li><a aria-label="Next" th:href="@{/searchResult(page=${resultList.totalPages})}">&raquo;</a></li>
+                            </ul>
+                        </div>
+                        <!-- /Pagination -->
+                    </div>
+                </div>
+
+            </div>
         </div>
-      </div>
-
-    </div>
-   </div>
-  <!-- resultList 일경우 -->
+        <!-- resultList 일경우 -->
 
 
 
 
 
-    <div class="site-section">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-md-7 text-center">
-            <div class="site-section-title">
-              <h2>왜 Lecture Search 인가?</h2>
+        <div class="site-section">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-7 text-center">
+                        <div class="site-section-title">
+                            <h2>왜 Lecture Search 인가?</h2>
+                        </div>
+                        <p class="word-wrap">Lecture Search는 한번의 검색으로 다양한 관련 강의들과 플랫폼을 제공 해준다</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 col-lg-4">
+                        <a href="#" class="service text-center">
+                            <span class="icon flaticon-planet-earth"></span>
+                            <h2 class="service-heading">개발 장소</h2>
+                            <p class="word-wrap">선릉역 디캠프, 강남역 스타벅스</p>
+                        </a>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <a href="#" class="service text-center">
+                            <span class="icon flaticon-gears"></span>
+                            <h2 class="service-heading">개발 기간</h2>
+                            <p class="word-wrap">총 개발기간 4개월, 매주 정기 모임 월,목 요일 오전 10시 ~ 오후 7시</p>
+                        </a>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <a href="#" class="service text-center">
+                            <span class="icon flaticon-worker"></span>
+                            <h2 class="service-heading">참여인원</h2>
+                            <p class="word-wrap">3명</p>
+                        </a>
+                    </div>
+                </div>
             </div>
-            <p>Lecture Search는 한번의 검색으로 다양한 관련 강의들과 플랫폼을 제공 해준다</p>
-          </div>
         </div>
 
-        <div class="row">
-          <div class="col-md-6 col-lg-4">
-            <a href="#" class="service text-center">
-              <span class="icon flaticon-planet-earth"></span>
-              <h2 class="service-heading">개발 장소</h2>
-              <p>선릉역 디캠프, 강남역 스타벅스</p>
-              <p><span class="read-more">Read More</span></p>
-            </a>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <a href="#" class="service text-center">
-              <span class="icon flaticon-gears"></span>
-              <h2 class="service-heading">개발 기간</h2>
-              <p>총 개발기간 4개월, 매주 정기 모임 월,목 요일 오전 10시 ~ 오후 7시</p>
-              <p><span class="read-more">Read More</span></p>
-            </a>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <a href="#" class="service text-center">
-              <span class="icon flaticon-worker"></span>
-              <h2 class="service-heading">참여인원</h2>
-              <p>3명</p>
-              <p><span class="read-more">Read More</span></p>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
+        <div class="site-section bg-light">
+            <div class="container">
+                <div class="row justify-content-center mb-5">
+                    <div class="col-md-7 text-center">
+                        <div class="site-section-title">
+                            <h2>강의 관련 플랫폼</h2>
+                        </div>
+                        <p class="word-wrap">양질의 강의들을 제공하는 플랫폼 들로써.....(생략)</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-lg-4 mb-5" data-aos="fade-up" data-aos-delay="100">
+                        <a href="https://www.inflearn.com/"><img src="/images/inflearnImg.png" alt="Image" class="img-fluid"></a>
+                        <div class="p-4 bg-white">
+                            <span class="d-block text-secondary small text-uppercase">Jan 20th, 2019</span>
+                            <h2 class="h5 text-black mb-3"><a href="https://inflearn.com">인프런</a></h2>
+                            <p class="word-wrap">국내 최대 규모 개발자 학습공유 사이트.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-5" data-aos="fade-up" data-aos-delay="300">
+                        <a href="#"><img src="images/goormeduimg.png" alt="Image" class="img-fluid"></a>
+                        <div class="p-4 bg-white">
+                            <span class="d-block text-secondary small text-uppercase">Jan 20th, 2019</span>
+                            <h2 class="h5 text-black mb-3"><a href="https://edu.goorm.io/">구름 에듀</a></h2>
+                            <p class="word-wrap">Goorm에서 개발한 자체 클라우드 개발환경에서 간편게 실습이 가능하다.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-5" data-aos="fade-up" data-aos-delay="200">
+                        <a href="https://www.youtube.com/"><img src="images/youtubeImg.jpg" alt="Image" class="img-fluid"></a>
+                        <div class="p-4 bg-white">
+                            <span class="d-block text-secondary small text-uppercase">Jan 20th, 2019</span>
+                            <h2 class="h5 text-black mb-3"><a href="https://www.youtube.com">유튜브</a></h2>
+                            <p class="word-wrap">전세계 최대 동영상 플랫폼으로 전세계 개발자들의 컨텐츠를 무료로 볼 수 있다.</p>
+                        </div>
+                    </div>
 
-    <div class="site-section bg-light">
-      <div class="container">
-        <div class="row justify-content-center mb-5">
-          <div class="col-md-7 text-center">
-            <div class="site-section-title">
-              <h2>강의 관련 플랫폼</h2>
-            </div>
-            <p>양질의 강의들을 제공하는 플랫폼 들로써.....(생략)</p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6 col-lg-4 mb-5" data-aos="fade-up" data-aos-delay="100">
-            <a target="_blank" rel="noopener" href="https://www.inflearn.com"><img src="/images/inflearnImg.png" alt="Image" class="img-fluid"></a>
-            <div class="p-4 bg-white">
-              <span class="d-block text-secondary small text-uppercase">Jan 20th, 2019</span>
-              <h2 class="h5 text-black mb-3"><a target="_blank" rel="noopener" href="https://www.inflearn.com">인프런</a></h2>
-              <p>실력있는 한국의 많은 개발자들이 자체 제작한 강의를 접할 수 있다.</p>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-4 mb-5" data-aos="fade-up" data-aos-delay="200">
-            <a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=web+developer"><img src="images/youtubeImg.jpg" alt="Image" class="img-fluid"></a>
-            <div class="p-4 bg-white">
-              <span class="d-block text-secondary small text-uppercase">Jan 20th, 2019</span>
-              <h2 class="h5 text-black mb-3"><a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=web+developer">유튜브</a></h2>
-              <p>전세계 최대 동영상 플랫폼으로 다양한 강의들이 무료로 제공된다.</p>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-4 mb-5" data-aos="fade-up" data-aos-delay="300">
-            <a href="#"><img src="images/main01.jpg" alt="Image" class="img-fluid"></a>
-            <div class="p-4 bg-white">
-              <span class="d-block text-secondary small text-uppercase">Jan 20th, 2019</span>
-              <h2 class="h5 text-black mb-3"><a href="#">Lecture Search</a></h2>
-              <p>강의를 검색하는 플랫폼으로써...(생략)</p>
-            </div>
-          </div>
+                </div>
 
+            </div>
         </div>
 
-      </div>
-    </div>
 
-    
-    <div class="container">
-      <div class="row mb-5 justify-content-center">
-        <div class="col-md-7">
-          <div class="site-section-title text-center">
-            <h2>개발자</h2>
-            <p>Lecture Search 를 개발하기위해 참여한 개발자들로써 ....(생략)</p>
-          </div>
+        <div class="container">
+            <div class="row mb-5 justify-content-center">
+                <div class="col-md-7 text-center" style="padding-top: 40px;">
+                    <div class="site-section-title">
+                        <h2>개발자</h2>
+                    </div>
+                    <p class="word-wrap">Lecture Search 를 개발하기위해 참여한 개발자들로써 ....(생략)</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-lg-4 mb-5 mb-lg-5">
+                    <div class="team-member">
+
+                        <img src="images/person_1.jpg" alt="Image" class="img-fluid rounded mb-4">
+
+                        <div class="word-wrap">
+                            <h2 class="mb-2 font-weight-light text-black h4">박기윤</h2>
+                            <span class="d-block mb-3 text-white-opacity-05">Full-Stack Developer</span>
+                            <p>Full-Stack 개발자로서 ...</p>
+                            <p>
+                                <a href="#" class="text-black p-2"><span class="icon-facebook"></span></a>
+                                <a href="#" class="text-black p-2"><span class="icon-twitter"></span></a>
+                                <a href="#" class="text-black p-2"><span class="icon-linkedin"></span></a>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4 mb-5 mb-lg-5">
+                    <div class="team-member">
+
+                        <img src="https://avatars0.githubusercontent.com/u/33862991?s=460&v=4" width="400px"
+                             alt="Youngjin Mo"
+                             class="img-fluid rounded mb-4">
+
+                        <div class="word-wrap">
+
+                            <h2 class="mb-2 font-weight-light text-black h4">모영진</h2>
+                            <span class="d-block mb-3 text-white-opacity-05">Junior Backend Developer</span>
+                            <p>SpringBoot를 공부중이며, 백엔드 개발자로 구직을 준비중입니다. 현재 보고계신 웹사이트의 회원가입/로그인 기능을 담당하였습니다.</p>
+                            <p>
+                                <a href="https://github.com/youngjinmo" target="_blank" class="text-black p-2"><span
+                                        class="icon-github"></span></a>
+                                <a href="https://www.linkedin.com/in/youngjinmo/" target="_blank"
+                                   class="text-black p-2"><span class="icon-linkedin"></span></a>
+                                <a href="https://youngjinmo.github.io/" target="_blank" class="text-black p-2"><span
+                                        class="icon-medium"></span></a>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4 mb-5 mb-lg-5">
+                    <div class="team-member">
+
+                        <img src="images/person_3.jpg" alt="Image" class="img-fluid rounded mb-4">
+
+                        <div class="word-wrap">
+                            <h2 class="mb-2 font-weight-light text-black h4">이동렬</h2>
+                            <span class="d-block mb-3 text-white-opacity-05">Full-Stack Developer</span>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores illo iusto, inventore, iure dolorum officiis modi repellat nobis, praesentium perspiciatis, explicabo. Atque cupiditate, voluptates pariatur odit officia libero veniam quo.</p>
+                            <p>
+                                <a href="#" class="text-black p-2"><span class="icon-facebook"></span></a>
+                                <a href="#" class="text-black p-2"><span class="icon-twitter"></span></a>
+                                <a href="#" class="text-black p-2"><span class="icon-linkedin"></span></a>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="row">
-          <div class="col-md-6 col-lg-4 mb-5 mb-lg-5">
-            <div class="team-member">
-
-              <img src="images/person_1.jpg" alt="Image" class="img-fluid rounded mb-4">
-
-              <div class="text">
-
-                <h2 class="mb-2 font-weight-light text-black h4">박기윤</h2>
-                <span class="d-block mb-3 text-white-opacity-05">Full-Stack Developer</span>
-                <p>Full-Stack 개발자로서 ...</p>
-                <p>
-                  <a href="#" class="text-black p-2"><span class="icon-facebook"></span></a>
-                  <a href="#" class="text-black p-2"><span class="icon-twitter"></span></a>
-                  <a href="#" class="text-black p-2"><span class="icon-linkedin"></span></a>
-                </p>
-              </div>
-
-            </div>
-          </div>
-
-          <div class="col-md-6 col-lg-4 mb-5 mb-lg-5">
-            <div class="team-member">
-
-              <img src="images/person_2.jpg" alt="Image" class="img-fluid rounded mb-4">
-
-              <div class="text">
-
-                <h2 class="mb-2 font-weight-light text-black h4">모영진</h2>
-                <span class="d-block mb-3 text-white-opacity-05">Full-Stack Developer</span>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis, cumque vitae voluptates culpa earum similique corrupti itaque veniam doloribus amet perspiciatis recusandae sequi nihil tenetur ad, modi quos id magni!</p>
-                <p>
-                  <a href="#" class="text-black p-2"><span class="icon-facebook"></span></a>
-                  <a href="#" class="text-black p-2"><span class="icon-twitter"></span></a>
-                  <a href="#" class="text-black p-2"><span class="icon-linkedin"></span></a>
-                </p>
-              </div>
-
-            </div>
-          </div>
-
-          <div class="col-md-6 col-lg-4 mb-5 mb-lg-5">
-            <div class="team-member">
-
-              <img src="images/person_3.jpg" alt="Image" class="img-fluid rounded mb-4">
-
-              <div class="text">
-
-                <h2 class="mb-2 font-weight-light text-black h4">이동렬</h2>
-                <span class="d-block mb-3 text-white-opacity-05">Full-Stack Developer</span>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores illo iusto, inventore, iure dolorum officiis modi repellat nobis, praesentium perspiciatis, explicabo. Atque cupiditate, voluptates pariatur odit officia libero veniam quo.</p>
-                <p>
-                  <a href="#" class="text-black p-2"><span class="icon-facebook"></span></a>
-                  <a href="#" class="text-black p-2"><span class="icon-twitter"></span></a>
-                  <a href="#" class="text-black p-2"><span class="icon-linkedin"></span></a>
-                </p>
-              </div>
-
-            </div>
-          </div>
-
-          
-
-        </div>
-    </div>
-
-    <footer th:replace="layout/footer"></footer>
 
 
-  </body>
-  <script src="js/jquery-3.3.1.min.js"></script>
-  <script src="js/jquery-migrate-3.0.1.min.js"></script>
-  <script src="js/jquery-ui.js"></script>
-  <script src="js/popper.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/owl.carousel.min.js"></script>
-  <script src="js/mediaelement-and-player.min.js"></script>
-  <script src="js/jquery.stellar.min.js"></script>
-  <script src="js/jquery.countdown.min.js"></script>
-  <script src="js/jquery.magnific-popup.min.js"></script>
-  <script src="js/bootstrap-datepicker.min.js"></script>
-  <script src="js/aos.js"></script>
+        <footer th:replace="layout/footer"></footer>
 
-  <script src="js/main.js"></script>
+
+    </body>
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/jquery-migrate-3.0.1.min.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/mediaelement-and-player.min.js"></script>
+    <script src="js/jquery.stellar.min.js"></script>
+    <script src="js/jquery.countdown.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/bootstrap-datepicker.min.js"></script>
+    <script src="js/aos.js"></script>
+
+    <script src="js/main.js"></script>
 
 </html>

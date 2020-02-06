@@ -1,4 +1,5 @@
 src/main/resources/application.yml
+aws-secure/
 .DS_Store
 HELP.md
 .gradle
@@ -22,6 +23,7 @@ build/
 *.iml
 *.ipr
 out/
+aws-secure/
 
 ### NetBeans ###
 /nbproject/private/

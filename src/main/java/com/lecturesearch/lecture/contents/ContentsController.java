@@ -76,7 +76,7 @@ public class ContentsController {
 
     @RequestMapping("/boardform")
     public String boardForm(@SocialUser User socialUser, Principal principal, Model model) {
-       User user;
+        User user;
         if(socialUser==null) {
             user = userRepository.findByEmail(principal.getName()).get();
         }else{
@@ -101,8 +101,8 @@ public class ContentsController {
     }
     @RequestMapping("deleteContent")
     public String deleteContent(String idx){
-         contentsService.deleteContent(idx);
-         return "redirect:/main";
+        contentsService.deleteContent(idx);
+        return "redirect:/main";
     }
 
     //후기작성
@@ -134,7 +134,7 @@ public class ContentsController {
 //    }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST,
-    consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public String saveContent(@RequestParam("title") String title, @RequestParam("author") String author,
                               @RequestParam("files") MultipartFile[] files, @RequestParam("price") String price,
                               @RequestParam("runningTime") String runningTime, @RequestParam("createdDate") String createdDate,
@@ -206,7 +206,7 @@ public class ContentsController {
         for (String k : arrList) {
             cartList.add(contentsService.detailView(k));
         }
-            model.addAttribute("list", cartList);
+        model.addAttribute("list", cartList);
         return "contents/cartList";
     }
 
@@ -261,7 +261,7 @@ public class ContentsController {
 
     @RequestMapping("/cartDelete")
     public String cartDelete(String contentsIdx){
-            contentsService.cartDelete(contentsIdx);
+        contentsService.cartDelete(contentsIdx);
         return "redirect:/contents/cartList";
     }
 }

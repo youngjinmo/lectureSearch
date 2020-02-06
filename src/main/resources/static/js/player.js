@@ -51,17 +51,17 @@
         cursorPoint: function (evt, el) {
             _.settings.pt.x = evt.clientX;
             _.settings.pt.y = evt.clientY;
-            var playObject  = el.find('svg').attr('id');
-            playObject      = document.getElementById(playObject);
+            var playObject = el.find('svg').attr('id');
+            playObject = document.getElementById(playObject);
             return _.settings.pt.matrixTransform(playObject.getScreenCTM().inverse());
         },
 
         angle: function (ex, ey) {
-            var dy    = ey - 50; // 100;
-            var dx    = ex - 50; // 100;
+            var dy = ey - 50; // 100;
+            var dx = ex - 50; // 100;
             var theta = Math.atan2(dy, dx); // range (-PI, PI]
             theta *= 180 / Math.PI; // rads to degs, range (-180, 180]
-            theta     = theta + 90; // in our case we are animating from the top, so we offset by the rotation value;
+            theta = theta + 90; // in our case we are animating from the top, so we offset by the rotation value;
             if (theta < 0) theta = 360 + theta; // range [0, 360)
             return theta;
         },
@@ -69,8 +69,8 @@
         setGraphValue: function (obj, val, el) {
 
             var audioObj = el.find(_.settings.audioObj),
-                pc       = _.settings.pc,
-                dash     = pc - parseFloat(((val / audioObj[0].duration) * pc), 10);
+                pc = _.settings.pc,
+                dash = pc - parseFloat(((val / audioObj[0].duration) * pc), 10);
 
             $(obj).css('strokeDashoffset', dash);
 
@@ -82,7 +82,7 @@
 
         reportPosition: function (el, audioId) {
             var progress = el.find(_.settings.progress),
-                audio    = el.find(_.settings.audioObj);
+                audio = el.find(_.settings.audioObj);
 
             _.setGraphValue(progress, audioId.currentTime, el);
         },
@@ -134,29 +134,29 @@
             template = template.join(' ');
 
             $.each(this, function (a, b) {
-                
+
                 var audio = $(this).find('audio');
                 audio.attr('id', 'audio' + a);
-                template = template.replace('width="34"','width="'+ audio.data('size')  +'"');
-                template = template.replace('height="34"','height="'+ audio.data('size')  +'"');
+                template = template.replace('width="34"', 'width="' + audio.data('size') + '"');
+                template = template.replace('height="34"', 'height="' + audio.data('size') + '"');
                 template = template.replace('id="playable"', 'id="playable' + a + '"');
                 $(this).append(template);
-                
+
             });
 
             var svgId = $(this).find('svg').attr('id');
-            svgId     = document.getElementById(svgId);
+            svgId = document.getElementById(svgId);
 
             _.defaults = {
-                this        : this,
+                this: this,
                 thisSelector: this.selector.toString(),
-                playObj     : 'playable',
-                progress    : '.progress-bar',
-                precache    : '.precache-bar',
-                audioObj    : 'audio',
-                controlsObj : '.controls',
-                pt          : svgId.createSVGPoint(),
-                pc          : 298.1371428256714 // 2 pi r                                
+                playObj: 'playable',
+                progress: '.progress-bar',
+                precache: '.precache-bar',
+                audioObj: 'audio',
+                controlsObj: '.controls',
+                pt: svgId.createSVGPoint(),
+                pc: 298.1371428256714 // 2 pi r                                
             };
 
             lunar = {};
@@ -168,10 +168,10 @@
                 var el = $(e.currentTarget).closest($(_.settings.thisSelector));
 
                 var obj = {
-                    el         : el,
+                    el: el,
                     activeAudio: el.find(_.settings.audioObj),
-                    playObj    : el.find('[data-play]'),
-                    precache   : el.find(_.settings.precache)
+                    playObj: el.find('[data-play]'),
+                    precache: el.find(_.settings.precache)
                 };
 
                 obj.class = obj.playObj.attr('class');
@@ -206,7 +206,7 @@
                 if (this.buffered.length > 0) {
                     var end = this.buffered.end(this.buffered.length - 1);
                     var cache = $(e.currentTarget).parent().find(_.settings.precache),
-                        el    = $(this).closest($(_.settings.thisSelector));
+                        el = $(this).closest($(_.settings.thisSelector));
                     _.setGraphValue(cache, end, el);
                 }
             });

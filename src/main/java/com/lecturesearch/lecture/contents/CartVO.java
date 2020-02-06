@@ -4,14 +4,13 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
-@Document(indexName = "cart", type="contents")
+@Document(indexName = "cart", type = "contents")
 @Data
 public class CartVO {
 
     @Id
     private String contentsIdx;
     private String email;
-
 
 
     public String getEmail() {

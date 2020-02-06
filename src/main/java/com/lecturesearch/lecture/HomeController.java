@@ -26,22 +26,21 @@ public class HomeController {
     private UserRepository userRepository;
 
     @RequestMapping(value = {"/main", "/"})
-    public String list(@PageableDefault Pageable pageable, Model model, HttpServletResponse response, @SocialUser User socialUser, Principal principal) {
+    public String list(@PageableDefault Pageable pageable, Model model, HttpServletResponse response,
+                       @SocialUser User socialUser, Principal principal) {
         Page i = contentsService.findContentsList(pageable);
         model.addAttribute("pageList", i);
 
+        // 로그인시 사용자이름 화면에서 출력
         User user = null;
-        if(!(socialUser==null&&principal==null)) {
+        if(socialUser!=null&&principal!=null) {
             if (socialUser == null) {
                 user = userRepository.findByEmail(principal.getName()).get();
             } else {
                 user = socialUser;
             }
-        }
-        // 로그인시 사용자이름 화면에서 출력
-//        if(user != null){
             model.addAttribute("user", user);
-//        }
+        }
         response.setContentType("multipart/form-data");
         return "layout/main";
     }

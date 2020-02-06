@@ -19,14 +19,14 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static com.lecturesearch.lecture.OAuth2.SocialType.*;
+import static com.lecturesearch.lecture.OAuth2.oauth.SocialType.*;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception{
+    protected void configure(HttpSecurity http) throws Exception {
         CharacterEncodingFilter filter = new CharacterEncodingFilter();
 
         http
@@ -37,31 +37,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         ,"/static/**","/changeStatus","/emailChk","/loginPass","/contents/loadImage").permitAll()
                 .antMatchers("/facebook").hasAuthority(FACEBOOK.getRoleType())
                 .antMatchers("/google").hasAuthority(GOOGLE.getRoleType())
+                .antMatchers("/github").hasAuthority(GITHUB.getRoleType())
                 .anyRequest().authenticated()
                 .and()
-            .oauth2Login()
+                .oauth2Login()
                 .defaultSuccessUrl("/loginSuccess")
                 .failureUrl("/loginFailure")
                 .and()
-            .headers().frameOptions().disable()
+                .headers().frameOptions().disable()
                 .and()
-            .exceptionHandling()
+                .exceptionHandling()
                 .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login"))
                 .and()
-            .formLogin()
+                .formLogin()
                 .loginPage("/login")
                 .usernameParameter("userEmail")
                 .passwordParameter("password")
-                .defaultSuccessUrl("/loginSuccessByFormLogin",true)
+                .defaultSuccessUrl("/loginSuccessByFormLogin", true)
                 .and()
-            .logout()
+                .logout()
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login")
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .deleteCookies("JESSIONID")
                 .invalidateHttpSession(true)
                 .and()
-            .addFilterBefore(filter, CsrfFilter.class)
+                .addFilterBefore(filter, CsrfFilter.class)
                 .csrf().disable();
     }
 
@@ -90,6 +91,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .clientId(registration.getClientId())
                     .clientSecret(registration.getClientSecret())
                     .userInfoUri("https://graph.facebook.com/me?fields=id,name,email,link")
+                    .scope("email")
+                    .build();
+        }
+        if("github".equals(client)) {
+            OAuth2ClientProperties.Registration registration = clientProperties.getRegistration().get("github");
+            return CommonOAuth2Provider.GITHUB.getBuilder(client)
+                    .clientId(registration.getClientId())
+                    .clientSecret(registration.getClientSecret())
                     .scope("email")
                     .build();
         }
