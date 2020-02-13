@@ -23,30 +23,34 @@ public class adminController {
     ContentsService contentsService;
 
     @RequestMapping("/usersData")
-    public String showUserData(Model model){
+    public String showUserData(Model model) {
         List<User> users;
-        users=userService.findAll();
-        model.addAttribute("users",users);
+        users = userService.findAll();
+        model.addAttribute("users", users);
         return "admin/user_table";
     }
 
     @RequestMapping("/lectureData")
-    public String showLectureDate(Model model){
+    public String showLectureDate(Model model) {
         List<ContentsVO> contents;
-        contents=contentsService.findAll();
-        model.addAttribute("contents",contents);
+        contents = contentsService.findAll();
+        model.addAttribute("contents", contents);
         return "admin/lectures_table";
     }
 
     @RequestMapping("/deleteContent")
-    public String deleteContent(String idx){
+    public String deleteContent(String idx) {
         contentsService.deleteContent(idx);
         return "redirect:lectureData";
     }
+
     @RequestMapping("/deleteUser")
-    public String deleteUser(String idx){
+    public String deleteUser(String idx) {
         userService.deleteUser(idx);
         return "redirect:usersData";
     }
-
+    @RequestMapping("/dataChart")
+    public String userDataChart(Model model){
+        return "admin/chartjs";
+    }
 }

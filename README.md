@@ -1,4 +1,4 @@
-# Fast search, Fast learn.
+# Search easier, Learn faster.
 
 국내외 프로그래밍 영상을 모아서 보여주는 웹 애플리케이션입니다.
 

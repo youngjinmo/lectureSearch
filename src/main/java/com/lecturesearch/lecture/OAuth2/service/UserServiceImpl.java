@@ -15,22 +15,22 @@ public class UserServiceImpl implements UserService {
     UserRepository userRepository;
 
     @Override
-    public void saveUser(User user){
+    public void saveUser(User user) {
         userRepository.save(user);
     }
 
     @Override
-    public List<User> findAll(){
+    public List<User> findAll() {
         return userRepository.findAll();
     }
 
     @Override
-    public Optional<User> findByEmail(String email){
+    public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
     @Override
-    public void deleteUser(String idx){
+    public void deleteUser(String idx) {
         userRepository.deleteById(idx);
     }
 

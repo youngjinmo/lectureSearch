@@ -11,14 +11,14 @@ var Script = function () {
         }
 
         plot = $.plot($("#chart-1"),
-            [ { data: sin, label: "sin(x) = -0.00"},
-                { data: cos, label: "cos(x) = -0.00" } ], {
+            [{data: sin, label: "sin(x) = -0.00"},
+                {data: cos, label: "cos(x) = -0.00"}], {
                 series: {
-                    lines: { show: true }
+                    lines: {show: true}
                 },
-                crosshair: { mode: "x" },
-                grid: { hoverable: true, autoHighlight: false },
-                yaxis: { min: -1.2, max: 1.2 }
+                crosshair: {mode: "x"},
+                grid: {hoverable: true, autoHighlight: false},
+                yaxis: {min: -1.2, max: 1.2}
             });
         var legends = $("#chart-1 .legendLabel");
         legends.each(function () {
@@ -61,7 +61,7 @@ var Script = function () {
             }
         }
 
-        $("#chart-1").bind("plothover",  function (event, pos, item) {
+        $("#chart-1").bind("plothover", function (event, pos, item) {
             latestPosition = pos;
             if (!updateLegendTimeout)
                 updateLegendTimeout = setTimeout(updateLegend, 50);
@@ -104,13 +104,13 @@ var Script = function () {
 
         var options = {
             series: {
-                lines: { show: true },
-                points: { show: true }
+                lines: {show: true},
+                points: {show: true}
             },
-            legend: { noColumns: 2 },
-            xaxis: { tickDecimals: 0 },
-            yaxis: { min: 0 },
-            selection: { mode: "x" }
+            legend: {noColumns: 2},
+            xaxis: {tickDecimals: 0},
+            yaxis: {min: 0},
+            selection: {mode: "x"}
         };
 
         var placeholder = $("#chart-2");
@@ -122,7 +122,7 @@ var Script = function () {
             if (zoom)
                 plot = $.plot(placeholder, data,
                     $.extend(true, {}, options, {
-                        xaxis: { min: ranges.xaxis.from, max: ranges.xaxis.to }
+                        xaxis: {min: ranges.xaxis.from, max: ranges.xaxis.to}
                     }));
         });
 
@@ -137,7 +137,7 @@ var Script = function () {
         });
 
         $("#setSelection").click(function () {
-            plot.setSelection({ xaxis: { from: 1994, to: 1995 } });
+            plot.setSelection({xaxis: {from: 1994, to: 1995}});
         });
     });
 
@@ -147,6 +147,7 @@ var Script = function () {
         // we use an inline data source in the example, usually data would
         // be fetched from a server
         var data = [], totalPoints = 300;
+
         function getRandomData() {
             if (data.length > 0)
                 data = data.slice(1);
@@ -185,14 +186,14 @@ var Script = function () {
 
         // setup plot
         var options = {
-            series: { shadowSize: 0 }, // drawing is faster without shadows
-            yaxis: { min: 0, max: 100 },
-            xaxis: { show: false }
+            series: {shadowSize: 0}, // drawing is faster without shadows
+            yaxis: {min: 0, max: 100},
+            xaxis: {show: false}
         };
-        var plot = $.plot($("#chart-3"), [ getRandomData() ], options);
+        var plot = $.plot($("#chart-3"), [getRandomData()], options);
 
         function update() {
-            plot.setData([ getRandomData() ]);
+            plot.setData([getRandomData()]);
             // since the axes don't change, we don't need to call plot.setupGrid()
             plot.draw();
 
@@ -201,7 +202,7 @@ var Script = function () {
 
         update();
     });
-    
+
 //    support chart
 
     $(function () {
@@ -225,33 +226,33 @@ var Script = function () {
 
         var d6 = [];
         for (var i = 0; i < 14; i += 0.5 + Math.random())
-            d6.push([i, Math.sqrt(2*i + Math.sin(i) + 5)]);
+            d6.push([i, Math.sqrt(2 * i + Math.sin(i) + 5)]);
 
         $.plot($("#chart-4"), [
             {
                 data: d1,
-                lines: { show: true, fill: true }
+                lines: {show: true, fill: true}
             },
             {
                 data: d2,
-                bars: { show: true }
+                bars: {show: true}
             },
             {
                 data: d3,
-                points: { show: true }
+                points: {show: true}
             },
             {
                 data: d4,
-                lines: { show: true }
+                lines: {show: true}
             },
             {
                 data: d5,
-                lines: { show: true },
-                points: { show: true }
+                lines: {show: true},
+                points: {show: true}
             },
             {
                 data: d6,
-                lines: { show: true, steps: true }
+                lines: {show: true, steps: true}
             }
         ]);
     });
@@ -274,11 +275,11 @@ var Script = function () {
         var stack = 0, bars = true, lines = false, steps = false;
 
         function plotWithOptions() {
-            $.plot($("#chart-5"), [ d1, d2, d3 ], {
+            $.plot($("#chart-5"), [d1, d2, d3], {
                 series: {
                     stack: stack,
-                    lines: { show: lines, fill: true, steps: steps },
-                    bars: { show: bars, barWidth: 0.6 }
+                    lines: {show: lines, fill: true, steps: steps},
+                    bars: {show: bars, barWidth: 0.6}
                 }
             });
         }
@@ -321,12 +322,10 @@ var Script = function () {
          { label: "Series6",  data: [[1,0]]}
          ];*/
         var data = [];
-        var series = Math.floor(Math.random()*10)+1;
-        for( var i = 0; i<series; i++)
-        {
-            data[i] = { label: "Series"+(i+1), data: Math.floor(Math.random()*100)+1 }
+        var series = Math.floor(Math.random() * 10) + 1;
+        for (var i = 0; i < series; i++) {
+            data[i] = {label: "Series" + (i + 1), data: Math.floor(Math.random() * 100) + 1}
         }
-
 
 
         // GRAPH 1
@@ -352,10 +351,10 @@ var Script = function () {
                         label: {
                             show: true,
                             radius: 1,
-                            formatter: function(label, series){
-                                return '<div style="font-size:8pt;text-align:center;padding:2px;color:white;">'+label+'<br/>'+Math.round(series.percent)+'%</div>';
+                            formatter: function (label, series) {
+                                return '<div style="font-size:8pt;text-align:center;padding:2px;color:white;">' + label + '<br/>' + Math.round(series.percent) + '%</div>';
                             },
-                            background: { opacity: 0.8 }
+                            background: {opacity: 0.8}
                         }
                     }
                 },
@@ -373,11 +372,11 @@ var Script = function () {
                         radius: 1,
                         label: {
                             show: true,
-                            radius: 3/4,
-                            formatter: function(label, series){
-                                return '<div style="font-size:8pt;text-align:center;padding:2px;color:white;">'+label+'<br/>'+Math.round(series.percent)+'%</div>';
+                            radius: 3 / 4,
+                            formatter: function (label, series) {
+                                return '<div style="font-size:8pt;text-align:center;padding:2px;color:white;">' + label + '<br/>' + Math.round(series.percent) + '%</div>';
                             },
-                            background: { opacity: 0.5 }
+                            background: {opacity: 0.5}
                         }
                     }
                 },
@@ -399,24 +398,21 @@ var Script = function () {
             });
 
 
-
     });
 
-    function pieHover(event, pos, obj)
-    {
+    function pieHover(event, pos, obj) {
         if (!obj)
             return;
         percent = parseFloat(obj.series.percent).toFixed(2);
-        $("#hover").html('<span style="font-weight: bold; color: '+obj.series.color+'">'+obj.series.label+' ('+percent+'%)</span>');
+        $("#hover").html('<span style="font-weight: bold; color: ' + obj.series.color + '">' + obj.series.label + ' (' + percent + '%)</span>');
     }
 
-    function pieClick(event, pos, obj)
-    {
+    function pieClick(event, pos, obj) {
         if (!obj)
             return;
         percent = parseFloat(obj.series.percent).toFixed(2);
-        alert(''+obj.series.label+': '+percent+'%');
+        alert('' + obj.series.label + ': ' + percent + '%');
     }
 
-    
+
 }();
