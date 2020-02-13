@@ -45,7 +45,7 @@
 
                                 <!-- 회원접속시 이름 출력 (영진) -->
                                 <span th:if="${user}!=null" class="header-menu">
-                                    <span th:text="${user.name}"></span>님 환영합니다.
+                                    <a href="/userProfile"><span th:text="${user.name}"></span></a>님 환영합니다.
                                 </span>
 
                                 <a href="/main">Home</a>

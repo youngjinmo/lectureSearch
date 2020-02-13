@@ -81,4 +81,11 @@ public class UserController {
         return "redirect:/admin/usersData";
     }
 
+    @RequestMapping("/userProfile")
+    public String showUserProfile(Model model, @SocialUser User user){
+        User currentUser = userService.findByEmail(user.getEmail()).get();
+        model.addAttribute("user",currentUser);
+        return "user/userProfile";
+    }
+
 }
