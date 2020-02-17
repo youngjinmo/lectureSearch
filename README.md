@@ -227,7 +227,6 @@ JDK1.8.202(SE 8)(2019년 1월 15일) 버전 이하 사용시 무료
 		<li>개인이 맡은 프로젝트 코드 개발 및 코드 리뷰 준비</li>
 	<ul>
 <br>
-
 	<h2>활동 내용</h2>
 	<ul>
 		<li>docker elasticsearch, docker kibana 팀 전원 동일 환경 구성</li>
@@ -235,6 +234,41 @@ JDK1.8.202(SE 8)(2019년 1월 15일) 버전 이하 사용시 무료
 	</ul>
 <br>
 </details>
-	
-	
-	
+<br>
+
+## 실습 방법
+
+1. Docker 컨테이너(<a href="https://hub.docker.com/repository/docker/youngjindev/lecturesearch_aws" target="_blank">Docker Hub</a>)를 실행한다.
+
+~~~
+$ docker start lectureSearch
+~~~
+
+
+
+2. bash 모드로 컨테이너 내부 진입하기
+
+~~~
+$ docker exec -it lectureSearch bash
+~~~
+
+
+
+3. 계정 전환하기
+
+~~~
+/# sudo - devandy
+~~~
+
+
+
+4. AWS 인스턴스(ec2-user)에 SSH 진입하기
+
+~~~
+ssh aws-lectureSearch
+~~~
+
+
+
+![](https://lh3.googleusercontent.com/g3gythLbQvNqh1DJ6gQzRucPwYQw2Sfm9jU8sCR_fOwDR91lEFpdD2zOoscPocSzFTx63lSKV8AuF-07Gc1VVvbkuLALMnSOGJLh48MFwF7s4ZwVTikVzFAFH--ool-g5Ko58Q_1IznNG_R_-v6z7y5ILdToKNuTORER51xEpIqLsEbCLWeAEBquJZ9V8TQHd7eJhr6B4wOlIFQBgk1e2p4SHFOABkP8GnMsDm4LnRL4cd97vGCibHKq0PcSxpHpkNBFJzxCQZPDKjdOt5ZxNtFD8oDpQYkISU9eYnRfrF4mfdm6yDCjebx0pZe6I6kuIEudmCx6CDFuiFTP7bab6KJSYl485y0VMxFwZH0V0Urhv_LdKEcFEseq5TScTz287zIDAujl7GFR_AvCQ-ZvVHLUYwF8q6W8F1rwhQGgyN-A5j8QfaVU1dBA1jSv4Ay6lIgNhUkHImOgFi2uFsdw-pPVSTXzgn-ulPJvpcPko1OLOkVv4fSAKjI0k-orTdowrCu4ACWJgoBRacnlwvJiQUT-r5zT4ak0498oAc_SWJbwMT1htqFimaXUnCsgg1CxeMKuXQJYI0tktKPs-R7--GSZ8RKFIjpIQSgzm0ZVLTq9iNnYyIPt_xaHfjZJ2yQtG2zrWSKNnZwtAXPal2ysJHODlR4W3rcTPtSo3N87R419ItMqih0IoGaQHlAgaCl8O-2HeMmgKVMK-9-QHFEomYeHwIT27I5G9vDqxSS7oIxyiINDcg=w1440-h814-no)
+
