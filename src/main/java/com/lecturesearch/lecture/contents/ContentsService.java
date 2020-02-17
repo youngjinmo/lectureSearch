@@ -51,6 +51,8 @@ public interface ContentsService {
 
     List<ContentsVO> findAll();
 
+    List<ContentsVO> findAllByWriter(String writer);
+
     //리뷰 평균별점 계산
     ContentsVO averageStar(int star, String contentsIdx);
 

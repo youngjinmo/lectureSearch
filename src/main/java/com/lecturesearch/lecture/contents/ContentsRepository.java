@@ -25,4 +25,6 @@ public interface ContentsRepository extends ElasticsearchRepository<ContentsVO, 
     Page<ContentsVO> findAllByTitle(String title, Pageable pageable);
 
     List<ContentsVO> findAll();
+
+    List<ContentsVO> findAllByWriter(String writer);
 }
