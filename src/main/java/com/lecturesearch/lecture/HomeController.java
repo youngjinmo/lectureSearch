@@ -27,10 +27,9 @@ public class HomeController {
     @Autowired
     private UserRepository userRepository;
 
-    @RequestMapping(value = {"/main", "/"})
-    public String list(@PageableDefault Pageable pageable, Model model, HttpServletResponse response, @SocialUser User socialUser, Principal principal) {
+    @RequestMapping(value = {"/main", "/"}) public String list(@PageableDefault Pageable pageable, Model model, HttpServletResponse response, @SocialUser User socialUser, Principal principal) {
         User user = null;
-        if(!(socialUser==null&&principal==null)) {
+        if(socialUser!=null&&principal!=null) {
             if (socialUser == null) {
                 user = userRepository.findByEmail(principal.getName()).get();
             } else {

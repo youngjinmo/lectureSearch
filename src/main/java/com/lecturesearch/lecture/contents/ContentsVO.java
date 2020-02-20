@@ -34,7 +34,7 @@ public class ContentsVO {
     private double averageStar;
     private int countStar;
 
-    public void update(ContentsVO contentsVO){
+    public void update(ContentsVO contentsVO) {
         this.title = contentsVO.getTitle();
         this.author = contentsVO.getAuthor();
         this.subject = contentsVO.getSubject();

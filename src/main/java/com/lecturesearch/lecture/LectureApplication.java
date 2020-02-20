@@ -18,7 +18,7 @@ public class LectureApplication extends WebMvcConfigurerAdapter {
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver>
-                                    argumentResolvers){
+                                             argumentResolvers) {
         argumentResolvers.add(userArgumentResolver);
     }
 
