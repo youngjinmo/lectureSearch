@@ -3,6 +3,7 @@ package com.lecturesearch.lecture;
 import com.lecturesearch.lecture.OAuth2.annotation.SocialUser;
 import com.lecturesearch.lecture.OAuth2.domain.User;
 import com.lecturesearch.lecture.OAuth2.repository.UserRepository;
+import com.lecturesearch.lecture.contents.CartVO;
 import com.lecturesearch.lecture.contents.ContentsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
+import java.util.ArrayList;
 
 @Controller
 @RequestMapping("/")
@@ -27,9 +29,6 @@ public class HomeController {
 
     @RequestMapping(value = {"/main", "/"})
     public String list(@PageableDefault Pageable pageable, Model model, HttpServletResponse response, @SocialUser User socialUser, Principal principal) {
-        Page i = contentsService.findContentsList(pageable);
-        model.addAttribute("pageList", i);
-
         User user = null;
         if(!(socialUser==null&&principal==null)) {
             if (socialUser == null) {
@@ -38,10 +37,23 @@ public class HomeController {
                 user = socialUser;
             }
         }
+
+        // 장바구니 active
+        if(user != null){
+            String email = user.getEmail();
+
+            Iterable<CartVO> cartList = contentsService.cartList(email);
+            ArrayList<String> arrayList = new ArrayList<String>();
+            for(CartVO i : cartList){
+                arrayList.add(i.getContentsIdx());
+            }
+            model.addAttribute("arrList", arrayList);
+        }
+
+        Page i = contentsService.findContentsList(pageable);
+        model.addAttribute("pageList", i);
         // 로그인시 사용자이름 화면에서 출력
-//        if(user != null){
-            model.addAttribute("user", user);
-//        }
+        model.addAttribute("user", user);
         response.setContentType("multipart/form-data");
         return "layout/main";
     }

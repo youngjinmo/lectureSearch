@@ -31,7 +31,6 @@
                                 <!-- 회원접속시 이름 출력 (영진) -->
                                 <span th:if="${user}!=null" style="color: white"><span
                                         th:text="${user.name}"></span> 님 환영합니다. </span>
-
                                 <a href="/main">Home</a>
                             </li>
                             <li>
@@ -39,7 +38,7 @@
                                 <a th:if="${user == null}" href="/login">Cart</a>
                             </li>
                             <li th:if="${user}==null"><a href="/login">Login/Signup</a></li>
-                            <li th:if="${user}!=null"><a href="#">About</a></li>
+                            <li><a href="#">About</a></li>
                             <li th:if="${user}!=null"><a href="/logout">Logout</a></li>
 
                         </ul>
