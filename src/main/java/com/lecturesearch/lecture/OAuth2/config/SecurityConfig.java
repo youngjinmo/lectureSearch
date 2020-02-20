@@ -99,7 +99,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             return CommonOAuth2Provider.GITHUB.getBuilder(client)
                     .clientId(registration.getClientId())
                     .clientSecret(registration.getClientSecret())
-                    .scope("email")
+                    .scope("user","user:email")
                     .build();
         }
         return null;

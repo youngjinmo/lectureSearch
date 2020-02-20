@@ -112,6 +112,11 @@ public class ContentsServiceImpl implements ContentsService {
     }
 
     @Override
+    public List<ContentsVO> findAllByWriter(String writer){
+        return contentsRepository.findAllByWriter(writer);
+    }
+
+    @Override
     public ContentsVO averageStar(int star, String contentsIdx) {
         ContentsVO contents = contentsRepository.findById(contentsIdx).get();
         //review 작성시 별점평균계산
