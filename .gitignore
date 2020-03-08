@@ -5,6 +5,7 @@ HELP.md
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
+
 ### STS ###
 .DS_Store
 .apt_generated
